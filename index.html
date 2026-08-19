@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super Strikers Białystok - Centrum Meczowe</title>
+  <title>Super Strikers Białystok - Oficjalny Serwis Klubowy</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -14,6 +14,7 @@
           colors: {
             darkBg: '#0b0f19',
             brandAccent: '#f59e0b',
+            brandDark: '#0284c7'
           }
         }
       }
@@ -31,22 +32,33 @@
     }
   </style>
 </head>
-<body class="bg-darkBg text-slate-100 min-h-screen font-sans flex flex-col justify-between">
+<body class="bg-darkBg text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-brandAccent selection:text-slate-950">
 
   <!-- NAWIGACJA -->
-  <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-white/10">
+  <nav class="fixed top-0 left-0 w-full z-40 glass-panel border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <span class="font-black text-xl text-white tracking-wider">SUPER <span class="text-brandAccent">STRIKERS</span></span>
+        <div class="w-9 h-9 rounded-xl bg-brandAccent flex items-center justify-center font-black text-slate-950 text-lg shadow-lg">
+          SS
+        </div>
+        <span class="font-black text-lg sm:text-xl text-white tracking-wider">SUPER <span class="text-brandAccent">STRIKERS</span></span>
       </div>
-      <button onclick="toggleAdminPanel()" class="bg-brandAccent/20 hover:bg-brandAccent/30 text-brandAccent border border-brandAccent/40 px-4 py-2 rounded-xl text-xs font-bold uppercase transition">
-        <i class="fas fa-cog mr-1.5"></i> Panel Zarządzania
+
+      <div class="hidden md:flex space-x-6 text-xs font-bold uppercase tracking-wider text-slate-300">
+        <a href="#centrum-meczowe" class="hover:text-brandAccent transition">Centrum Meczowe</a>
+        <a href="#tabela" class="hover:text-brandAccent transition">Tabela</a>
+        <a href="#o-nas" class="hover:text-brandAccent transition">O nas</a>
+      </div>
+
+      <button onclick="toggleAdminPanel()" class="bg-brandAccent/20 hover:bg-brandAccent/30 text-brandAccent border border-brandAccent/40 px-3.5 py-2 rounded-xl text-xs font-bold uppercase transition flex items-center gap-2">
+        <i class="fas fa-cog"></i>
+        <span>Panel Zarządzania</span>
       </button>
     </div>
   </nav>
 
   <!-- CENTRUM MECZOWE -->
-  <header id="centrum-meczowe" class="relative pt-28 pb-16 overflow-hidden">
+  <header id="centrum-meczowe" class="relative pt-28 pb-12 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-darkBg to-darkBg">
     <div class="max-w-6xl mx-auto px-4">
       
       <div class="text-center mb-6">
@@ -68,7 +80,7 @@
           
           <!-- GOSPODARZ -->
           <div class="flex flex-col items-center">
-            <div class="w-16 h-16 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner">
+            <div class="w-16 h-16 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner border border-white/10">
               <i class="fas fa-shield-halved text-3xl sm:text-5xl text-brandAccent"></i>
             </div>
             <h2 id="display-home-team" class="font-black text-base sm:text-2xl text-white uppercase tracking-wide">SUPER STRIKERS</h2>
@@ -76,11 +88,11 @@
             
             <!-- STRZELCY GOSPODARZY POD NAZWĄ KLUBU -->
             <div id="display-home-scorers" class="text-xs text-slate-300 space-y-1 font-medium mt-1">
-              <!-- Wstawiane dynamicznie przez JS -->
+              <!-- Renderowane dynamicznie -->
             </div>
           </div>
 
-          <!-- WYNIK / WADOMOŚĆ -->
+          <!-- WYNIK / STATUS -->
           <div class="flex flex-col items-center pt-2">
             <div id="display-score" class="text-2xl sm:text-5xl font-black text-white bg-white/10 px-4 sm:px-6 py-2 rounded-2xl border border-white/20 mb-3 shadow-lg tracking-widest">
               3 : 1
@@ -93,7 +105,7 @@
 
           <!-- GOŚĆ -->
           <div class="flex flex-col items-center">
-            <div class="w-16 h-16 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-slate-400">
+            <div class="w-16 h-16 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-slate-400 border border-white/10">
               <i class="fas fa-shield text-3xl sm:text-5xl text-slate-400"></i>
             </div>
             <h2 id="display-away-team" class="font-black text-base sm:text-2xl text-white uppercase tracking-wide">RIVAL FC</h2>
@@ -101,7 +113,7 @@
             
             <!-- STRZELCY GOŚCI POD NAZWĄ KLUBU -->
             <div id="display-away-scorers" class="text-xs text-slate-300 space-y-1 font-medium mt-1">
-              <!-- Wstawiane dynamicznie przez JS -->
+              <!-- Renderowane dynamicznie -->
             </div>
           </div>
 
@@ -117,9 +129,74 @@
     </div>
   </header>
 
-  <!-- PANEL ZARZĄDZANIA (MODAL/PANEL ADMINA) -->
+  <!-- TABELA LIGOWA LEAGUE -->
+  <section id="tabela" class="py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="mb-6 flex justify-between items-end">
+        <div>
+          <h3 class="text-2xl font-black uppercase tracking-wide">Tabela <span class="text-brandAccent">Ligowa</span></h3>
+          <p class="text-xs text-slate-400">Aktualna sytuacja punktowa w rozgrywkach</p>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-3xl overflow-hidden border border-white/10">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-900/80 text-xs uppercase text-slate-400 border-b border-white/10">
+              <tr>
+                <th class="py-3 px-4 text-center">#</th>
+                <th class="py-3 px-4">Klub</th>
+                <th class="py-3 px-4 text-center">M</th>
+                <th class="py-3 px-4 text-center">Bramki</th>
+                <th class="py-3 px-4 text-center">Pkt</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <tr class="bg-brandAccent/10 font-bold text-white">
+                <td class="py-3.5 px-4 text-center text-brandAccent">1</td>
+                <td class="py-3.5 px-4 flex items-center gap-2">
+                  <i class="fas fa-shield-halved text-brandAccent"></i> SUPER STRIKERS BIAŁYSTOK
+                </td>
+                <td class="py-3.5 px-4 text-center">5</td>
+                <td class="py-3.5 px-4 text-center">14:4</td>
+                <td class="py-3.5 px-4 text-center text-brandAccent font-black">13</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-center">2</td>
+                <td class="py-3 px-4">Rival FC</td>
+                <td class="py-3 px-4 text-center">5</td>
+                <td class="py-3 px-4 text-center">10:6</td>
+                <td class="py-3 px-4 text-center font-bold">10</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 text-center">3</td>
+                <td class="py-3 px-4">Inter Białystok</td>
+                <td class="py-3 px-4 text-center">5</td>
+                <td class="py-3 px-4 text-center">8:9</td>
+                <td class="py-3 px-4 text-center font-bold">7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O NAS / O KLUBIE -->
+  <section id="o-nas" class="py-12 bg-slate-900/40">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="glass-panel rounded-3xl p-8 border border-white/10">
+        <h3 class="text-2xl font-black uppercase mb-3 tracking-wide">O <span class="text-brandAccent">Klubie</span></h3>
+        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+          Super Strikers Białystok to amatorska drużyna piłkarska z Białegostoku, łącząca pasję do sportu, rywalizację i lokalną społeczność. Naszym celem jest ciągły rozwój na boisku i poza nim.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL ZARZĄDZANIA (MODAL ADMINA) -->
   <div id="admin-panel" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+    <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-white/20">
       
       <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
         <h3 class="text-xl font-bold text-white"><i class="fas fa-edit text-brandAccent mr-2"></i>Edycja Centrum Meczowego</h3>
@@ -128,15 +205,15 @@
 
       <form id="match-center-form" onsubmit="saveMatchData(event)" class="space-y-4">
         
-        <!-- TYP MECZU -->
+        <!-- TYP MECZU (WYBÓR LIGA / TOWARZYSKI / PUCHAR) -->
         <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Typ Meczu</label>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Typ Rozgrywek / Meczu</label>
           <select id="input-match-type" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
-            <option value="Mecz Towarzyski">Mecz Towarzyski</option>
-            <option value="Mecz Ligowy - Kolejka 1">Mecz Ligowy - Kolejka 1</option>
-            <option value="Mecz Ligowy - Kolejka 2">Mecz Ligowy - Kolejka 2</option>
-            <option value="Mecz Ligowy">Mecz Ligowy</option>
-            <option value="Puchar Polski">Puchar Polski</option>
+            <option value="MECZ TOWARZYSKI">Mecz Towarzyski</option>
+            <option value="MECZ LIGOWY — KOLEJKA 1">Mecz Ligowy — Kolejka 1</option>
+            <option value="MECZ LIGOWY — KOLEJKA 2">Mecz Ligowy — Kolejka 2</option>
+            <option value="MECZ LIGOWY">Mecz Ligowy</option>
+            <option value="PUCHAR POLSKI">Puchar Polski</option>
           </select>
         </div>
 
@@ -159,11 +236,11 @@
         <!-- STRZELCY BRAMEK -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Strzelcy Gospodarzy (po przecinku)</label>
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Strzelci Gospodarzy (oddzieleni przecinkiem)</label>
             <textarea id="input-home-scorers" rows="2" placeholder="np. Kowalski 14', Szymański 45'" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brandAccent"></textarea>
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Strzelcy Gości (po przecinku)</label>
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Strzelcy Gości (oddzieleni przecinkiem)</label>
             <textarea id="input-away-scorers" rows="2" placeholder="np. Nowak 60'" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brandAccent"></textarea>
           </div>
         </div>
@@ -172,7 +249,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Status Meczu</label>
-            <input type="text" id="input-status" placeholder="np. Koniec Meczu / 1. Połowa" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
+            <input type="text" id="input-status" placeholder="np. Koniec Meczu / Na żywo" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Data / Godzina</label>
@@ -188,10 +265,10 @@
           </div>
         </div>
 
-        <!-- PRZYCISKI -->
+        <!-- BUTTONS -->
         <div class="flex justify-end space-x-3 pt-4 border-t border-white/10">
           <button type="button" onclick="toggleAdminPanel()" class="px-5 py-2.5 rounded-xl text-xs font-bold uppercase text-slate-400 hover:bg-white/5">Anuluj</button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold uppercase bg-brandAccent text-slate-950 hover:bg-amber-400 transition">Zapisz Zmiany</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold uppercase bg-brandAccent text-slate-950 hover:bg-amber-400 transition">Zapisz i Zaktualizuj</button>
         </div>
 
       </form>
@@ -203,11 +280,10 @@
     &copy; Super Strikers Białystok. Wszystkie prawa zastrzeżone.
   </footer>
 
-  <!-- SKRYPT LOGIKI -->
+  <!-- JS LOGIKA -->
   <script>
-    // Domyślne dane meczu
     const defaultMatchData = {
-      matchType: "Mecz Towarzyski",
+      matchType: "MECZ TOWARZYSKI",
       homeTeam: "SUPER STRIKERS",
       awayTeam: "RIVAL FC",
       score: "3 : 1",
@@ -219,13 +295,11 @@
       awayScorers: ["Nowak 60'"]
     };
 
-    // Pobieranie danych z LocalStorage
     function getMatchData() {
-      const saved = localStorage.getItem('match_center_data');
+      const saved = localStorage.getItem('ss_match_center_full');
       return saved ? JSON.parse(saved) : defaultMatchData;
     }
 
-    // Renderowanie widoku Centrum Meczowego
     function renderMatchCenter() {
       const data = getMatchData();
 
@@ -238,19 +312,18 @@
       document.getElementById('display-venue').innerText = data.venue;
       document.getElementById('display-referee').innerText = `Sędzia: ${data.referee}`;
 
-      // Renderowanie strzelców pod nazwami drużyn
+      // Renderowanie strzelców bezpośrednio pod nazwami zespołów
       const homeScorersEl = document.getElementById('display-home-scorers');
-      homeScorersEl.innerHTML = (data.homeScorers || []).map(scorer => 
-        `<div><i class="fas fa-futbol text-brandAccent mr-1"></i> ${scorer.trim()}</div>`
+      homeScorersEl.innerHTML = (data.homeScorers || []).map(s => 
+        `<div><i class="fas fa-futbol text-brandAccent mr-1"></i> ${s.trim()}</div>`
       ).join('');
 
       const awayScorersEl = document.getElementById('display-away-scorers');
-      awayScorersEl.innerHTML = (data.awayScorers || []).map(scorer => 
-        `<div><i class="fas fa-futbol text-slate-400 mr-1"></i> ${scorer.trim()}</div>`
+      awayScorersEl.innerHTML = (data.awayScorers || []).map(s => 
+        `<div><i class="fas fa-futbol text-slate-400 mr-1"></i> ${s.trim()}</div>`
       ).join('');
     }
 
-    // Otwieranie / Zamykanie panelu admina
     function toggleAdminPanel() {
       const panel = document.getElementById('admin-panel');
       panel.classList.toggle('hidden');
@@ -270,12 +343,11 @@
       }
     }
 
-    // Zapisywanie danych z formularza
     function saveMatchData(event) {
       event.preventDefault();
 
-      const homeScorersInput = document.getElementById('input-home-scorers').value;
-      const awayScorersInput = document.getElementById('input-away-scorers').value;
+      const homeScorersVal = document.getElementById('input-home-scorers').value;
+      const awayScorersVal = document.getElementById('input-away-scorers').value;
 
       const updatedData = {
         matchType: document.getElementById('input-match-type').value,
@@ -286,16 +358,15 @@
         time: document.getElementById('input-time').value,
         venue: document.getElementById('input-venue').value,
         referee: document.getElementById('input-referee').value,
-        homeScorers: homeScorersInput ? homeScorersInput.split(',').map(s => s.trim()).filter(Boolean) : [],
-        awayScorers: awayScorersInput ? awayScorersInput.split(',').map(s => s.trim()).filter(Boolean) : []
+        homeScorers: homeScorersVal ? homeScorersVal.split(',').map(s => s.trim()).filter(Boolean) : [],
+        awayScorers: awayScorersVal ? awayScorersVal.split(',').map(s => s.trim()).filter(Boolean) : []
       };
 
-      localStorage.setItem('match_center_data', JSON.stringify(updatedData));
+      localStorage.setItem('ss_match_center_full', JSON.stringify(updatedData));
       renderMatchCenter();
       toggleAdminPanel();
     }
 
-    // Inicjalizacja przy załadowaniu strony
     document.addEventListener('DOMContentLoaded', renderMatchCenter);
   </script>
 </body>
