@@ -151,7 +151,7 @@
     </div>
   </header>
 
-  <!-- ARTYKUŁY / AKTUALNOŚCI -->
+  <!-- ARTYKUŁY / AKTUALNOŚCI (POSORTOWANE OD NAJNOWSZYCH DLA WYŚWIETLANIA W MODALU) -->
   <section id="artykuly" class="py-12">
     <div class="max-w-6xl mx-auto px-4">
       <div class="mb-6">
@@ -161,7 +161,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- ARTYKUŁ 1 -->
+        <!-- ARTYKUŁ 1 (18 Sierpnia 2026 - Najnowszy) -->
         <article class="glass-panel rounded-3xl overflow-hidden hover:border-red-500/40 transition group">
           <div class="h-44 bg-gradient-to-br from-red-900/40 to-slate-900 p-4 flex flex-col justify-between relative overflow-hidden">
             <span class="bg-brandRed/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider w-max z-10">Raport Meczowy</span>
@@ -171,11 +171,11 @@
           <div class="p-6">
             <h4 class="font-black text-lg text-white mb-2 group-hover:text-brandRed transition">Pewne zwycięstwo w meczu domowym!</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-4">Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę.</p>
-            <a href="#" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></a>
+            <button onclick="openArticle('Pewne zwycięstwo w meczu domowym!', '18 Sierpnia 2026', 'Raport Meczowy', 'Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę.\n\nNasza drużyna zaprezentowała kapitalną formę na własnym stadionie. Od pierwszego gwizdka narzuciliśmy swoje tempo gry, co przełożyło się na szybkie prowadzenie. Bramki zdobywali Kowalski oraz Szymański, zapewniając komplet punktów i pozycję lidera w tabeli.')" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></button>
           </div>
         </article>
 
-        <!-- ARTYKUŁ 2 -->
+        <!-- ARTYKUŁ 2 (15 Sierpnia 2026) -->
         <article class="glass-panel rounded-3xl overflow-hidden hover:border-red-500/40 transition group">
           <div class="h-44 bg-gradient-to-br from-slate-800 to-black p-4 flex flex-col justify-between relative overflow-hidden">
             <span class="bg-slate-700/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider w-max z-10">Klub</span>
@@ -185,11 +185,11 @@
           <div class="p-6">
             <h4 class="font-black text-lg text-white mb-2 group-hover:text-brandRed transition">Powrót na boiska w pełnej krasie</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-4">Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo.</p>
-            <a href="#" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></a>
+            <button onclick="openArticle('Powrót na boiska w pełnej krasie', '15 Sierpnia 2026', 'Klub', 'Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo.\n\nZaprezentowaliśmy nowy logotyp oraz komplet strojów na nadchodzący sezon. Przerwa pozwoliła nam również dopracować strukturę organizacji oraz zoptymalizować przygotowania motoryczne kadry.')" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></button>
           </div>
         </article>
 
-        <!-- ARTYKUŁ 3 -->
+        <!-- ARTYKUŁ 3 (10 Sierpnia 2026) -->
         <article class="glass-panel rounded-3xl overflow-hidden hover:border-red-500/40 transition group">
           <div class="h-44 bg-gradient-to-br from-red-950 to-slate-900 p-4 flex flex-col justify-between relative overflow-hidden">
             <span class="bg-brandRed/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider w-max z-10">Wywiad</span>
@@ -199,13 +199,44 @@
           <div class="p-6">
             <h4 class="font-black text-lg text-white mb-2 group-hover:text-brandRed transition">"Mierzymy wysoko w tym sezonie"</h4>
             <p class="text-xs text-slate-400 leading-relaxed mb-4">Rozmowa z kapitanem zespołu na temat przygotowań, celów ligowych oraz atmosfery w czerwono-czarnej szatni.</p>
-            <a href="#" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></a>
+            <button onclick="openArticle('Mierzymy wysoko w tym sezonie', '10 Sierpnia 2026', 'Wywiad', 'Rozmowa z kapitanem zespołu na temat przygotowań, celów ligowych oraz atmosfery w czerwono-czarnej szatni.\n\n- Naszym celem jest pierwsze miejsce i utrzymanie bezbłędnej serii w meczach u siebie - deklaruje kapitan zespołu Kamil Szymański w wywiadzie podsumowującym okres przygotowawczy.')" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></button>
           </div>
         </article>
 
       </div>
     </div>
   </section>
+
+  <!-- MODAL / OKNO DLA ARTYKUŁÓW -->
+  <div id="articleModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-panel rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-red-500/30 glass-glow max-h-[90vh] flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <span id="modalCategory" class="bg-brandRed/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider"></span>
+          <span id="modalDate" class="text-xs text-slate-400 font-medium"></span>
+        </div>
+        <h3 id="modalTitle" class="text-xl sm:text-2xl font-black text-white mb-4"></h3>
+        <div id="modalContent" class="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line overflow-y-auto max-h-[50vh] pr-2 custom-scrollbar"></div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
+        <button onclick="closeArticle()" class="bg-brandRed hover:bg-brandRedDark text-white font-bold text-xs px-6 py-2 rounded-xl transition">Zamknij</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openArticle(title, date, category, content) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDate').innerText = date;
+      document.getElementById('modalCategory').innerText = category;
+      document.getElementById('modalContent').innerText = content;
+      document.getElementById('articleModal').classList.remove('hidden');
+    }
+
+    function closeArticle() {
+      document.getElementById('articleModal').classList.add('hidden');
+    }
+  </script>
 
   <!-- KADRA ZESPOŁU (NAPRAWIONE PRZEWIJANIE KAFELKÓW) -->
   <section id="kadra" class="py-12 bg-black/40">
