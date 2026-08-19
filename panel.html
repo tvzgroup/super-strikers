@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super Strikers Białystok - Oficjalny Serwis i Panel</title>
+  <title>Panel Administratora - Super Strikers</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -15,7 +15,7 @@
             darkBg: '#08080a',
             brandRed: '#dc2626',
             brandRedDark: '#991b1b',
-            glassDark: 'rgba(15, 15, 20, 0.65)'
+            glassDark: 'rgba(15, 15, 20, 0.75)'
           }
         }
       }
@@ -23,742 +23,441 @@
   </script>
   <style>
     .glass-panel {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(220, 38, 38, 0.05) 100%), rgba(12, 12, 16, 0.7);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(220, 38, 38, 0.05) 100%), rgba(15, 15, 20, 0.75);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     }
-    .glass-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-    }
-    .glass-glow {
-      box-shadow: 0 0 25px -5px rgba(220, 38, 38, 0.3);
-    }
     .custom-scrollbar::-webkit-scrollbar {
-      height: 6px;
       width: 6px;
+      height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: rgba(220, 38, 38, 0.5);
       border-radius: 10px;
     }
-    .table-row-anim {
-      transition: all 0.5s ease-in-out;
-    }
   </style>
 </head>
-<body class="bg-darkBg text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-brandRed selection:text-white pb-20">
+<body class="bg-darkBg text-slate-100 min-h-screen font-sans pb-12 selection:bg-brandRed selection:text-white">
 
-  <!-- NAWIGACJA -->
-  <nav class="fixed top-0 left-0 w-full z-40 glass-panel border-b border-red-500/20">
-    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between relative">
+  <!-- NAGŁÓWEK PANELU -->
+  <header class="glass-panel border-b border-red-500/20 sticky top-0 z-30 mb-8">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo" class="h-10 w-auto drop-shadow-[0_0_8px_rgba(220,38,38,0.5)]">
-        <span class="font-black text-lg sm:text-xl text-white tracking-wider hidden sm:inline">SUPER <span class="text-brandRed">STRIKERS</span></span>
-      </div>
-
-      <div class="flex-1 flex justify-center space-x-3 sm:space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
-        <a href="#centrum-meczowe" class="hover:text-brandRed transition">Mecz</a>
-        <a href="#artykuly" class="hover:text-brandRed transition">Aktualności</a>
-        <a href="#kadra" class="hover:text-brandRed transition">Kadra</a>
-        <a href="#tabela" class="hover:text-brandRed transition">Tabela</a>
-        <a href="#panel-cms" class="text-brandRed hover:text-white transition font-black"><i class="fas fa-cog mr-1"></i> Panel Zarządzania</a>
-      </div>
-      <div class="w-10 sm:w-auto"></div>
-    </div>
-  </nav>
-
-  <!-- CENTRUM MECZOWE -->
-  <header id="centrum-meczowe" class="relative pt-24 pb-10 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-950/40 via-darkBg to-darkBg">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-6">
-        <h1 class="text-3xl sm:text-5xl font-black uppercase tracking-tight">Centrum <span class="text-brandRed">Meczowe</span></h1>
-      </div>
-      <div class="glass-panel rounded-3xl p-6 sm:p-10 glass-glow relative overflow-hidden">
-        <div class="text-center mb-8">
-          <span id="display-match-tag" class="inline-block bg-brandRed/15 border border-brandRed/40 text-red-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
-            MECZ TOWARZYSKI
-          </span>
+        <div class="bg-brandRed text-white p-2 rounded-xl">
+          <i class="fas fa-sliders-h text-lg"></i>
         </div>
-        <div class="grid grid-cols-3 items-start text-center gap-2 sm:gap-6">
-          <div class="flex flex-col items-center">
-            <div class="w-20 h-20 sm:w-28 sm:h-28 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner">
-              <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="max-h-full drop-shadow-[0_0_10px_rgba(220,38,38,0.6)]">
-            </div>
-            <h2 id="display-home-name" class="font-black text-base sm:text-2xl text-white uppercase tracking-wide">SUPER STRIKERS</h2>
-            <span class="text-[10px] text-red-400 font-semibold uppercase tracking-wider mb-2">Gospodarz</span>
-            <div id="display-home-scorers" class="text-xs text-slate-300 space-y-1 font-medium mt-1"></div>
-          </div>
-
-          <div class="flex flex-col items-center pt-2">
-            <div class="text-2xl sm:text-5xl font-black text-white bg-black/40 px-4 sm:px-6 py-2 rounded-2xl border border-red-500/30 mb-3 shadow-xl tracking-widest">
-              <span id="display-score-home">3</span> : <span id="display-score-away">1</span>
-            </div>
-            <span id="display-match-status" class="text-[10px] sm:text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full uppercase mb-2">
-              Koniec Meczu
-            </span>
-            <div id="display-match-date" class="text-xs text-slate-400 font-medium">Sobota, 18:00</div>
-          </div>
-
-          <div class="flex flex-col items-center">
-            <div class="w-20 h-20 sm:w-28 sm:h-28 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-slate-400">
-              <i class="fas fa-shield text-3xl sm:text-5xl text-slate-500"></i>
-            </div>
-            <h2 id="display-away-name" class="font-black text-base sm:text-2xl text-white uppercase tracking-wide">RIVAL FC</h2>
-            <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mb-2">Gość</span>
-            <div id="display-away-scorers" class="text-xs text-slate-300 space-y-1 font-medium mt-1"></div>
-          </div>
-        </div>
+        <h1 class="font-black text-lg sm:text-xl uppercase tracking-wider">
+          Panel <span class="text-brandRed">Zarządzania</span>
+        </h1>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="index.html" target="_blank" class="bg-white/10 hover:bg-white/20 text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-2">
+          <i class="fas fa-external-link-alt text-brandRed"></i> Zobacz stronę
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- ARTYKUŁY -->
-  <section id="artykuly" class="py-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-6">
-        <h3 class="text-2xl font-black uppercase tracking-wide">Aktualności <span class="text-brandRed">Klubowe</span></h3>
-      </div>
-      <div id="articles-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-    </div>
-  </section>
+  <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-  <!-- KADRA -->
-  <section id="kadra" class="py-12 bg-black/40">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-6">
-        <h3 class="text-2xl font-black uppercase tracking-wide">Pierwsza <span class="text-brandRed">Drużyna</span></h3>
+    <!-- CENTRUM MECZOWE -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20 lg:col-span-2">
+      <div class="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-trophy text-brandRed mr-2"></i> Centrum Meczowe</h2>
+        <button onclick="saveMatchCenter()" class="bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold px-4 py-2 rounded-xl transition">
+          Zapisz Wynik
+        </button>
       </div>
-      <div id="squad-container" class="flex gap-4 overflow-x-auto custom-scrollbar pb-4 snap-x snap-mandatory touch-pan-x overscroll-x-contain"></div>
-    </div>
-  </section>
 
-  <!-- TABELA -->
-  <section id="tabela" class="py-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-6">
-        <h3 class="text-2xl font-black uppercase tracking-wide">Tabela <span class="text-brandRed">Ligowa</span></h3>
-      </div>
-      <div class="glass-panel rounded-3xl overflow-hidden border border-red-500/20">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm text-slate-300">
-            <thead class="bg-black/80 text-xs uppercase text-slate-400 border-b border-white/10">
-              <tr>
-                <th class="py-3 px-4 text-center">#</th>
-                <th class="py-3 px-4">Klub</th>
-                <th class="py-3 px-4 text-center">M</th>
-                <th class="py-3 px-4 text-center">Bramki</th>
-                <th class="py-3 px-4 text-center">Pkt</th>
-              </tr>
-            </thead>
-            <tbody id="table-body" class="divide-y divide-white/5"></tbody>
-          </table>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Gospodarz</label>
+          <input type="text" id="mc-home" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TERMINARZ -->
-  <section class="py-12 bg-black/40">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-6">
-        <h3 class="text-2xl font-black uppercase tracking-wide">Nadchodzące <span class="text-brandRed">Mecze</span></h3>
-      </div>
-      <div id="fixtures-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-    </div>
-  </section>
-
-  <!-- PANEL CMS (PANEL ZARZĄDZANIA STRONĄ) -->
-  <section id="panel-cms" class="py-12 bg-black/80 border-t-2 border-brandRed mt-12">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="mb-8 text-center">
-        <h2 class="text-3xl font-black text-brandRed uppercase tracking-wider"><i class="fas fa-sliders-h mr-2"></i> Panel Zarządzania (CMS)</h2>
-        <p class="text-xs text-slate-400 mt-1">Zarządzaj zawartością witryny w czasie rzeczywistym</p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-        <!-- CMS: CENTRUM MECZOWE -->
-        <div class="glass-panel p-6 rounded-3xl space-y-4 border-red-500/30">
-          <h3 class="font-black text-lg text-white border-b border-white/10 pb-2"><i class="fas fa-futbol text-brandRed mr-2"></i>Edycja Centrum Meczowego</h3>
-          <div class="grid grid-cols-2 gap-3 text-xs">
-            <div>
-              <label class="block mb-1 text-slate-400">Gospodarz</label>
-              <input type="text" id="cms-home-name" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Gość</label>
-              <input type="text" id="cms-away-name" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Gole Gospodarzy</label>
-              <input type="number" id="cms-score-home" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Gole Gości</label>
-              <input type="number" id="cms-score-away" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div class="col-span-2">
-              <label class="block mb-1 text-slate-400">Nazwa Ligi / Tag (np. "Liga" lub "Mecz Towarzyski")</label>
-              <input type="text" id="cms-match-tag" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Data i Godzina</label>
-              <input type="text" id="cms-match-date" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Status</label>
-              <input type="text" id="cms-match-status" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Strzelcy Gospodarzy (po przecinku)</label>
-              <input type="text" id="cms-home-scorers" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white" placeholder="np. Kowalski 14', Szymański 45'">
-            </div>
-            <div>
-              <label class="block mb-1 text-slate-400">Strzelcy Gości (po przecinku)</label>
-              <input type="text" id="cms-away-scorers" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white" placeholder="np. Nowak 60'">
-            </div>
-          </div>
-          <button onclick="saveMatchCenter()" class="w-full bg-brandRed hover:bg-brandRedDark font-bold text-xs py-2.5 rounded-xl transition uppercase">Zapisz Centrum Meczowe i Przelicz Tabelę</button>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Tag Meczu</label>
+          <input type="text" id="mc-tag" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Gość</label>
+          <input type="text" id="mc-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
 
-        <!-- CMS: TABELA LIGOWA -->
-        <div class="glass-panel p-6 rounded-3xl space-y-4 border-red-500/30">
-          <h3 class="font-black text-lg text-white border-b border-white/10 pb-2"><i class="fas fa-table text-brandRed mr-2"></i>Ręczne Zmiany w Tabeli</h3>
-          <div id="cms-table-editor" class="space-y-2 max-h-56 overflow-y-auto custom-scrollbar pr-2"></div>
-          <button onclick="addTeamToTable()" class="w-full bg-white/10 hover:bg-white/20 font-bold text-xs py-2 rounded-xl transition mb-2">+ Dodaj Drużynę</button>
-          <button onclick="saveTableCMS()" class="w-full bg-brandRed hover:bg-brandRedDark font-bold text-xs py-2.5 rounded-xl transition uppercase">Przeprowadź Przeliczenie i Animację Tabeli</button>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gospodarza</label>
+          <input type="number" id="mc-score-home" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Status Meczu</label>
+          <input type="text" id="mc-status" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gościa</label>
+          <input type="number" id="mc-score-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
 
-        <!-- CMS: ARTYKUŁY -->
-        <div class="glass-panel p-6 rounded-3xl space-y-4 border-red-500/30">
-          <h3 class="font-black text-lg text-white border-b border-white/10 pb-2"><i class="fas fa-newspaper text-brandRed mr-2"></i>Zarządzanie Artykułami</h3>
-          <input type="hidden" id="cms-article-id">
-          <div class="space-y-2 text-xs">
-            <input type="text" id="cms-art-title" placeholder="Tytuł artykułu" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            <div class="grid grid-cols-2 gap-2">
-              <input type="text" id="cms-art-date" placeholder="Data (np. 18 Sierpnia 2026)" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-art-cat" placeholder="Kategoria" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <!-- FORMATOWANIE TEKSTU -->
-            <div class="flex gap-2 bg-black/30 p-1.5 rounded-xl border border-white/10">
-              <button onclick="formatText('b')" class="px-3 py-1 bg-white/10 rounded font-bold hover:bg-brandRed transition"><b>B</b></button>
-              <button onclick="formatText('i')" class="px-3 py-1 bg-white/10 rounded italic hover:bg-brandRed transition"><i>I</i></button>
-              <button onclick="formatText('u')" class="px-3 py-1 bg-white/10 rounded underline hover:bg-brandRed transition"><u>U</u></button>
-              <span class="text-[10px] text-slate-400 self-center ml-2">Użyj tagów &lt;b&gt;, &lt;i&gt;, &lt;u&gt;</span>
-            </div>
-            <textarea id="cms-art-content" rows="4" placeholder="Treść artykułu..." class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white"></textarea>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="saveArticle()" class="flex-1 bg-brandRed hover:bg-brandRedDark font-bold text-xs py-2.5 rounded-xl transition uppercase">Zapisz Artykuł</button>
-            <button onclick="clearArticleForm()" class="bg-white/10 hover:bg-white/20 font-bold text-xs px-4 py-2.5 rounded-xl transition">Anuluj</button>
-          </div>
-          <div id="cms-articles-list" class="space-y-2 pt-2 border-t border-white/10 max-h-40 overflow-y-auto custom-scrollbar"></div>
-        </div>
-
-        <!-- CMS: KADRA I TERMINARZ -->
-        <div class="space-y-8">
-          <!-- CMS KADRA -->
-          <div class="glass-panel p-6 rounded-3xl space-y-4 border-red-500/30">
-            <h3 class="font-black text-lg text-white border-b border-white/10 pb-2"><i class="fas fa-user-plus text-brandRed mr-2"></i>Dodaj / Edytuj Zawodnika</h3>
-            <input type="hidden" id="cms-player-id">
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <input type="text" id="cms-player-name" placeholder="Imię i Nazwisko" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="number" id="cms-player-num" placeholder="Numer na koszulce" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-player-pos" placeholder="Pozycja" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="number" id="cms-player-m" placeholder="Mecze" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-player-stat" placeholder="Statystyka (np. Bramki: 5)" class="col-span-2 w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div class="flex gap-2">
-              <button onclick="savePlayer()" class="flex-1 bg-brandRed hover:bg-brandRedDark font-bold text-xs py-2.5 rounded-xl transition uppercase">Zapisz Zawodnika</button>
-              <button onclick="clearPlayerForm()" class="bg-white/10 hover:bg-white/20 font-bold text-xs px-4 py-2.5 rounded-xl transition">Anuluj</button>
-            </div>
-            <div id="cms-squad-list" class="space-y-2 pt-2 border-t border-white/10 max-h-32 overflow-y-auto custom-scrollbar"></div>
-          </div>
-
-          <!-- CMS TERMINARZ -->
-          <div class="glass-panel p-6 rounded-3xl space-y-4 border-red-500/30">
-            <h3 class="font-black text-lg text-white border-b border-white/10 pb-2"><i class="fas fa-calendar-alt text-brandRed mr-2"></i>Zarządzanie Terminarzem</h3>
-            <input type="hidden" id="cms-fix-id">
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <input type="text" id="cms-fix-teams" placeholder="Mecz (np. Super Strikers vs Inter)" class="col-span-2 w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-fix-day" placeholder="Dzień (SOB)" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-fix-date" placeholder="Dzień miesiąca (24)" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-fix-info" placeholder="Godzina i Miejsce" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-              <input type="text" id="cms-fix-round" placeholder="Kolejka (Kolejka 6)" class="w-full bg-black/50 border border-white/10 p-2 rounded-xl text-white">
-            </div>
-            <div class="flex gap-2">
-              <button onclick="saveFixture()" class="flex-1 bg-brandRed hover:bg-brandRedDark font-bold text-xs py-2.5 rounded-xl transition uppercase">Zapisz Mecz</button>
-              <button onclick="clearFixtureForm()" class="bg-white/10 hover:bg-white/20 font-bold text-xs px-4 py-2.5 rounded-xl transition">Anuluj</button>
-            </div>
-            <div id="cms-fixtures-list" class="space-y-2 pt-2 border-t border-white/10 max-h-32 overflow-y-auto custom-scrollbar"></div>
+        <div class="md:col-span-3">
+          <div class="flex items-center gap-2 bg-black/30 p-3 rounded-xl border border-white/5">
+            <input type="checkbox" id="mc-is-cancelled" class="accent-brandRed rounded h-4 w-4">
+            <label for="mc-is-cancelled" class="text-xs font-bold text-slate-300">Mecz odwołany (zastępuje wynik informacją o odwołaniu)</label>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- MODAL / OKNO DLA ARTYKUŁÓW -->
-  <div id="articleModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-panel rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative border border-red-500/30 glass-glow max-h-[90vh] flex flex-col justify-between">
-      <div>
-        <div class="flex justify-between items-center mb-4">
-          <span id="modalCategory" class="bg-brandRed/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider"></span>
-          <span id="modalDate" class="text-xs text-slate-400 font-medium"></span>
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
+          <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
-        <h3 id="modalTitle" class="text-xl sm:text-2xl font-black text-white mb-4"></h3>
-        <div id="modalContent" class="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line overflow-y-auto max-h-[50vh] pr-2 custom-scrollbar"></div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Data / Godzina</label>
+          <input type="text" id="mc-date" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+
+        <div class="md:col-span-3">
+          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gościa (po przecinku)</label>
+          <input type="text" id="mc-away-scorers" placeholder="Nowak 60'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
       </div>
-      <div class="mt-6 pt-4 border-t border-white/10 flex justify-end">
-        <button onclick="closeArticle()" class="bg-brandRed hover:bg-brandRedDark text-white font-bold text-xs px-6 py-2 rounded-xl transition">Zamknij</button>
+    </section>
+
+    <!-- ZARZĄDZANIE ARTYKUŁAMI -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-newspaper text-brandRed mr-2"></i> Aktualności</h2>
       </div>
-    </div>
-  </div>
+
+      <form onsubmit="addArticle(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <input type="text" id="art-title" placeholder="Tytuł artykułu" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="art-category" placeholder="Kategoria (np. Raport)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="text" id="art-date" placeholder="Data (np. 18 Sierpnia 2026)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <textarea id="art-content" placeholder="Treść artykułu..." rows="3" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none custom-scrollbar"></textarea>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Artykuł</button>
+      </form>
+
+      <div id="articles-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
+    </section>
+
+    <!-- ZARZĄDZANIE KADRĄ -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-users text-brandRed mr-2"></i> Kadra Zespołu</h2>
+      </div>
+
+      <form onsubmit="addSquadMember(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <div class="grid grid-cols-3 gap-2">
+          <input type="number" id="sq-num" placeholder="Nr" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="text" id="sq-name" placeholder="Imię i Nazwisko" required class="col-span-2 w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="sq-pos" placeholder="Pozycja (np. Napastnik)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="sq-m" placeholder="Liczba meczów" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="sq-stat" placeholder="Statystyka (np. Bramki: 5)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <select id="sq-icon" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+            <option value="fa-running">Ikona: Bieganie</option>
+            <option value="fa-futbol">Ikona: Piłka</option>
+            <option value="fa-shield-alt">Ikona: Tarcza</option>
+            <option value="fa-mitten">Ikona: Rękawica</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Zawodnika</button>
+      </form>
+
+      <div id="squad-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
+    </section>
+
+    <!-- ZARZĄDZANIE TABELĄ -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-list-ol text-brandRed mr-2"></i> Tabela Ligowa</h2>
+      </div>
+
+      <form onsubmit="addTableTeam(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <input type="text" id="tb-name" placeholder="Nazwa Klubu" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <div class="grid grid-cols-4 gap-2">
+          <input type="number" id="tb-m" placeholder="Mecze" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="tb-gf" placeholder="B. Zdobyte" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="tb-ga" placeholder="B. Stracone" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="tb-pkt" placeholder="Punkty" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="tb-isUser" class="accent-brandRed rounded h-4 w-4">
+          <label for="tb-isUser" class="text-xs text-slate-300">Wyróżnij jako Super Strikers</label>
+        </div>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj / Zaktualizuj Drużynę</button>
+      </form>
+
+      <div id="table-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
+    </section>
+
+    <!-- ZARZĄDZANIE TERMINARZEM -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-calendar-alt text-brandRed mr-2"></i> Terminarz</h2>
+      </div>
+
+      <form onsubmit="addFixture(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <input type="text" id="fx-teams" placeholder="Mecz (np. Super Strikers vs Inter)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="fx-day" placeholder="Dzień (np. SOB)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="text" id="fx-date" placeholder="Dzień miesiąca (np. 24)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="fx-info" placeholder="Szczegóły (np. 17:30 • Dom)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="text" id="fx-round" placeholder="Runda (np. Kolejka 6)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
+        <div class="flex items-center gap-2 bg-black/30 p-3 rounded-xl border border-white/5">
+          <input type="checkbox" id="fx-is-cancelled" class="accent-brandRed rounded h-4 w-4">
+          <label for="fx-is-cancelled" class="text-xs font-bold text-slate-300">Oznacz mecz jako ODWOŁANY</label>
+        </div>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Mecz</button>
+      </form>
+
+      <div id="fixtures-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
+    </section>
+
+  </main>
 
   <script>
-    // DANE APLIKACJI (STAN)
-    let matchCenter = {
-      home: "SUPER STRIKERS BIAŁYSTOK",
-      away: "RIVAL FC",
-      scoreHome: 3,
-      scoreAway: 1,
-      tag: "Liga",
-      date: "Sobota, 18:00",
-      status: "Koniec Meczu",
-      homeScorers: ["Kowalski 14'", "Szymański 45'"],
-      awayScorers: ["Nowak 60'"]
+    // Domyślne Dane
+    const defaultArticles = [
+      { id: 1, title: "Pewne zwycięstwo w meczu domowym!", date: "18 Sierpnia 2026", category: "Raport Meczowy", content: "Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę." },
+      { id: 2, title: "Powrót na boiska w pełnej krasie", date: "15 Sierpnia 2026", category: "Klub", content: "Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo." },
+      { id: 3, title: "Mierzymy wysoko w tym sezonie", date: "10 Sierpnia 2026", category: "Wywiad", content: "Rozmowa z kapitanem zespołu na temat przygotowań, celów ligowych oraz atmosfery w czerwono-czarnej szatni." }
+    ];
+
+    const defaultMatchCenter = {
+      home: "SUPER STRIKERS", away: "RIVAL FC",
+      scoreHome: 3, scoreAway: 1, tag: "MECZ TOWARZYSKI",
+      date: "Sobota, 18:00", status: "Koniec Meczu",
+      isCancelled: false,
+      homeScorers: ["Kowalski 14'", "Szymański 45'"], awayScorers: ["Nowak 60'"]
     };
 
-    let tableData = [
+    const defaultTable = [
       { id: 1, name: "SUPER STRIKERS BIAŁYSTOK", m: 5, gf: 14, ga: 4, pkt: 13, isUser: true },
-      { id: 2, name: "RIVAL FC", m: 5, gf: 10, ga: 6, pkt: 10, isUser: false },
+      { id: 2, name: "Rival FC", m: 5, gf: 10, ga: 6, pkt: 10, isUser: false },
       { id: 3, name: "Inter Białystok", m: 5, gf: 8, ga: 9, pkt: 7, isUser: false }
     ];
 
-    let articles = [
-      { id: 1, title: "Pewne zwycięstwo w meczu domowym!", date: "2026-08-18", category: "Raport Meczowy", content: "Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę.\n\nNasza drużyna zaprezentowała kapitalną formę na własnym stadionie." },
-      { id: 2, title: "Powrót na boiska w pełnej krasie", date: "2026-08-15", category: "Klub", content: "Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo." },
-      { id: 3, title: "Mierzymy wysoko w tym sezonie", date: "2026-08-10", category: "Wywiad", content: "Rozmowa z kapitanem zespołu na temat przygotowań, celów ligowych oraz atmosfery w czerwono-czarnej szatni." }
-    ];
-
-    let squad = [
+    const defaultSquad = [
       { id: 1, num: 1, name: "Marek Kowal", pos: "Bramkarz", m: 12, stat: "Czyste konta: 5", icon: "fa-mitten" },
       { id: 2, num: 4, name: "Piotr Adamski", pos: "Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
       { id: 3, num: 8, name: "Kamil Szymański", pos: "Pomocnik / Kapitan", m: 18, stat: "Asysty: 9", icon: "fa-running" },
-      { id: 4, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" }
+      { id: 4, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" },
+      { id: 5, num: 10, name: "Michał Nowak", pos: "Pomocnik", m: 10, stat: "Asysty: 4", icon: "fa-running" }
     ];
 
-    let fixtures = [
-      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6" },
-      { id: 2, teams: "Eagle FC vs Super Strikers", day: "NIE", date: "01", info: "16:00 • Wyjazd", round: "Kolejka 7" }
+    const defaultFixtures = [
+      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6", isCancelled: false },
+      { id: 2, teams: "Eagle FC vs Super Strikers", day: "NIE", date: "01", info: "16:00 • Wyjazd", round: "Kolejka 7", isCancelled: true }
     ];
 
-    // INICJALIZACJA
-    window.onload = function() {
-      renderMatchCenter();
-      renderArticles();
-      renderSquad();
-      renderTable();
-      renderFixtures();
-      populateCMS();
-    };
+    let articles, matchCenter, tableData, squad, fixtures;
 
-    // RENDEROWANIE CENTRUM MECZOWEGO
-    function renderMatchCenter() {
-      document.getElementById('display-home-name').innerText = matchCenter.home;
-      document.getElementById('display-away-name').innerText = matchCenter.away;
-      document.getElementById('display-score-home').innerText = matchCenter.scoreHome;
-      document.getElementById('display-score-away').innerText = matchCenter.scoreAway;
-      document.getElementById('display-match-tag').innerText = matchCenter.tag;
-      document.getElementById('display-match-date').innerText = matchCenter.date;
-      document.getElementById('display-match-status').innerText = matchCenter.status;
+    function initData() {
+      articles = JSON.parse(localStorage.getItem('articles')) || defaultArticles;
+      matchCenter = JSON.parse(localStorage.getItem('matchCenter')) || defaultMatchCenter;
+      tableData = JSON.parse(localStorage.getItem('tableData')) || defaultTable;
+      squad = JSON.parse(localStorage.getItem('squad')) || defaultSquad;
+      fixtures = JSON.parse(localStorage.getItem('fixtures')) || defaultFixtures;
 
-      document.getElementById('display-home-scorers').innerHTML = matchCenter.homeScorers.map(s => `<div><i class="fas fa-futbol text-brandRed mr-1"></i> ${s}</div>`).join('');
-      document.getElementById('display-away-scorers').innerHTML = matchCenter.awayScorers.map(s => `<div><i class="fas fa-futbol text-slate-500 mr-1"></i> ${s}</div>`).join('');
+      renderAllLists();
+      fillMatchCenterInputs();
     }
 
-    // SAVING MATCH CENTER + DYNAMIC LEAGUE TABLE CALCULATION
+    function renderAllLists() {
+      renderArticlesList();
+      renderSquadList();
+      renderTableList();
+      renderFixturesList();
+    }
+
+    // CENTRUM MECZOWE
+    function fillMatchCenterInputs() {
+      document.getElementById('mc-home').value = matchCenter.home;
+      document.getElementById('mc-away').value = matchCenter.away;
+      document.getElementById('mc-score-home').value = matchCenter.scoreHome;
+      document.getElementById('mc-score-away').value = matchCenter.scoreAway;
+      document.getElementById('mc-tag').value = matchCenter.tag;
+      document.getElementById('mc-date').value = matchCenter.date;
+      document.getElementById('mc-status').value = matchCenter.status;
+      document.getElementById('mc-is-cancelled').checked = matchCenter.isCancelled || false;
+      document.getElementById('mc-home-scorers').value = (matchCenter.homeScorers || []).join(', ');
+      document.getElementById('mc-away-scorers').value = (matchCenter.awayScorers || []).join(', ');
+    }
+
     function saveMatchCenter() {
-      matchCenter.home = document.getElementById('cms-home-name').value;
-      matchCenter.away = document.getElementById('cms-away-name').value;
-      matchCenter.scoreHome = parseInt(document.getElementById('cms-score-home').value) || 0;
-      matchCenter.scoreAway = parseInt(document.getElementById('cms-score-away').value) || 0;
-      matchCenter.tag = document.getElementById('cms-match-tag').value;
-      matchCenter.date = document.getElementById('cms-match-date').value;
-      matchCenter.status = document.getElementById('cms-match-status').value;
-
-      const hs = document.getElementById('cms-home-scorers').value;
-      matchCenter.homeScorers = hs ? hs.split(',').map(s => s.trim()) : [];
-
-      const as = document.getElementById('cms-away-scorers').value;
-      matchCenter.awayScorers = as ? as.split(',').map(s => s.trim()) : [];
-
-      // Automatyczna aktualizacja tabeli po meczu ligowym
-      if (matchCenter.tag.toLowerCase().includes("liga")) {
-        let homeTeam = tableData.find(t => t.name.toLowerCase() === matchCenter.home.toLowerCase());
-        let awayTeam = tableData.find(t => t.name.toLowerCase() === matchCenter.away.toLowerCase());
-
-        if (homeTeam) {
-          homeTeam.gf += matchCenter.scoreHome;
-          homeTeam.ga += matchCenter.scoreAway;
-          if (matchCenter.scoreHome > matchCenter.scoreAway) homeTeam.pkt += 3;
-          else if (matchCenter.scoreHome === matchCenter.scoreAway) homeTeam.pkt += 1;
-        }
-
-        if (awayTeam) {
-          awayTeam.gf += matchCenter.scoreAway;
-          awayTeam.ga += matchCenter.scoreHome;
-          if (matchCenter.scoreAway > matchCenter.scoreHome) awayTeam.pkt += 3;
-          else if (matchCenter.scoreHome === matchCenter.scoreAway) awayTeam.pkt += 1;
-        }
-      }
-
-      renderMatchCenter();
-      renderTable();
-      populateCMS();
+      matchCenter = {
+        home: document.getElementById('mc-home').value,
+        away: document.getElementById('mc-away').value,
+        scoreHome: parseInt(document.getElementById('mc-score-home').value) || 0,
+        scoreAway: parseInt(document.getElementById('mc-score-away').value) || 0,
+        tag: document.getElementById('mc-tag').value,
+        date: document.getElementById('mc-date').value,
+        status: document.getElementById('mc-status').value,
+        isCancelled: document.getElementById('mc-is-cancelled').checked,
+        homeScorers: document.getElementById('mc-home-scorers').value.split(',').map(s => s.trim()).filter(s => s),
+        awayScorers: document.getElementById('mc-away-scorers').value.split(',').map(s => s.trim()).filter(s => s)
+      };
+      localStorage.setItem('matchCenter', JSON.stringify(matchCenter));
+      alert('Zapisano dane centrum meczowego!');
     }
 
     // ARTYKUŁY
-    function renderArticles() {
-      const container = document.getElementById('articles-container');
-      const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      container.innerHTML = sorted.map(art => `
-        <article class="glass-panel rounded-3xl overflow-hidden hover:border-red-500/40 transition group">
-          <div class="h-44 bg-gradient-to-br from-red-900/40 to-slate-900 p-4 flex flex-col justify-between relative overflow-hidden">
-            <span class="bg-brandRed/80 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider w-max z-10">${art.category}</span>
-            <i class="fas fa-newspaper absolute -bottom-4 -right-4 text-7xl text-white/5 group-hover:scale-110 transition"></i>
-            <span class="text-xs text-slate-400 font-medium z-10">${art.date}</span>
+    function renderArticlesList() {
+      const container = document.getElementById('articles-list');
+      container.innerHTML = articles.map(art => `
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold text-white">${art.title}</span>
+            <span class="text-slate-500 block text-[10px]">${art.date} • ${art.category}</span>
           </div>
-          <div class="p-6">
-            <h4 class="font-black text-lg text-white mb-2 group-hover:text-brandRed transition">${art.title}</h4>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${art.content.replace(/<[^>]*>?/gm, '')}</p>
-            <button onclick="openArticle('${art.title}', '${art.date}', '${art.category}', \`${art.content.replace(/`/g, '\\`')}\`)" class="inline-flex items-center text-xs font-bold text-brandRed hover:text-white transition gap-1">Czytaj więcej <i class="fas fa-arrow-right text-[10px]"></i></button>
-          </div>
-        </article>
+          <button onclick="deleteArticle(${art.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+        </div>
       `).join('');
     }
 
-    function formatText(tag) {
-      const textarea = document.getElementById('cms-art-content');
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const selectedText = textarea.value.substring(start, end);
-      const replacement = `<${tag}>${selectedText}</${tag}>`;
-      textarea.value = textarea.value.substring(0, start) + replacement + textarea.value.substring(end);
-    }
-
-    function saveArticle() {
-      const id = document.getElementById('cms-article-id').value;
-      const title = document.getElementById('cms-art-title').value;
-      const date = document.getElementById('cms-art-date').value;
-      const category = document.getElementById('cms-art-cat').value;
-      const content = document.getElementById('cms-art-content').value;
-
-      if (!title) return;
-
-      if (id) {
-        let art = articles.find(a => a.id == id);
-        if (art) { art.title = title; art.date = date; art.category = category; art.content = content; }
-      } else {
-        articles.push({ id: Date.now(), title, date, category, content });
-      }
-
-      clearArticleForm();
-      renderArticles();
-      populateCMS();
-    }
-
-    function editArticle(id) {
-      let art = articles.find(a => a.id == id);
-      if (!art) return;
-      document.getElementById('cms-article-id').value = art.id;
-      document.getElementById('cms-art-title').value = art.title;
-      document.getElementById('cms-art-date').value = art.date;
-      document.getElementById('cms-art-cat').value = art.category;
-      document.getElementById('cms-art-content').value = art.content;
+    function addArticle(e) {
+      e.preventDefault();
+      const newArt = {
+        id: Date.now(),
+        title: document.getElementById('art-title').value,
+        category: document.getElementById('art-category').value,
+        date: document.getElementById('art-date').value,
+        content: document.getElementById('art-content').value
+      };
+      articles.unshift(newArt);
+      localStorage.setItem('articles', JSON.stringify(articles));
+      renderArticlesList();
+      e.target.reset();
     }
 
     function deleteArticle(id) {
-      articles = articles.filter(a => a.id != id);
-      renderArticles();
-      populateCMS();
-    }
-
-    function clearArticleForm() {
-      document.getElementById('cms-article-id').value = '';
-      document.getElementById('cms-art-title').value = '';
-      document.getElementById('cms-art-date').value = '';
-      document.getElementById('cms-art-cat').value = '';
-      document.getElementById('cms-art-content').value = '';
-    }
-
-    function openArticle(title, date, category, content) {
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalDate').innerText = date;
-      document.getElementById('modalCategory').innerText = category;
-      document.getElementById('modalContent').innerHTML = content;
-      document.getElementById('articleModal').classList.remove('hidden');
-    }
-
-    function closeArticle() {
-      document.getElementById('articleModal').classList.add('hidden');
+      articles = articles.filter(a => a.id !== id);
+      localStorage.setItem('articles', JSON.stringify(articles));
+      renderArticlesList();
     }
 
     // KADRA
-    function renderSquad() {
-      const container = document.getElementById('squad-container');
+    function renderSquadList() {
+      const container = document.getElementById('squad-list');
       container.innerHTML = squad.map(p => `
-        <div class="min-w-[220px] max-w-[220px] glass-panel rounded-3xl p-5 snap-start relative group overflow-hidden flex-shrink-0">
-          <div class="absolute top-3 right-4 font-black text-4xl text-white/10 group-hover:text-brandRed/30 transition">${p.num}</div>
-          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600/30 to-slate-800 flex items-center justify-center text-2xl text-red-400 mb-4 border border-red-500/30">
-            <i class="fas ${p.icon || 'fa-running'}"></i>
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold text-white">#${p.num} ${p.name}</span>
+            <span class="text-slate-500 block text-[10px]">${p.pos} • Mecze: ${p.m}</span>
           </div>
-          <span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2.5 py-0.5 rounded-md uppercase">${p.pos}</span>
-          <h4 class="font-black text-lg text-white mt-2 leading-tight">${p.name}</h4>
-          <div class="mt-4 pt-3 border-t border-white/10 flex justify-between text-[11px] text-slate-400">
-            <span>Mecze: <b class="text-white">${p.m}</b></span>
-            <span>${p.stat}</span>
-          </div>
+          <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
         </div>
       `).join('');
     }
 
-    function savePlayer() {
-      const id = document.getElementById('cms-player-id').value;
-      const name = document.getElementById('cms-player-name').value;
-      const num = parseInt(document.getElementById('cms-player-num').value) || 0;
-      const pos = document.getElementById('cms-player-pos').value;
-      const m = parseInt(document.getElementById('cms-player-m').value) || 0;
-      const stat = document.getElementById('cms-player-stat').value;
-
-      if (!name) return;
-
-      if (id) {
-        let p = squad.find(x => x.id == id);
-        if (p) { p.name = name; p.num = num; p.pos = pos; p.m = m; p.stat = stat; }
-      } else {
-        squad.push({ id: Date.now(), name, num, pos, m, stat, icon: "fa-running" });
-      }
-
-      clearPlayerForm();
-      renderSquad();
-      populateCMS();
+    function addSquadMember(e) {
+      e.preventDefault();
+      const newPlayer = {
+        id: Date.now(),
+        num: parseInt(document.getElementById('sq-num').value),
+        name: document.getElementById('sq-name').value,
+        pos: document.getElementById('sq-pos').value,
+        m: parseInt(document.getElementById('sq-m').value),
+        stat: document.getElementById('sq-stat').value,
+        icon: document.getElementById('sq-icon').value
+      };
+      squad.push(newPlayer);
+      localStorage.setItem('squad', JSON.stringify(squad));
+      renderSquadList();
+      e.target.reset();
     }
 
-    function editPlayer(id) {
-      let p = squad.find(x => x.id == id);
-      if (!p) return;
-      document.getElementById('cms-player-id').value = p.id;
-      document.getElementById('cms-player-name').value = p.name;
-      document.getElementById('cms-player-num').value = p.num;
-      document.getElementById('cms-player-pos').value = p.pos;
-      document.getElementById('cms-player-m').value = p.m;
-      document.getElementById('cms-player-stat').value = p.stat;
+    function deleteSquadMember(id) {
+      squad = squad.filter(p => p.id !== id);
+      localStorage.setItem('squad', JSON.stringify(squad));
+      renderSquadList();
     }
 
-    function deletePlayer(id) {
-      squad = squad.filter(p => p.id != id);
-      renderSquad();
-      populateCMS();
-    }
-
-    function clearPlayerForm() {
-      document.getElementById('cms-player-id').value = '';
-      document.getElementById('cms-player-name').value = '';
-      document.getElementById('cms-player-num').value = '';
-      document.getElementById('cms-player-pos').value = '';
-      document.getElementById('cms-player-m').value = '';
-      document.getElementById('cms-player-stat').value = '';
-    }
-
-    // TABELA Z ANIMACJĄ PRZESKOKU
-    function renderTable() {
-      // Sortowanie według punktów, a potem bilansu
-      tableData.sort((a, b) => b.pkt - a.pkt || (b.gf - b.ga) - (a.gf - a.ga));
-
-      const tbody = document.getElementById('table-body');
-      tbody.innerHTML = tableData.map((t, index) => `
-        <tr class="table-row-anim ${t.isUser ? 'bg-brandRed/10 font-bold text-white border-l-4 border-brandRed' : ''}">
-          <td class="py-3.5 px-4 text-center font-black ${t.isUser ? 'text-brandRed' : 'text-slate-400'}">${index + 1}</td>
-          <td class="py-3.5 px-4 flex items-center gap-2 uppercase">
-            ${t.isUser ? '<img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="h-6 w-auto inline">' : ''}
-            ${t.name}
-          </td>
-          <td class="py-3.5 px-4 text-center">${t.m}</td>
-          <td class="py-3.5 px-4 text-center">${t.gf}:${t.ga}</td>
-          <td class="py-3.5 px-4 text-center font-black ${t.isUser ? 'text-brandRed' : 'text-white'}">${t.pkt}</td>
-        </tr>
+    // TABELA
+    function renderTableList() {
+      const container = document.getElementById('table-list');
+      container.innerHTML = tableData.map(t => `
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold ${t.isUser ? 'text-brandRed' : 'text-white'}">${t.name}</span>
+            <span class="text-slate-500 block text-[10px]">Pkt: ${t.pkt} | M: ${t.m} | B: ${t.gf}:${t.ga}</span>
+          </div>
+          <button onclick="deleteTableTeam(${t.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+        </div>
       `).join('');
     }
 
-    function addTeamToTable() {
-      tableData.push({ id: Date.now(), name: "Nowy Klub", m: 0, gf: 0, ga: 0, pkt: 0, isUser: false });
-      populateCMS();
+    function addTableTeam(e) {
+      e.preventDefault();
+      const newTeam = {
+        id: Date.now(),
+        name: document.getElementById('tb-name').value,
+        m: parseInt(document.getElementById('tb-m').value),
+        gf: parseInt(document.getElementById('tb-gf').value),
+        ga: parseInt(document.getElementById('tb-ga').value),
+        pkt: parseInt(document.getElementById('tb-pkt').value),
+        isUser: document.getElementById('tb-isUser').checked
+      };
+      tableData.push(newTeam);
+      localStorage.setItem('tableData', JSON.stringify(tableData));
+      renderTableList();
+      e.target.reset();
     }
 
-    function deleteTeamFromTable(id) {
-      tableData = tableData.filter(t => t.id != id);
-      renderTable();
-      populateCMS();
-    }
-
-    function saveTableCMS() {
-      tableData.forEach(t => {
-        const nameInput = document.getElementById(`tbl-name-${t.id}`);
-        const pktInput = document.getElementById(`tbl-pkt-${t.id}`);
-        const mInput = document.getElementById(`tbl-m-${t.id}`);
-        const gfInput = document.getElementById(`tbl-gf-${t.id}`);
-        const gaInput = document.getElementById(`tbl-ga-${t.id}`);
-
-        if (nameInput) t.name = nameInput.value;
-        if (pktInput) t.pkt = parseInt(pktInput.value) || 0;
-        if (mInput) t.m = parseInt(mInput.value) || 0;
-        if (gfInput) t.gf = parseInt(gfInput.value) || 0;
-        if (gaInput) t.ga = parseInt(gaInput.value) || 0;
-      });
-
-      renderTable();
-      populateCMS();
+    function deleteTableTeam(id) {
+      tableData = tableData.filter(t => t.id !== id);
+      localStorage.setItem('tableData', JSON.stringify(tableData));
+      renderTableList();
     }
 
     // TERMINARZ
-    function renderFixtures() {
-      const container = document.getElementById('fixtures-container');
+    function renderFixturesList() {
+      const container = document.getElementById('fixtures-list');
       container.innerHTML = fixtures.map(f => `
-        <div class="glass-panel rounded-2xl p-4 flex items-center justify-between border-l-4 border-brandRed">
-          <div class="flex items-center gap-3">
-            <div class="text-center">
-              <span class="block text-xs font-bold text-brandRed">${f.day}</span>
-              <span class="block text-lg font-black text-white">${f.date}</span>
-            </div>
-            <div class="h-8 w-px bg-white/10"></div>
-            <div>
-              <h5 class="text-sm font-bold text-white uppercase">${f.teams}</h5>
-              <span class="text-[11px] text-slate-400"><i class="fas fa-clock mr-1 text-brandRed"></i> ${f.info}</span>
-            </div>
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold text-white">${f.teams} ${f.isCancelled ? '<span class="text-red-500 uppercase text-[10px] ml-1">[ODWOŁANY]</span>' : ''}</span>
+            <span class="text-slate-500 block text-[10px]">${f.day} ${f.date} • ${f.info}</span>
           </div>
-          <span class="text-xs font-bold bg-white/10 px-3 py-1 rounded-full text-slate-300">${f.round}</span>
+          <button onclick="deleteFixture(${f.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
         </div>
       `).join('');
     }
 
-    function saveFixture() {
-      const id = document.getElementById('cms-fix-id').value;
-      const teams = document.getElementById('cms-fix-teams').value;
-      const day = document.getElementById('cms-fix-day').value;
-      const date = document.getElementById('cms-fix-date').value;
-      const info = document.getElementById('cms-fix-info').value;
-      const round = document.getElementById('cms-fix-round').value;
-
-      if (!teams) return;
-
-      if (id) {
-        let f = fixtures.find(x => x.id == id);
-        if (f) { f.teams = teams; f.day = day; f.date = date; f.info = info; f.round = round; }
-      } else {
-        fixtures.push({ id: Date.now(), teams, day, date, info, round });
-      }
-
-      clearFixtureForm();
-      renderFixtures();
-      populateCMS();
-    }
-
-    function editFixture(id) {
-      let f = fixtures.find(x => x.id == id);
-      if (!f) return;
-      document.getElementById('cms-fix-id').value = f.id;
-      document.getElementById('cms-fix-teams').value = f.teams;
-      document.getElementById('cms-fix-day').value = f.day;
-      document.getElementById('cms-fix-date').value = f.date;
-      document.getElementById('cms-fix-info').value = f.info;
-      document.getElementById('cms-fix-round').value = f.round;
+    function addFixture(e) {
+      e.preventDefault();
+      const newFix = {
+        id: Date.now(),
+        teams: document.getElementById('fx-teams').value,
+        day: document.getElementById('fx-day').value,
+        date: document.getElementById('fx-date').value,
+        info: document.getElementById('fx-info').value,
+        round: document.getElementById('fx-round').value,
+        isCancelled: document.getElementById('fx-is-cancelled').checked
+      };
+      fixtures.push(newFix);
+      localStorage.setItem('fixtures', JSON.stringify(fixtures));
+      renderFixturesList();
+      e.target.reset();
     }
 
     function deleteFixture(id) {
-      fixtures = fixtures.filter(f => f.id != id);
-      renderFixtures();
-      populateCMS();
+      fixtures = fixtures.filter(f => f.id !== id);
+      localStorage.setItem('fixtures', JSON.stringify(fixtures));
+      renderFixturesList();
     }
 
-    function clearFixtureForm() {
-      document.getElementById('cms-fix-id').value = '';
-      document.getElementById('cms-fix-teams').value = '';
-      document.getElementById('cms-fix-day').value = '';
-      document.getElementById('cms-fix-date').value = '';
-      document.getElementById('cms-fix-info').value = '';
-      document.getElementById('cms-fix-round').value = '';
-    }
-
-    // POPULOWANIE DANYCH CMS
-    function populateCMS() {
-      // Match Center
-      document.getElementById('cms-home-name').value = matchCenter.home;
-      document.getElementById('cms-away-name').value = matchCenter.away;
-      document.getElementById('cms-score-home').value = matchCenter.scoreHome;
-      document.getElementById('cms-score-away').value = matchCenter.scoreAway;
-      document.getElementById('cms-match-tag').value = matchCenter.tag;
-      document.getElementById('cms-match-date').value = matchCenter.date;
-      document.getElementById('cms-match-status').value = matchCenter.status;
-      document.getElementById('cms-home-scorers').value = matchCenter.homeScorers.join(', ');
-      document.getElementById('cms-away-scorers').value = matchCenter.awayScorers.join(', ');
-
-      // Tabela CMS
-      const tblEditor = document.getElementById('cms-table-editor');
-      tblEditor.innerHTML = tableData.map(t => `
-        <div class="flex items-center gap-2 bg-black/40 p-2 rounded-xl text-xs">
-          <input type="text" id="tbl-name-${t.id}" value="${t.name}" class="bg-transparent font-bold text-white flex-1 border-b border-white/10">
-          <span>M:</span><input type="number" id="tbl-m-${t.id}" value="${t.m}" class="w-10 bg-black/50 p-1 rounded text-center">
-          <span>G+:</span><input type="number" id="tbl-gf-${t.id}" value="${t.gf}" class="w-10 bg-black/50 p-1 rounded text-center">
-          <span>G-:</span><input type="number" id="tbl-ga-${t.id}" value="${t.ga}" class="w-10 bg-black/50 p-1 rounded text-center">
-          <span>Pkt:</span><input type="number" id="tbl-pkt-${t.id}" value="${t.pkt}" class="w-12 bg-black/50 p-1 rounded text-center text-brandRed font-bold">
-          ${!t.isUser ? `<button onclick="deleteTeamFromTable(${t.id})" class="text-red-400 hover:text-white px-2"><i class="fas fa-trash"></i></button>` : ''}
-        </div>
-      `).join('');
-
-      // Lista Artykułów w CMS
-      document.getElementById('cms-articles-list').innerHTML = articles.map(a => `
-        <div class="flex justify-between items-center bg-black/40 p-2 rounded-xl text-xs">
-          <span class="truncate max-w-[200px] text-slate-300 font-medium">${a.title}</span>
-          <div class="flex gap-2">
-            <button onclick="editArticle(${a.id})" class="text-brandRed hover:text-white"><i class="fas fa-edit"></i></button>
-            <button onclick="deleteArticle(${a.id})" class="text-red-400 hover:text-white"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `).join('');
-
-      // Lista Kadry w CMS
-      document.getElementById('cms-squad-list').innerHTML = squad.map(p => `
-        <div class="flex justify-between items-center bg-black/40 p-2 rounded-xl text-xs">
-          <span class="text-slate-300 font-medium">#${p.num} ${p.name} (${p.pos})</span>
-          <div class="flex gap-2">
-            <button onclick="editPlayer(${p.id})" class="text-brandRed hover:text-white"><i class="fas fa-edit"></i></button>
-            <button onclick="deletePlayer(${p.id})" class="text-red-400 hover:text-white"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `).join('');
-
-      // Lista Terminarza w CMS
-      document.getElementById('cms-fixtures-list').innerHTML = fixtures.map(f => `
-        <div class="flex justify-between items-center bg-black/40 p-2 rounded-xl text-xs">
-          <span class="text-slate-300 font-medium">${f.teams} (${f.day} ${f.date})</span>
-          <div class="flex gap-2">
-            <button onclick="editFixture(${f.id})" class="text-brandRed hover:text-white"><i class="fas fa-edit"></i></button>
-            <button onclick="deleteFixture(${f.id})" class="text-red-400 hover:text-white"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `).join('');
-    }
+    window.onload = initData;
   </script>
 </body>
 </html>
