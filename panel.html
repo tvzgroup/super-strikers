@@ -144,15 +144,14 @@
 
       <form onsubmit="addSquadMember(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
         <div class="grid grid-cols-3 gap-2">
-          <input type="number" id="sq-num" placeholder="Nr" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="sq-num" placeholder="Nr (opcjonalny dla Trenera)" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <input type="text" id="sq-name" placeholder="Imię i Nazwisko" required class="col-span-2 w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <select id="sq-pos" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+          <select id="sq-pos" required onchange="handlePositionChange()" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
             <option value="" disabled selected>Wybierz pozycję / rolę</option>
             <option value="I Trener">I Trener</option>
             <option value="II Trener">II Trener</option>
-            <option value="Trener Bramkarzy">Trener Bramkarzy</option>
             <option value="Bramkarz">Bramkarz</option>
             <option value="Lewy Obrońca">Lewy Obrońca</option>
             <option value="Środkowy Obrońca">Środkowy Obrońca</option>
@@ -162,18 +161,19 @@
             <option value="Prawy Pomocnik">Prawy Pomocnik</option>
             <option value="Napastnik">Napastnik</option>
           </select>
-          <input type="number" id="sq-m" placeholder="Liczba meczów" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="sq-m" placeholder="Liczba meczów" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="sq-stat" placeholder="Statystyka (np. Bramki: 5)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="text" id="sq-stat" placeholder="Statystyka (np. Bramki: 5)" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <select id="sq-icon" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+            <option value="fa-user-tie">Ikona: Trener</option>
             <option value="fa-running">Ikona: Bieganie</option>
             <option value="fa-futbol">Ikona: Piłka</option>
             <option value="fa-shield-alt">Ikona: Tarcza</option>
             <option value="fa-mitten">Ikona: Rękawica</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Zawodnika / Trenera</button>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj do Kadry</button>
       </form>
 
       <div id="squad-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
@@ -249,11 +249,11 @@
     ];
 
     const defaultSquad = [
-      { id: 1, num: 1, name: "Marek Kowal", pos: "Bramkarz", m: 12, stat: "Czyste konta: 5", icon: "fa-mitten" },
-      { id: 2, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
-      { id: 3, num: 8, name: "Kamil Szymański", pos: "Środkowy Pomocnik", m: 18, stat: "Asysty: 9", icon: "fa-running" },
-      { id: 4, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" },
-      { id: 5, num: 10, name: "Michał Nowak", pos: "Lewy Pomocnik", m: 10, stat: "Asysty: 4", icon: "fa-running" }
+      { id: 1, num: "-", name: "Jan Wiśniewski", pos: "I Trener", m: "-", stat: "-", icon: "fa-user-tie" },
+      { id: 2, num: 1, name: "Marek Kowal", pos: "Bramkarz", m: 12, stat: "Czyste konta: 5", icon: "fa-mitten" },
+      { id: 3, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
+      { id: 4, num: 8, name: "Kamil Szymański", pos: "Środkowy Pomocnik", m: 18, stat: "Asysty: 9", icon: "fa-running" },
+      { id: 5, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" }
     ];
 
     const defaultFixtures = [
@@ -346,34 +346,64 @@
     }
 
     // KADRA
+    function handlePositionChange() {
+      const pos = document.getElementById('sq-pos').value;
+      const isCoach = pos === 'I Trener' || pos === 'II Trener';
+      const numInput = document.getElementById('sq-num');
+      const mInput = document.getElementById('sq-m');
+      const statInput = document.getElementById('sq-stat');
+      const iconSelect = document.getElementById('sq-icon');
+
+      if (isCoach) {
+        numInput.removeAttribute('required');
+        mInput.removeAttribute('required');
+        statInput.removeAttribute('required');
+        iconSelect.value = 'fa-user-tie';
+      } else {
+        numInput.setAttribute('required', 'required');
+        mInput.setAttribute('required', 'required');
+        statInput.setAttribute('required', 'required');
+      }
+    }
+
     function renderSquadList() {
       const container = document.getElementById('squad-list');
-      container.innerHTML = squad.map(p => `
-        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
-          <div class="truncate mr-2">
-            <span class="font-bold text-white">#${p.num} ${p.name}</span>
-            <span class="text-slate-500 block text-[10px]">${p.pos} • Mecze: ${p.m}</span>
+      container.innerHTML = squad.map(p => {
+        const numDisplay = p.num ? `#${p.num}` : '';
+        const mDisplay = p.m !== undefined && p.m !== '-' ? ` • Mecze: ${p.m}` : '';
+        return `
+          <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+            <div class="truncate mr-2">
+              <span class="font-bold text-white">${numDisplay} ${p.name}</span>
+              <span class="text-slate-500 block text-[10px]">${p.pos}${mDisplay}</span>
+            </div>
+            <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
           </div>
-          <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function addSquadMember(e) {
       e.preventDefault();
+      const pos = document.getElementById('sq-pos').value;
+      const numVal = document.getElementById('sq-num').value;
+      const mVal = document.getElementById('sq-m').value;
+      const statVal = document.getElementById('sq-stat').value;
+
       const newPlayer = {
         id: Date.now(),
-        num: parseInt(document.getElementById('sq-num').value),
+        num: numVal ? parseInt(numVal) : '',
         name: document.getElementById('sq-name').value,
-        pos: document.getElementById('sq-pos').value,
-        m: parseInt(document.getElementById('sq-m').value),
-        stat: document.getElementById('sq-stat').value,
+        pos: pos,
+        m: mVal ? parseInt(mVal) : '-',
+        stat: statVal || '-',
         icon: document.getElementById('sq-icon').value
       };
       squad.push(newPlayer);
       localStorage.setItem('squad', JSON.stringify(squad));
       renderSquadList();
       e.target.reset();
+      handlePositionChange();
     }
 
     function deleteSquadMember(id) {
