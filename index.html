@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Effe Club - Oficjalna Strona</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#0066B3',
+            brandDark: '#0A192F',
+            brandLight: '#F0F4F8',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brandLight text-slate-800 font-sans">
+
+  <!-- NAVIGATION -->
+  <nav class="bg-white shadow-md fixed w-full z-50 top-0 left-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-20 items-center">
+        <div class="flex items-center space-x-3">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club Logo" class="h-12 w-auto">
+          <span class="font-bold text-2xl text-brandBlue tracking-wider">EFFE CLUB</span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-semibold text-sm tracking-wide">
+          <a href="#glowna" class="text-brandBlue hover:text-blue-700 transition">GŁÓWNA</a>
+          <a href="#o-nas" class="text-gray-600 hover:text-brandBlue transition">O NAS</a>
+          <a href="#mecz" class="text-gray-600 hover:text-brandBlue transition">MECZE</a>
+          <a href="#akademia" class="text-gray-600 hover:text-brandBlue transition">AKADEMIA</a>
+          <a href="#kontakt" class="text-gray-600 hover:text-brandBlue transition">KONTAKT</a>
+        </div>
+        <div>
+          <a href="#bilety" class="bg-brandBlue text-white px-5 py-2.5 rounded-lg font-bold shadow-md hover:bg-blue-700 transition">KUP BILET</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header id="glowna" class="relative pt-20 bg-brandDark text-white overflow-hidden min-h-[85vh] flex items-center">
+    <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-brandDark via-brandDark/80 to-transparent z-10"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-20 py-16 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <span class="bg-brandBlue text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest text-white">Sezon 2026/2027</span>
+        <h1 class="text-5xl md:text-6xl font-black mt-4 mb-6 leading-tight uppercase">Witaj w <br><span class="text-brandBlue">Effe Club</span></h1>
+        <p class="text-gray-300 text-lg mb-8 max-w-lg">Walczymy z pasją, wygrywamy z klasą. Śledź najnowsze mecze, statystyki i rozwój naszej akademii piłkarskiej.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#mecz" class="bg-brandBlue text-white font-bold px-8 py-3.5 rounded-lg shadow-lg hover:bg-blue-700 transition">SPRAWDŹ WYDARZENIA</a>
+          <a href="#o-nas" class="border-2 border-white text-white font-bold px-8 py-3.5 rounded-lg hover:bg-white hover:text-brandDark transition">POZNAJ KLUB</a>
+        </div>
+      </div>
+
+      <!-- NEXT MATCH WIDGET -->
+      <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl text-center">
+        <h3 class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-4">Nadchodzący Mecz</h3>
+        <div class="flex justify-around items-center my-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">EC</div>
+            <p class="font-bold">EFFE CLUB</p>
+          </div>
+          <div class="text-2xl font-black text-brandBlue px-4 py-2 bg-white rounded-lg">VS</div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">RIV</div>
+            <p class="font-bold">RIVAL FC</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-300 font-medium"><i class="far bg-calendar-alt mr-2"></i> Sobota, 15:00 | Stadion Miejski</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CARDS SECTION -->
+  <section id="mecz" class="max-w-7xl mx-auto px-6 -mt-12 relative z-30 grid md:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
+      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-trophy"></i></div>
+      <h3 class="font-bold text-xl mb-2 text-brandDark">Ostatnie Wyniki</h3>
+      <p class="text-gray-600 text-sm mb-4">Effe Club 3 : 1 Rival FC<br>Sektor B 0 : 2 Effe Club</p>
+      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Zobacz całą tabelę &rarr;</a>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
+      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-chart-line"></i></div>
+      <h3 class="font-bold text-xl mb-2 text-brandDark">Statystyki Sezonu</h3>
+      <p class="text-gray-600 text-sm mb-4">12 Wygranych / 2 Remisy / 1 Porażka<br>Bramki: 34:10</p>
+      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Pełne podsumowanie &rarr;</a>
+    </div>
+
+    <div id="akademia" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
+      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-users"></i></div>
+      <h3 class="font-bold text-xl mb-2 text-brandDark">Nasza Akademia</h3>
+      <p class="text-gray-600 text-sm mb-4">Nabór do drużyn młodzieżowych otwarty! Trenuj z profesjonalistami.</p>
+      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Dołącz do nas &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontakt" class="bg-brandDark text-white mt-20 pt-12 pb-6 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12">
+      <div>
+        <div class="flex items-center space-x-2 mb-4">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo" class="h-8 w-auto">
+          <span class="font-bold text-xl tracking-wider">EFFE CLUB</span>
+        </div>
+        <p class="text-gray-400 text-sm">Oficjalny serwis klubu piłkarskiego Effe Club.</p>
+      </div>
+
+      <div>
+        <h4 class="font-bold mb-4 text-brandBlue">Nawigacja</h4>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li><a href="#glowna" class="hover:text-white transition">Główna</a></li>
+          <li><a href="#o-nas" class="hover:text-white transition">O nas</a></li>
+          <li><a href="#mecz" class="hover:text-white transition">Terminarz i Wyniki</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold mb-4 text-brandBlue">Kontakt</h4>
+        <p class="text-sm text-gray-400">Email: kontakt@effeclub.pl</p>
+        <p class="text-sm text-gray-400">Tel: +48 123 456 789</p>
+      </div>
+
+      <div>
+        <h4 class="font-bold mb-4 text-brandBlue">Social Media</h4>
+        <div class="flex space-x-4 text-xl text-gray-400">
+          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center text-xs text-gray-500 border-t border-slate-800 pt-6">
+      &copy; 2026 Effe Club. Wszystkie prawa zastrzeżone.
+    </div>
+  </footer>
+
+</body>
+</html>
