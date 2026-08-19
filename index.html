@@ -1,148 +1,300 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Effe Club - Oficjalna Strona</title>
+  <title>EFFE CLUB | Oficjalny Serwis Klubu</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brandBlue: '#0066B3',
-            brandDark: '#0A192F',
-            brandLight: '#F0F4F8',
+            brandPrimary: '#0066B3',
+            brandAccent: '#00D2FF',
+            darkBg: '#0B0F17',
+            darkCard: '#151C28',
+            darkBorder: '#222F43'
           }
         }
       }
     }
   </script>
+  <style>
+    .glow-effect {
+      box-shadow: 0 0 25px rgba(0, 210, 255, 0.15);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #00D2FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
 </head>
-<body class="bg-brandLight text-slate-800 font-sans">
+<body class="bg-darkBg text-slate-100 font-sans antialiased selection:bg-brandPrimary selection:text-white">
 
-  <!-- NAVIGATION -->
-  <nav class="bg-white shadow-md fixed w-full z-50 top-0 left-0">
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-20 items-center">
-        <div class="flex items-center space-x-3">
-          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club Logo" class="h-12 w-auto">
-          <span class="font-bold text-2xl text-brandBlue tracking-wider">EFFE CLUB</span>
+      <div class="flex justify-between items-center h-20">
+        
+        <!-- LOGO -->
+        <a href="#" class="flex items-center gap-3 group">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club Logo" class="h-12 w-auto transition-transform group-hover:scale-105">
+          <span class="text-2xl font-black tracking-wider text-white">EFFE <span class="text-brandAccent">CLUB</span></span>
+        </a>
+
+        <!-- LINKS -->
+        <div class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-wider">
+          <a href="#odliczanie" class="hover:text-brandAccent transition">Centrum Meczu</a>
+          <a href="#wyniki" class="hover:text-brandAccent transition">Terminarz</a>
+          <a href="#kadra" class="hover:text-brandAccent transition">Kadra</a>
+          <a href="#akademia" class="hover:text-brandAccent transition">Akademia</a>
         </div>
-        <div class="hidden md:flex space-x-8 font-semibold text-sm tracking-wide">
-          <a href="#glowna" class="text-brandBlue hover:text-blue-700 transition">GŁÓWNA</a>
-          <a href="#o-nas" class="text-gray-600 hover:text-brandBlue transition">O NAS</a>
-          <a href="#mecz" class="text-gray-600 hover:text-brandBlue transition">MECZE</a>
-          <a href="#akademia" class="text-gray-600 hover:text-brandBlue transition">AKADEMIA</a>
-          <a href="#kontakt" class="text-gray-600 hover:text-brandBlue transition">KONTAKT</a>
-        </div>
-        <div>
-          <a href="#bilety" class="bg-brandBlue text-white px-5 py-2.5 rounded-lg font-bold shadow-md hover:bg-blue-700 transition">KUP BILET</a>
+
+        <!-- CALL TO ACTION -->
+        <div class="flex items-center gap-4">
+          <a href="#bilety" class="bg-gradient-to-r from-brandPrimary to-brandAccent text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-brandPrimary/30 hover:opacity-90 transition transform hover:-translate-y-0.5">
+            BILETY <i class="fas fa-ticket-alt ml-2"></i>
+          </a>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <header id="glowna" class="relative pt-20 bg-brandDark text-white overflow-hidden min-h-[85vh] flex items-center">
-    <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600');"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-brandDark via-brandDark/80 to-transparent z-10"></div>
-    
-    <div class="max-w-7xl mx-auto px-6 relative z-20 py-16 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <span class="bg-brandBlue text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest text-white">Sezon 2026/2027</span>
-        <h1 class="text-5xl md:text-6xl font-black mt-4 mb-6 leading-tight uppercase">Witaj w <br><span class="text-brandBlue">Effe Club</span></h1>
-        <p class="text-gray-300 text-lg mb-8 max-w-lg">Walczymy z pasją, wygrywamy z klasą. Śledź najnowsze mecze, statystyki i rozwój naszej akademii piłkarskiej.</p>
-        <div class="flex flex-wrap gap-4">
-          <a href="#mecz" class="bg-brandBlue text-white font-bold px-8 py-3.5 rounded-lg shadow-lg hover:bg-blue-700 transition">SPRAWDŹ WYDARZENIA</a>
-          <a href="#o-nas" class="border-2 border-white text-white font-bold px-8 py-3.5 rounded-lg hover:bg-white hover:text-brandDark transition">POZNAJ KLUB</a>
+  <!-- HERO SECTION WITH MATCH COUNTDOWN -->
+  <header id="odliczanie" class="relative pt-32 pb-20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-darkCard via-darkBg to-darkBg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="inline-block bg-brandPrimary/20 text-brandAccent border border-brandAccent/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">
+          Następne Starcie • Sezon 2026/2027
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-4 uppercase">
+          Nadchodzi <span class="text-gradient">Dzień Meczu</span>
+        </h1>
+      </div>
+
+      <!-- MATCH CARD & TIMER -->
+      <div class="bg-darkCard/80 border border-darkBorder rounded-3xl p-8 max-w-4xl mx-auto backdrop-blur-lg glow-effect">
+        <div class="grid grid-cols-3 items-center text-center">
+          
+          <!-- HOME -->
+          <div class="flex flex-col items-center">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-darkBg border border-darkBorder rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner">
+              <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club" class="max-h-full">
+            </div>
+            <h2 class="font-bold text-lg sm:text-xl">EFFE CLUB</h2>
+            <span class="text-xs text-slate-400">Gospodarz</span>
+          </div>
+
+          <!-- VS / TIMER -->
+          <div class="flex flex-col items-center">
+            <span class="text-2xl sm:text-4xl font-black text-brandAccent mb-4">VS</span>
+            
+            <!-- COUNTDOWN TIMER -->
+            <div class="flex gap-2 text-center" id="timer">
+              <div class="bg-darkBg border border-darkBorder p-2 rounded-lg min-w-[50px]">
+                <span id="days" class="block text-xl font-bold text-white">00</span>
+                <span class="text-[10px] text-slate-400 uppercase">Dni</span>
+              </div>
+              <div class="bg-darkBg border border-darkBorder p-2 rounded-lg min-w-[50px]">
+                <span id="hours" class="block text-xl font-bold text-white">00</span>
+                <span class="text-[10px] text-slate-400 uppercase">Godz</span>
+              </div>
+              <div class="bg-darkBg border border-darkBorder p-2 rounded-lg min-w-[50px]">
+                <span id="minutes" class="block text-xl font-bold text-white">00</span>
+                <span class="text-[10px] text-slate-400 uppercase">Min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AWAY -->
+          <div class="flex flex-col items-center">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 bg-darkBg border border-darkBorder rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-slate-500">
+              FC
+            </div>
+            <h2 class="font-bold text-lg sm:text-xl">RIVAL FC</h2>
+            <span class="text-xs text-slate-400">Gość</span>
+          </div>
+
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-darkBorder flex flex-wrap justify-between items-center text-sm text-slate-400 gap-4">
+          <div><i class="fas fa-map-marker-alt text-brandAccent mr-2"></i> Stadion Główny, Białystok</div>
+          <div><i class="fas fa-calendar-alt text-brandAccent mr-2"></i> Sobota, 18:00</div>
+          <a href="#bilety" class="text-brandAccent hover:underline font-bold">Kup bilet na mecz &rarr;</a>
         </div>
       </div>
 
-      <!-- NEXT MATCH WIDGET -->
-      <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-2xl text-center">
-        <h3 class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-4">Nadchodzący Mecz</h3>
-        <div class="flex justify-around items-center my-6">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">EC</div>
-            <p class="font-bold">EFFE CLUB</p>
-          </div>
-          <div class="text-2xl font-black text-brandBlue px-4 py-2 bg-white rounded-lg">VS</div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">RIV</div>
-            <p class="font-bold">RIVAL FC</p>
-          </div>
-        </div>
-        <p class="text-sm text-gray-300 font-medium"><i class="far bg-calendar-alt mr-2"></i> Sobota, 15:00 | Stadion Miejski</p>
-      </div>
     </div>
   </header>
 
-  <!-- CARDS SECTION -->
-  <section id="mecz" class="max-w-7xl mx-auto px-6 -mt-12 relative z-30 grid md:grid-cols-3 gap-6">
-    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
-      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-trophy"></i></div>
-      <h3 class="font-bold text-xl mb-2 text-brandDark">Ostatnie Wyniki</h3>
-      <p class="text-gray-600 text-sm mb-4">Effe Club 3 : 1 Rival FC<br>Sektor B 0 : 2 Effe Club</p>
-      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Zobacz całą tabelę &rarr;</a>
-    </div>
+  <!-- RECENT RESULTS & TABLE -->
+  <section id="wyniki" class="py-20 bg-darkBg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        
+        <!-- LAST MATCH RESULTS -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Ostatnie Spotkanie</h2>
+          <div class="bg-darkCard border border-darkBorder rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-4 text-xs text-slate-400 border-b border-darkBorder pb-3">
+              <span>Mecz Ligowy • 12 Kolp.</span>
+              <span class="text-green-400 font-bold">WYGRANA</span>
+            </div>
+            <div class="flex justify-between items-center py-4">
+              <span class="font-bold text-lg">EFFE CLUB</span>
+              <span class="text-3xl font-black text-brandAccent">3 : 1</span>
+              <span class="font-bold text-lg text-slate-400">UNIA BIAŁYSTOK</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-4 space-y-1">
+              <p><i class="fas fa-football-ball text-brandAccent mr-1"></i> Strzelcy: Kowalski 14', Nowak 45', Wiśniewski 78'</p>
+            </div>
+          </div>
+        </div>
 
-    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
-      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-chart-line"></i></div>
-      <h3 class="font-bold text-xl mb-2 text-brandDark">Statystyki Sezonu</h3>
-      <p class="text-gray-600 text-sm mb-4">12 Wygranych / 2 Remisy / 1 Porażka<br>Bramki: 34:10</p>
-      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Pełne podsumowanie &rarr;</a>
-    </div>
+        <!-- QUICK TABLE -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Tabela Ligi</h2>
+          <div class="bg-darkCard border border-darkBorder rounded-2xl overflow-hidden">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-darkBg text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr>
+                  <th class="p-4">Poz</th>
+                  <th class="p-4">Klub</th>
+                  <th class="p-4 text-center">M</th>
+                  <th class="p-4 text-center">Pkt</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-darkBorder">
+                <tr class="bg-brandPrimary/10">
+                  <td class="p-4 font-bold text-brandAccent">1</td>
+                  <td class="p-4 font-bold flex items-center gap-2">
+                    <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="h-5 w-auto"> EFFE CLUB
+                  </td>
+                  <td class="p-4 text-center">12</td>
+                  <td class="p-4 text-center font-bold text-brandAccent">31</td>
+                </tr>
+                <tr>
+                  <td class="p-4 text-slate-400">2</td>
+                  <td class="p-4 text-slate-300">Rival FC</td>
+                  <td class="p-4 text-center text-slate-400">12</td>
+                  <td class="p-4 text-center font-bold">28</td>
+                </tr>
+                <tr>
+                  <td class="p-4 text-slate-400">3</td>
+                  <td class="p-4 text-slate-300">Unia Białystok</td>
+                  <td class="p-4 text-center text-slate-400">12</td>
+                  <td class="p-4 text-center font-bold">24</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-    <div id="akademia" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-brandBlue">
-      <div class="text-brandBlue text-3xl mb-4"><i class="fas fa-users"></i></div>
-      <h3 class="font-bold text-xl mb-2 text-brandDark">Nasza Akademia</h3>
-      <p class="text-gray-600 text-sm mb-4">Nabór do drużyn młodzieżowych otwarty! Trenuj z profesjonalistami.</p>
-      <a href="#" class="text-brandBlue font-bold text-sm hover:underline">Dołącz do nas &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM SQUAD PREVIEW -->
+  <section id="kadra" class="py-20 bg-darkCard border-y border-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-12">
+        <div>
+          <span class="text-brandAccent font-bold text-xs uppercase tracking-widest">Pierwsza Drużyna</span>
+          <h2 class="text-3xl font-black mt-1">Kluczowi Zawodnicy</h2>
+        </div>
+        <a href="#" class="text-sm text-slate-400 hover:text-white transition">Pełna kadra &rarr;</a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- PLAYER CARD 1 -->
+        <div class="bg-darkBg border border-darkBorder rounded-2xl p-5 hover:border-brandAccent/50 transition group">
+          <div class="text-4xl font-black text-slate-700 group-hover:text-brandAccent transition mb-4">01</div>
+          <h3 class="font-bold text-lg">Marek Piotrowski</h3>
+          <p class="text-xs text-brandAccent uppercase tracking-wider mb-2">Bramkarz</p>
+          <div class="text-xs text-slate-400 border-t border-darkBorder pt-3 flex justify-between">
+            <span>Czyste konta:</span>
+            <span class="font-bold text-white">7</span>
+          </div>
+        </div>
+
+        <!-- PLAYER CARD 2 -->
+        <div class="bg-darkBg border border-darkBorder rounded-2xl p-5 hover:border-brandAccent/50 transition group">
+          <div class="text-4xl font-black text-slate-700 group-hover:text-brandAccent transition mb-4">09</div>
+          <h3 class="font-bold text-lg">Adam Szymański</h3>
+          <p class="text-xs text-brandAccent uppercase tracking-wider mb-2">Napastnik</p>
+          <div class="text-xs text-slate-400 border-t border-darkBorder pt-3 flex justify-between">
+            <span>Bramki:</span>
+            <span class="font-bold text-white">14</span>
+          </div>
+        </div>
+
+        <!-- PLAYER CARD 3 -->
+        <div class="bg-darkBg border border-darkBorder rounded-2xl p-5 hover:border-brandAccent/50 transition group">
+          <div class="text-4xl font-black text-slate-700 group-hover:text-brandAccent transition mb-4">10</div>
+          <h3 class="font-bold text-lg">Kacper Zieliński</h3>
+          <p class="text-xs text-brandAccent uppercase tracking-wider mb-2">Pomocnik</p>
+          <div class="text-xs text-slate-400 border-t border-darkBorder pt-3 flex justify-between">
+            <span>Asysty:</span>
+            <span class="font-bold text-white">9</span>
+          </div>
+        </div>
+
+        <!-- PLAYER CARD 4 -->
+        <div class="bg-darkBg border border-darkBorder rounded-2xl p-5 hover:border-brandAccent/50 transition group">
+          <div class="text-4xl font-black text-slate-700 group-hover:text-brandAccent transition mb-4">04</div>
+          <h3 class="font-bold text-lg">Jan Nowak</h3>
+          <p class="text-xs text-brandAccent uppercase tracking-wider mb-2">Obrońca</p>
+          <div class="text-xs text-slate-400 border-t border-darkBorder pt-3 flex justify-between">
+            <span>Mecze:</span>
+            <span class="font-bold text-white">12</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer id="kontakt" class="bg-brandDark text-white mt-20 pt-12 pb-6 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12">
-      <div>
-        <div class="flex items-center space-x-2 mb-4">
-          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo" class="h-8 w-auto">
-          <span class="font-bold text-xl tracking-wider">EFFE CLUB</span>
-        </div>
-        <p class="text-gray-400 text-sm">Oficjalny serwis klubu piłkarskiego Effe Club.</p>
+  <footer class="bg-darkBg text-slate-400 py-12 border-t border-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="h-8 w-auto">
+        <span class="font-bold text-white tracking-wider">EFFE CLUB</span>
       </div>
-
-      <div>
-        <h4 class="font-bold mb-4 text-brandBlue">Nawigacja</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="#glowna" class="hover:text-white transition">Główna</a></li>
-          <li><a href="#o-nas" class="hover:text-white transition">O nas</a></li>
-          <li><a href="#mecz" class="hover:text-white transition">Terminarz i Wyniki</a></li>
-        </ul>
+      <p class="text-xs">&copy; 2026 Effe Club. Wszystkie prawa zastrzeżone.</p>
+      <div class="flex space-x-6 text-lg">
+        <a href="#" class="hover:text-brandAccent transition"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="hover:text-brandAccent transition"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="hover:text-brandAccent transition"><i class="fab fa-youtube"></i></a>
       </div>
-
-      <div>
-        <h4 class="font-bold mb-4 text-brandBlue">Kontakt</h4>
-        <p class="text-sm text-gray-400">Email: kontakt@effeclub.pl</p>
-        <p class="text-sm text-gray-400">Tel: +48 123 456 789</p>
-      </div>
-
-      <div>
-        <h4 class="font-bold mb-4 text-brandBlue">Social Media</h4>
-        <div class="flex space-x-4 text-xl text-gray-400">
-          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="hover:text-brandBlue transition"><i class="fab fa-twitter"></i></a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="text-center text-xs text-gray-500 border-t border-slate-800 pt-6">
-      &copy; 2026 Effe Club. Wszystkie prawa zastrzeżone.
     </div>
   </footer>
 
+  <!-- SIMPLE COUNTDOWN SCRIPT -->
+  <script>
+    // Ustawienie odliczania na 3 dni do przodu
+    const matchDate = new Date().getTime() + (3 * 24 * 60 * 60 * 1000);
+
+    const timer = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = matchDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+      document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("timer").innerHTML = "<span class='text-brandAccent font-bold'>MECZ TRWA!</span>";
+      }
+    }, 1000);
+  </script>
 </body>
 </html>
