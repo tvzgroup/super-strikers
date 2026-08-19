@@ -68,7 +68,7 @@
     <!-- CENTRUM MECZOWE -->
     <section class="glass-panel rounded-3xl p-6 border border-red-500/20 lg:col-span-2">
       <div class="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
-        <h2 class="text-xl font-black uppercase"><i class="fas fa-trophy text-brandRed mr-2"></i> Centrum Meczowe</h2>
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-trophy text-brandRed mr-2"></i> Centrum Meczowe (Główny Mecz)</h2>
         <button onclick="saveMatchCenter()" class="bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold px-4 py-2 rounded-xl transition">
           Zapisz Wynik
         </button>
@@ -101,20 +101,91 @@
           <input type="number" id="mc-score-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
 
-        <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
-          <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
         <div>
           <label class="block text-xs font-bold text-slate-400 mb-1">Data / Godzina</label>
           <input type="text" id="mc-date" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
+        <div class="md:col-span-2">
+          <label class="block text-xs font-bold text-slate-400 mb-1">Miejsce Meczu (Stadion / Boisko)</label>
+          <input type="text" id="mc-location" placeholder="np. Stadion Miejski, Białystok" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
 
+        <div class="md:col-span-3">
+          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
+          <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        </div>
         <div class="md:col-span-3">
           <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gościa (po przecinku)</label>
           <input type="text" id="mc-away-scorers" placeholder="Nowak 60'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
       </div>
+    </section>
+
+    <!-- AUTOMATYCZNA TABELA LIGOWA I WYNIKI -->
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20 lg:col-span-2 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- FORMULARZE TABELI -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-xl font-black uppercase mb-4 pb-2 border-b border-white/10"><i class="fas fa-shield-alt text-brandRed mr-2"></i> 1. Dodaj Drużynę</h2>
+          <form onsubmit="addLeagueTeam(event)" class="space-y-3 bg-black/30 p-4 rounded-2xl border border-white/5">
+            <input type="text" id="lt-name" placeholder="Nazwa Drużyny" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="lt-isUser" class="accent-brandRed rounded h-4 w-4">
+              <label for="lt-isUser" class="text-xs text-slate-300">Wyróżnij w tabeli</label>
+            </div>
+            <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Drużynę</button>
+          </form>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-black uppercase mb-4 pb-2 border-b border-white/10"><i class="fas fa-calculator text-brandRed mr-2"></i> 2. Wpisz Wynik</h2>
+          <form onsubmit="addLeagueMatch(event)" class="space-y-3 bg-black/30 p-4 rounded-2xl border border-white/5">
+            <select id="lm-home" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+              <option value="" disabled selected>Gospodarz</option>
+            </select>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="number" id="lm-goals-home" placeholder="Gole H" required min="0" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+              <input type="number" id="lm-goals-away" placeholder="Gole A" required min="0" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+            </div>
+            <select id="lm-away" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+              <option value="" disabled selected>Gość</option>
+            </select>
+            <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Zapisz Wynik Spotkania</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- TABELA LIGOWA AUTOMATYCZNA -->
+      <div class="lg:col-span-2 space-y-6">
+        <div>
+          <h2 class="text-xl font-black uppercase mb-4 pb-2 border-b border-white/10"><i class="fas fa-list-ol text-brandRed mr-2"></i> Generowana Tabela Ligowa</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-slate-400 uppercase font-bold">
+                  <th class="p-2">#</th>
+                  <th class="p-2">Drużyna</th>
+                  <th class="p-2 text-center">M</th>
+                  <th class="p-2 text-center">Bramki</th>
+                  <th class="p-2 text-center">RB</th>
+                  <th class="p-2 text-center font-black text-white">PKT</th>
+                  <th class="p-2 text-right">Akcja</th>
+                </tr>
+              </thead>
+              <tbody id="generated-table-body" class="divide-y divide-white/5">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ROZEGRANE MECZE LIGOWE -->
+        <div>
+          <h3 class="text-sm font-black uppercase mb-2 text-slate-400">Rozegrane Mecze Ligowe</h3>
+          <div id="league-matches-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ZARZĄDZANIE ARTYKUŁAMI -->
@@ -144,7 +215,7 @@
 
       <form onsubmit="addSquadMember(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
         <div class="grid grid-cols-3 gap-2">
-          <input type="number" id="sq-num" placeholder="Nr (opcjonalny dla Trenera)" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="sq-num" placeholder="Nr zawodnika" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <input type="text" id="sq-name" placeholder="Imię i Nazwisko" required class="col-span-2 w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -161,10 +232,6 @@
             <option value="Prawy Pomocnik">Prawy Pomocnik</option>
             <option value="Napastnik">Napastnik</option>
           </select>
-          <input type="number" id="sq-m" placeholder="Liczba meczów" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="sq-stat" placeholder="Statystyka (np. Bramki: 5)" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <select id="sq-icon" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
             <option value="fa-user-tie">Ikona: Trener</option>
             <option value="fa-running">Ikona: Bieganie</option>
@@ -179,47 +246,19 @@
       <div id="squad-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
     </section>
 
-    <!-- ZARZĄDZANIE TABELĄ -->
-    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
-      <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
-        <h2 class="text-xl font-black uppercase"><i class="fas fa-list-ol text-brandRed mr-2"></i> Tabela Ligowa</h2>
-      </div>
-
-      <form onsubmit="addTableTeam(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
-        <input type="text" id="tb-name" placeholder="Nazwa Klubu" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        <div class="grid grid-cols-4 gap-2">
-          <input type="number" id="tb-m" placeholder="Mecze" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
-          <input type="number" id="tb-gf" placeholder="B. Zdobyte" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
-          <input type="number" id="tb-ga" placeholder="B. Stracone" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
-          <input type="number" id="tb-pkt" placeholder="Punkty" required class="w-full bg-black/50 border border-white/10 rounded-xl px-2 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div class="flex items-center gap-2">
-          <input type="checkbox" id="tb-isUser" class="accent-brandRed rounded h-4 w-4">
-          <label for="tb-isUser" class="text-xs text-slate-300">Wyróżnij jako Super Strikers</label>
-        </div>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj / Zaktualizuj Drużynę</button>
-      </form>
-
-      <div id="table-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
-    </section>
-
     <!-- ZARZĄDZANIE TERMINARZEM -->
-    <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
+    <section class="glass-panel rounded-3xl p-6 border border-red-500/20 lg:col-span-2">
       <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
-        <h2 class="text-xl font-black uppercase"><i class="fas fa-calendar-alt text-brandRed mr-2"></i> Terminarz</h2>
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-calendar-alt text-brandRed mr-2"></i> Terminarz Nadchodzących Spotkań</h2>
       </div>
 
-      <form onsubmit="addFixture(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+      <form onsubmit="addFixture(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5 grid grid-cols-1 md:grid-cols-3 gap-3">
         <input type="text" id="fx-teams" placeholder="Mecz (np. Super Strikers vs Inter)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="fx-day" placeholder="Dzień (np. SOB)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-          <input type="text" id="fx-date" placeholder="Dzień miesiąca (np. 24)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="fx-info" placeholder="Szczegóły (np. 17:30 • Dom)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-          <input type="text" id="fx-round" placeholder="Runda (np. Kolejka 6)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Mecz</button>
+        <input type="text" id="fx-day" placeholder="Dzień (np. SOB)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <input type="text" id="fx-date" placeholder="Dzień miesiąca (np. 24)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <input type="text" id="fx-info" placeholder="Szczegóły (np. 17:30 • Dom)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <input type="text" id="fx-round" placeholder="Runda (np. Kolejka 6)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <button type="submit" class="bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Mecz do Terminarza</button>
       </form>
 
       <div id="fixtures-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
@@ -228,57 +267,61 @@
   </main>
 
   <script>
-    // Domyślne Dane
+    // DOMYŚLNE DANE
     const defaultArticles = [
       { id: 1, title: "Pewne zwycięstwo w meczu domowym!", date: "18 Sierpnia 2026", category: "Raport Meczowy", content: "Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę." },
-      { id: 2, title: "Powrót na boiska w pełnej krasie", date: "15 Sierpnia 2026", category: "Klub", content: "Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo." },
-      { id: 3, title: "Mierzymy wysoko w tym sezonie", date: "10 Sierpnia 2026", category: "Wywiad", content: "Rozmowa z kapitanem zespołu na temat przygotowań, celów ligowych oraz atmosfery w czerwono-czarnej szatni." }
+      { id: 2, title: "Powrót na boiska w pełnej krasie", date: "15 Sierpnia 2026", category: "Klub", content: "Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo." }
     ];
 
     const defaultMatchCenter = {
       home: "SUPER STRIKERS", away: "RIVAL FC",
       scoreHome: 3, scoreAway: 1, tag: "MECZ TOWARZYSKI",
-      date: "Sobota, 18:00", status: "Koniec Meczu",
+      date: "Sobota, 18:00", location: "Stadion Miejski, Białystok", status: "Koniec Meczu",
       homeScorers: ["Kowalski 14'", "Szymański 45'"], awayScorers: ["Nowak 60'"]
     };
 
-    const defaultTable = [
-      { id: 1, name: "SUPER STRIKERS BIAŁYSTOK", m: 5, gf: 14, ga: 4, pkt: 13, isUser: true },
-      { id: 2, name: "Rival FC", m: 5, gf: 10, ga: 6, pkt: 10, isUser: false },
-      { id: 3, name: "Inter Białystok", m: 5, gf: 8, ga: 9, pkt: 7, isUser: false }
+    const defaultTeams = [
+      { id: 1, name: "SUPER STRIKERS BIAŁYSTOK", isUser: true },
+      { id: 2, name: "Rival FC", isUser: false },
+      { id: 3, name: "Inter Białystok", isUser: false }
+    ];
+
+    const defaultLeagueMatches = [
+      { id: 1, home: "SUPER STRIKERS BIAŁYSTOK", away: "Rival FC", scoreHome: 3, scoreAway: 1 },
+      { id: 2, name: "Rival FC", home: "Rival FC", away: "Inter Białystok", scoreHome: 2, scoreAway: 0 },
+      { id: 3, home: "SUPER STRIKERS BIAŁYSTOK", away: "Inter Białystok", scoreHome: 1, scoreAway: 1 }
     ];
 
     const defaultSquad = [
-      { id: 1, num: "-", name: "Jan Wiśniewski", pos: "I Trener", m: "-", stat: "-", icon: "fa-user-tie" },
-      { id: 2, num: 1, name: "Marek Kowal", pos: "Bramkarz", m: 12, stat: "Czyste konta: 5", icon: "fa-mitten" },
-      { id: 3, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
-      { id: 4, num: 8, name: "Kamil Szymański", pos: "Środkowy Pomocnik", m: 18, stat: "Asysty: 9", icon: "fa-running" },
-      { id: 5, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" }
+      { id: 1, num: "-", name: "Jan Wiśniewski", pos: "I Trener", icon: "fa-user-tie" },
+      { id: 2, num: 1, name: "Marek Kowal", pos: "Bramkarz", icon: "fa-mitten" },
+      { id: 3, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", icon: "fa-shield-alt" }
     ];
 
     const defaultFixtures = [
-      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6" },
-      { id: 2, teams: "Eagle FC vs Super Strikers", day: "NIE", date: "01", info: "16:00 • Wyjazd", round: "Kolejka 7" }
+      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6" }
     ];
 
-    let articles, matchCenter, tableData, squad, fixtures;
+    let articles, matchCenter, teamsData, leagueMatchesData, squad, fixtures;
 
     function initData() {
       articles = JSON.parse(localStorage.getItem('articles')) || defaultArticles;
       matchCenter = JSON.parse(localStorage.getItem('matchCenter')) || defaultMatchCenter;
-      tableData = JSON.parse(localStorage.getItem('tableData')) || defaultTable;
+      teamsData = JSON.parse(localStorage.getItem('teamsData')) || defaultTeams;
+      leagueMatchesData = JSON.parse(localStorage.getItem('leagueMatchesData')) || defaultLeagueMatches;
       squad = JSON.parse(localStorage.getItem('squad')) || defaultSquad;
       fixtures = JSON.parse(localStorage.getItem('fixtures')) || defaultFixtures;
 
-      renderAllLists();
       fillMatchCenterInputs();
+      renderAllLists();
     }
 
     function renderAllLists() {
       renderArticlesList();
       renderSquadList();
-      renderTableList();
       renderFixturesList();
+      updateLeagueSelects();
+      calculateAndRenderTable();
     }
 
     // CENTRUM MECZOWE
@@ -289,6 +332,7 @@
       document.getElementById('mc-score-away').value = matchCenter.scoreAway;
       document.getElementById('mc-tag').value = matchCenter.tag;
       document.getElementById('mc-date').value = matchCenter.date;
+      document.getElementById('mc-location').value = matchCenter.location || '';
       document.getElementById('mc-status').value = matchCenter.status;
       document.getElementById('mc-home-scorers').value = (matchCenter.homeScorers || []).join(', ');
       document.getElementById('mc-away-scorers').value = (matchCenter.awayScorers || []).join(', ');
@@ -302,12 +346,158 @@
         scoreAway: parseInt(document.getElementById('mc-score-away').value) || 0,
         tag: document.getElementById('mc-tag').value,
         date: document.getElementById('mc-date').value,
+        location: document.getElementById('mc-location').value,
         status: document.getElementById('mc-status').value,
         homeScorers: document.getElementById('mc-home-scorers').value.split(',').map(s => s.trim()).filter(s => s),
         awayScorers: document.getElementById('mc-away-scorers').value.split(',').map(s => s.trim()).filter(s => s)
       };
       localStorage.setItem('matchCenter', JSON.stringify(matchCenter));
       alert('Zapisano dane centrum meczowego!');
+    }
+
+    // TABELA LIGOWA I AUTOMATYCZNE PRZELICZANIE
+    function updateLeagueSelects() {
+      const homeSelect = document.getElementById('lm-home');
+      const awaySelect = document.getElementById('lm-away');
+
+      const options = teamsData.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+      homeSelect.innerHTML = `<option value="" disabled selected>Gospodarz</option>` + options;
+      awaySelect.innerHTML = `<option value="" disabled selected>Gość</option>` + options;
+    }
+
+    function addLeagueTeam(e) {
+      e.preventDefault();
+      const name = document.getElementById('lt-name').value.trim();
+      const isUser = document.getElementById('lt-isUser').checked;
+
+      if (teamsData.some(t => t.name.toLowerCase() === name.toLowerCase())) {
+        alert('Taka drużyna już istnieje!');
+        return;
+      }
+
+      teamsData.push({ id: Date.now(), name, isUser });
+      localStorage.setItem('teamsData', JSON.stringify(teamsData));
+      
+      e.target.reset();
+      updateLeagueSelects();
+      calculateAndRenderTable();
+    }
+
+    function deleteLeagueTeam(id) {
+      const team = teamsData.find(t => t.id === id);
+      if(team) {
+        teamsData = teamsData.filter(t => t.id !== id);
+        leagueMatchesData = leagueMatchesData.filter(m => m.home !== team.name && m.away !== team.name);
+        localStorage.setItem('teamsData', JSON.stringify(teamsData));
+        localStorage.setItem('leagueMatchesData', JSON.stringify(leagueMatchesData));
+        renderAllLists();
+      }
+    }
+
+    function addLeagueMatch(e) {
+      e.preventDefault();
+      const home = document.getElementById('lm-home').value;
+      const away = document.getElementById('lm-away').value;
+      const scoreHome = parseInt(document.getElementById('lm-goals-home').value);
+      const scoreAway = parseInt(document.getElementById('lm-goals-away').value);
+
+      if (home === away) {
+        alert('Drużyny nie mogą być takie same!');
+        return;
+      }
+
+      leagueMatchesData.push({ id: Date.now(), home, away, scoreHome, scoreAway });
+      localStorage.setItem('leagueMatchesData', JSON.stringify(leagueMatchesData));
+
+      e.target.reset();
+      calculateAndRenderTable();
+    }
+
+    function deleteLeagueMatch(id) {
+      leagueMatchesData = leagueMatchesData.filter(m => m.id !== id);
+      localStorage.setItem('leagueMatchesData', JSON.stringify(leagueMatchesData));
+      calculateAndRenderTable();
+    }
+
+    function calculateAndRenderTable() {
+      // Inicjalizacja statystyk dla każdej drużyny
+      const stats = {};
+      teamsData.forEach(team => {
+        stats[team.name] = {
+          id: team.id,
+          name: team.name,
+          isUser: team.isUser,
+          m: 0,
+          gf: 0,
+          ga: 0,
+          gd: 0,
+          pkt: 0
+        };
+      });
+
+      // Wyliczanie statystyk z rozegranych meczów
+      leagueMatchesData.forEach(match => {
+        if (stats[match.home] && stats[match.away]) {
+          const home = stats[match.home];
+          const away = stats[match.away];
+
+          home.m += 1;
+          away.m += 1;
+
+          home.gf += match.scoreHome;
+          home.ga += match.scoreAway;
+          away.gf += match.scoreAway;
+          away.ga += match.scoreHome;
+
+          if (match.scoreHome > match.scoreAway) {
+            home.pkt += 3;
+          } else if (match.scoreHome < match.scoreAway) {
+            away.pkt += 3;
+          } else {
+            home.pkt += 1;
+            away.pkt += 1;
+          }
+        }
+      });
+
+      // Wyliczenie różnicy bramek i przekształcenie do tablicy
+      const tableArray = Object.values(stats).map(t => {
+        t.gd = t.gf - t.ga;
+        return t;
+      });
+
+      // Sortowanie: Punkty -> Różnica Bramek -> Bramki Zdobyte
+      tableArray.sort((a, b) => b.pkt - a.pkt || b.gd - a.gd || b.gf - a.gf);
+
+      // Zapisujemy wyliczoną tabelę do wykorzystania przez główną stronę
+      localStorage.setItem('tableData', JSON.stringify(tableArray));
+
+      // Renderowanie Tabeli w HTML
+      const tableBody = document.getElementById('generated-table-body');
+      tableBody.innerHTML = tableArray.map((t, index) => `
+        <tr class="hover:bg-white/5 transition ${t.isUser ? 'font-bold text-brandRed bg-brandRed/10' : ''}">
+          <td class="p-2">${index + 1}</td>
+          <td class="p-2">${t.name}</td>
+          <td class="p-2 text-center text-slate-300">${t.m}</td>
+          <td class="p-2 text-center text-slate-300">${t.gf}:${t.ga}</td>
+          <td class="p-2 text-center text-slate-300">${t.gd > 0 ? '+' + t.gd : t.gd}</td>
+          <td class="p-2 text-center font-black text-white text-sm">${t.pkt}</td>
+          <td class="p-2 text-right">
+            <button onclick="deleteLeagueTeam(${t.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+      `).join('');
+
+      // Renderowanie listy meczów
+      const matchesContainer = document.getElementById('league-matches-list');
+      matchesContainer.innerHTML = leagueMatchesData.map(m => `
+        <div class="flex items-center justify-between p-2 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div>
+            <span class="font-bold text-white">${m.home} ${m.scoreHome} - ${m.scoreAway} ${m.away}</span>
+          </div>
+          <button onclick="deleteLeagueMatch(${m.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+        </div>
+      `).join('');
     }
 
     // ARTYKUŁY
@@ -350,19 +540,13 @@
       const pos = document.getElementById('sq-pos').value;
       const isCoach = pos === 'I Trener' || pos === 'II Trener';
       const numInput = document.getElementById('sq-num');
-      const mInput = document.getElementById('sq-m');
-      const statInput = document.getElementById('sq-stat');
       const iconSelect = document.getElementById('sq-icon');
 
       if (isCoach) {
         numInput.removeAttribute('required');
-        mInput.removeAttribute('required');
-        statInput.removeAttribute('required');
         iconSelect.value = 'fa-user-tie';
       } else {
         numInput.setAttribute('required', 'required');
-        mInput.setAttribute('required', 'required');
-        statInput.setAttribute('required', 'required');
       }
     }
 
@@ -370,12 +554,11 @@
       const container = document.getElementById('squad-list');
       container.innerHTML = squad.map(p => {
         const numDisplay = p.num ? `#${p.num}` : '';
-        const mDisplay = p.m !== undefined && p.m !== '-' ? ` • Mecze: ${p.m}` : '';
         return `
           <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
             <div class="truncate mr-2">
               <span class="font-bold text-white">${numDisplay} ${p.name}</span>
-              <span class="text-slate-500 block text-[10px]">${p.pos}${mDisplay}</span>
+              <span class="text-slate-500 block text-[10px]">${p.pos}</span>
             </div>
             <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
           </div>
@@ -387,16 +570,12 @@
       e.preventDefault();
       const pos = document.getElementById('sq-pos').value;
       const numVal = document.getElementById('sq-num').value;
-      const mVal = document.getElementById('sq-m').value;
-      const statVal = document.getElementById('sq-stat').value;
 
       const newPlayer = {
         id: Date.now(),
         num: numVal ? parseInt(numVal) : '',
         name: document.getElementById('sq-name').value,
         pos: pos,
-        m: mVal ? parseInt(mVal) : '-',
-        stat: statVal || '-',
         icon: document.getElementById('sq-icon').value
       };
       squad.push(newPlayer);
@@ -410,43 +589,6 @@
       squad = squad.filter(p => p.id !== id);
       localStorage.setItem('squad', JSON.stringify(squad));
       renderSquadList();
-    }
-
-    // TABELA
-    function renderTableList() {
-      const container = document.getElementById('table-list');
-      container.innerHTML = tableData.map(t => `
-        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
-          <div class="truncate mr-2">
-            <span class="font-bold ${t.isUser ? 'text-brandRed' : 'text-white'}">${t.name}</span>
-            <span class="text-slate-500 block text-[10px]">Pkt: ${t.pkt} | M: ${t.m} | B: ${t.gf}:${t.ga}</span>
-          </div>
-          <button onclick="deleteTableTeam(${t.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
-        </div>
-      `).join('');
-    }
-
-    function addTableTeam(e) {
-      e.preventDefault();
-      const newTeam = {
-        id: Date.now(),
-        name: document.getElementById('tb-name').value,
-        m: parseInt(document.getElementById('tb-m').value),
-        gf: parseInt(document.getElementById('tb-gf').value),
-        ga: parseInt(document.getElementById('tb-ga').value),
-        pkt: parseInt(document.getElementById('tb-pkt').value),
-        isUser: document.getElementById('tb-isUser').checked
-      };
-      tableData.push(newTeam);
-      localStorage.setItem('tableData', JSON.stringify(tableData));
-      renderTableList();
-      e.target.reset();
-    }
-
-    function deleteTableTeam(id) {
-      tableData = tableData.filter(t => t.id !== id);
-      localStorage.setItem('tableData', JSON.stringify(tableData));
-      renderTableList();
     }
 
     // TERMINARZ
