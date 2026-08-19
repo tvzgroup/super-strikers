@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EFFE CLUB | Oficjalny Serwis Klubu</title>
+  <title>Super Strikers | Oficjalny Serwis Klubu</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -13,16 +13,13 @@
           colors: {
             brandPrimary: '#0066B3',
             brandAccent: '#00D2FF',
-            darkBg: '#0B0F17',
-            darkCard: 'rgba(21, 28, 40, 0.65)',
-            darkBorder: 'rgba(255, 255, 255, 0.12)'
+            darkBg: '#0B0F17'
           }
         }
       }
     }
   </script>
   <style>
-    /* Glassmorphism Styles */
     .glass-panel {
       background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(16px);
@@ -66,186 +63,153 @@
 </head>
 <body class="bg-darkBg text-slate-100 font-sans antialiased selection:bg-brandPrimary selection:text-white min-h-screen">
 
-  <!-- WEBSITE MAIN VIEW -->
-  <div id="main-site">
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 w-full z-40 glass-panel">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-          <a href="#" class="flex items-center gap-3 group">
-            <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club Logo" class="h-12 w-auto transition-transform group-hover:scale-105 drop-shadow-[0_0_10px_rgba(0,210,255,0.3)]">
-            <span class="text-2xl font-black tracking-wider text-white">EFFE <span class="text-brandAccent">CLUB</span></span>
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-40 glass-panel">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <a href="#" class="flex items-center gap-3 group">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Super Strikers Logo" class="h-12 w-auto transition-transform group-hover:scale-105 drop-shadow-[0_0_10px_rgba(0,210,255,0.3)]">
+          <span class="text-2xl font-black tracking-wider text-white">SUPER <span class="text-brandAccent">STRIKERS</span></span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-wider">
+          <a href="#centrum-meczowe" class="hover:text-brandAccent transition">Centrum Meczowe</a>
+          <a href="#artykuly" class="hover:text-brandAccent transition">Aktualności</a>
+          <a href="#tabela" class="hover:text-brandAccent transition">Tabela i Wyniki</a>
+          <a href="#kadra" class="hover:text-brandAccent transition">Skład</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="#bilety" class="bg-gradient-to-r from-brandPrimary to-brandAccent text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-brandPrimary/30 hover:opacity-90 transition transform hover:-translate-y-0.5">
+            BILETY <i class="fas fa-ticket-alt ml-1.5"></i>
           </a>
-
-          <div class="hidden md:flex items-center space-x-8 font-semibold text-sm uppercase tracking-wider">
-            <a href="#centrum-meczowe" class="hover:text-brandAccent transition">Centrum Meczowe</a>
-            <a href="#artykuly" class="hover:text-brandAccent transition">Aktualności</a>
-            <a href="#tabela" class="hover:text-brandAccent transition">Tabela i Wyniki</a>
-            <a href="#kadra" class="hover:text-brandAccent transition">Skład</a>
-          </div>
-
-          <div class="flex items-center gap-3">
-            <a href="#panel" class="bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
-              <i class="fas fa-cog text-brandAccent"></i> Panel CMS
-            </a>
-            <a href="#bilety" class="bg-gradient-to-r from-brandPrimary to-brandAccent text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-brandPrimary/30 hover:opacity-90 transition transform hover:-translate-y-0.5">
-              BILETY <i class="fas fa-ticket-alt ml-1.5"></i>
-            </a>
-          </div>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- HERO SECTION / MATCH CENTER -->
-    <header id="centrum-meczowe" class="relative pt-32 pb-20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-darkBg to-darkBg">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div class="text-center max-w-3xl mx-auto mb-10">
-          <span id="match-type-badge" class="inline-block glass-panel text-brandAccent border border-brandAccent/40 text-xs font-bold px-5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-lg">
-            Mecz Towarzyski
-          </span>
-          <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-2 uppercase">
-            Centrum <span class="text-gradient">Meczowe</span>
-          </h1>
-        </div>
-
-        <!-- MATCH CARD & TIMER (GLASSMORPHISM) -->
-        <div class="glass-panel rounded-3xl p-8 max-w-4xl mx-auto glow-effect relative overflow-hidden">
-          <div class="grid grid-cols-3 items-center text-center relative z-10">
-            <!-- HOME TEAM -->
-            <div class="flex flex-col items-center">
-              <div class="w-20 h-20 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner">
-                <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Effe Club" class="max-h-full drop-shadow">
-              </div>
-              <h2 id="home-team-name" class="font-black text-lg sm:text-xl text-white">EFFE CLUB</h2>
-              <span class="text-xs text-slate-400 font-medium">Gospodarz</span>
-            </div>
-
-            <!-- VS / TIMER -->
-            <div class="flex flex-col items-center">
-              <span class="text-2xl sm:text-4xl font-black text-brandAccent mb-4 tracking-wider">VS</span>
-              <div class="flex gap-2 text-center" id="timer">
-                <div class="glass-card p-2 rounded-xl min-w-[52px]">
-                  <span id="days" class="block text-xl font-black text-white">00</span>
-                  <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Dni</span>
-                </div>
-                <div class="glass-card p-2 rounded-xl min-w-[52px]">
-                  <span id="hours" class="block text-xl font-black text-white">00</span>
-                  <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Godz</span>
-                </div>
-                <div class="glass-card p-2 rounded-xl min-w-[52px]">
-                  <span id="minutes" class="block text-xl font-black text-white">00</span>
-                  <span class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Min</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- AWAY TEAM -->
-            <div class="flex flex-col items-center">
-              <div class="w-20 h-20 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-brandAccent">
-                RIV
-              </div>
-              <h2 id="away-team-name" class="font-black text-lg sm:text-xl text-white">RIVAL FC</h2>
-              <span class="text-xs text-slate-400 font-medium">Gość</span>
-            </div>
-          </div>
-
-          <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-between items-center text-xs sm:text-sm text-slate-300 gap-4">
-            <div><i class="fas fa-map-marker-alt text-brandAccent mr-2"></i> <span id="match-venue">Stadion Główny, Białystok</span></div>
-            <div><i class="fas fa-calendar-alt text-brandAccent mr-2"></i> <span id="match-date-text">Sobota, 18:00</span></div>
-            <a href="#bilety" class="text-brandAccent hover:underline font-bold">Rezerwuj Miejsca &rarr;</a>
-          </div>
-        </div>
-
+  <!-- HERO / MATCH CENTER -->
+  <header id="centrum-meczowe" class="relative pt-32 pb-20 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-darkBg to-darkBg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span id="match-type-badge" class="inline-block glass-panel text-brandAccent border border-brandAccent/40 text-xs font-bold px-5 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-lg">
+          Mecz Towarzyski
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-2 uppercase">
+          Centrum <span class="text-gradient">Meczowe</span>
+        </h1>
       </div>
-    </header>
 
-    <!-- NEWS ARTICLES SECTION -->
-    <section id="artykuly" class="py-20 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-10">
-          <div>
-            <span class="text-brandAccent font-bold text-xs uppercase tracking-widest">Klubowe Wiadomości</span>
-            <h2 class="text-3xl font-black mt-1">Aktualności</h2>
+      <div class="glass-panel rounded-3xl p-8 max-w-4xl mx-auto glow-effect relative overflow-hidden">
+        <div class="grid grid-cols-3 items-center text-center relative z-10">
+          <!-- HOME TEAM -->
+          <div class="flex flex-col items-center">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 shadow-inner">
+              <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="max-h-full drop-shadow">
+            </div>
+            <h2 id="home-team-name" class="font-black text-lg sm:text-xl text-white">SUPER STRIKERS</h2>
+            <span class="text-xs text-slate-400 font-medium">Gospodarz</span>
+          </div>
+
+          <!-- VS / SCORE -->
+          <div class="flex flex-col items-center">
+            <span class="text-2xl sm:text-4xl font-black text-brandAccent mb-2 tracking-wider">VS</span>
+            <div id="match-score-display" class="hidden text-3xl font-black text-white bg-white/10 px-4 py-1.5 rounded-xl border border-white/20 mb-2">0 : 0</div>
+            <div class="text-xs text-slate-400" id="match-time-text">Sobota, 18:00</div>
+          </div>
+
+          <!-- AWAY TEAM -->
+          <div class="flex flex-col items-center">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 glass-card rounded-2xl flex items-center justify-center p-3 mb-3 text-2xl font-black text-brandAccent">
+              RIV
+            </div>
+            <h2 id="away-team-name" class="font-black text-lg sm:text-xl text-white">RIVAL FC</h2>
+            <span class="text-xs text-slate-400 font-medium">Gość</span>
           </div>
         </div>
 
-        <div id="articles-grid" class="grid md:grid-cols-3 gap-8">
-          <!-- Dynamically Rendered Articles -->
+        <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap justify-between items-center text-xs sm:text-sm text-slate-300 gap-4">
+          <div><i class="fas fa-map-marker-alt text-brandAccent mr-2"></i> <span id="match-venue">Stadion Główny, Białystok</span></div>
+          <div><i class="fas fa-futbol text-brandAccent mr-2"></i> <span id="match-scorers">Strzelcy: -</span></div>
         </div>
       </div>
-    </section>
 
-    <!-- TABLE & RESULTS (GLASSMORPHISM) -->
-    <section id="tabela" class="py-20 bg-slate-950/60 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-10">
-          <div>
-            <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Ostatnie Spotkanie</h2>
-            <div class="glass-panel rounded-2xl p-6">
-              <div class="flex justify-between items-center mb-4 text-xs text-slate-400 border-b border-white/10 pb-3">
-                <span>Mecz Towarzyski</span>
-                <span class="text-emerald-400 font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">WYGRANA</span>
-              </div>
-              <div class="flex justify-between items-center py-4">
-                <span class="font-bold text-lg">EFFE CLUB</span>
-                <span class="text-3xl font-black text-brandAccent px-4 py-1 glass-card rounded-xl">3 : 1</span>
-                <span class="font-bold text-lg text-slate-400">UNIA BIAŁYSTOK</span>
-              </div>
+    </div>
+  </header>
+
+  <!-- NEWS ARTICLES SECTION -->
+  <section id="artykuly" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <span class="text-brandAccent font-bold text-xs uppercase tracking-widest">Klubowe Wiadomości</span>
+          <h2 class="text-3xl font-black mt-1">Aktualności</h2>
+        </div>
+      </div>
+
+      <div id="articles-grid" class="grid md:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- TABLE & LAST MATCH -->
+  <section id="tabela" class="py-20 bg-slate-950/60 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- LAST MATCH -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Ostatnie Spotkanie</h2>
+          <div class="glass-panel rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-4 text-xs text-slate-400 border-b border-white/10 pb-3">
+              <span id="last-match-type">Mecz Towarzyski</span>
+              <span id="last-match-badge" class="text-emerald-400 font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">ZAKOŃCZONY</span>
             </div>
-          </div>
-
-          <!-- GLASS TABLE -->
-          <div>
-            <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Tabela Ligowa</h2>
-            <div class="glass-panel rounded-2xl overflow-hidden">
-              <table class="w-full text-left text-sm">
-                <thead class="bg-white/5 text-slate-400 uppercase text-[10px] tracking-wider border-b border-white/10">
-                  <tr>
-                    <th class="p-4">Poz</th>
-                    <th class="p-4">Klub</th>
-                    <th class="p-4 text-center">M</th>
-                    <th class="p-4 text-center">Pkt</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-white/5">
-                  <tr class="bg-brandPrimary/20">
-                    <td class="p-4 font-bold text-brandAccent">1</td>
-                    <td class="p-4 font-bold flex items-center gap-2">
-                      <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" class="h-5 w-auto"> EFFE CLUB
-                    </td>
-                    <td class="p-4 text-center">12</td>
-                    <td class="p-4 text-center font-bold text-brandAccent">31</td>
-                  </tr>
-                  <tr class="hover:bg-white/5 transition">
-                    <td class="p-4 text-slate-400">2</td>
-                    <td class="p-4 text-slate-300">Rival FC</td>
-                    <td class="p-4 text-center text-slate-400">12</td>
-                    <td class="p-4 text-center font-bold">28</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="flex justify-between items-center py-4">
+              <span id="last-home" class="font-bold text-lg">SUPER STRIKERS</span>
+              <span id="last-score" class="text-3xl font-black text-brandAccent px-4 py-1 glass-card rounded-xl">3 : 1</span>
+              <span id="last-away" class="font-bold text-lg text-slate-400">UNIA BIAŁYSTOK</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-4 space-y-1">
+              <p><i class="fas fa-futbol text-brandAccent mr-1.5"></i> <span id="last-scorers">Strzelcy: Kowalski 14', Nowak 45'</span></p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- SQUAD SECTION -->
-    <section id="kadra" class="py-20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-10">
-          <div>
-            <span class="text-brandAccent font-bold text-xs uppercase tracking-widest">Zawodnicy</span>
-            <h2 class="text-3xl font-black mt-1">Skład Drużyny</h2>
+        <!-- LEAGUE TABLE -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6 border-l-4 border-brandAccent pl-4">Tabela Ligowa</h2>
+          <div class="glass-panel rounded-2xl overflow-hidden">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-white/5 text-slate-400 uppercase text-[10px] tracking-wider border-b border-white/10">
+                <tr>
+                  <th class="p-4">Poz</th>
+                  <th class="p-4">Klub</th>
+                  <th class="p-4 text-center">M</th>
+                  <th class="p-4 text-center">Pkt</th>
+                </tr>
+              </thead>
+              <tbody id="table-body" class="divide-y divide-white/5"></tbody>
+            </table>
           </div>
         </div>
-        <div id="squad-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
-  <!-- ARTICLE READER MODAL -->
+  <!-- SQUAD SECTION -->
+  <section id="kadra" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <span class="text-brandAccent font-bold text-xs uppercase tracking-widest">Zawodnicy</span>
+          <h2 class="text-3xl font-black mt-1">Skład Drużyny</h2>
+        </div>
+      </div>
+      <div id="squad-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ARTICLE MODAL READER -->
   <div id="article-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-panel rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative glow-effect border border-white/20">
       <button onclick="closeArticleModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white text-xl bg-white/10 rounded-full w-10 h-10 flex items-center justify-center transition">
@@ -262,134 +226,54 @@
     </div>
   </div>
 
-  <!-- CMS PANEL VIEW (TRIGGERED VIA ROUTE /panel OR #panel) -->
-  <div id="cms-panel" class="hidden min-h-screen bg-darkBg p-6 sm:p-10">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-wrap justify-between items-center mb-10 pb-6 border-b border-white/10 gap-4">
-        <div>
-          <div class="flex items-center gap-3">
-            <span class="bg-brandAccent/20 text-brandAccent border border-brandAccent/30 text-xs font-bold px-3 py-1 rounded-md uppercase">Panel CMS</span>
-            <span class="text-xs text-slate-400">tvzgroup.github.io/super-strikers/panel</span>
-          </div>
-          <h1 class="text-3xl font-black text-white mt-2">Zarządzanie Stroną EFFE CLUB</h1>
-        </div>
-        <button onclick="closeCMS()" class="bg-gradient-to-r from-brandPrimary to-brandAccent text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-lg hover:opacity-90 transition flex items-center gap-2">
-          <i class="fas fa-arrow-left"></i> Wróć do Strony
-        </button>
-      </div>
-
-      <div class="grid lg:grid-cols-3 gap-8">
-        <!-- ARTICLES EDITOR -->
-        <div class="lg:col-span-2 space-y-6">
-          <div class="glass-panel p-6 rounded-2xl">
-            <h2 class="text-xl font-bold mb-4 text-brandAccent flex items-center gap-2">
-              <i class="fas fa-newspaper"></i> Edytor Artykułów z Datą
-            </h2>
-            <form id="article-form" onsubmit="saveArticle(event)" class="space-y-4">
-              <input type="hidden" id="art-id">
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Tytuł Artykułu</label>
-                <input type="text" id="art-title" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Data Publikacji / Edycji</label>
-                <input type="date" id="art-date" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Krótki Opis (Zatrawka)</label>
-                <input type="text" id="art-excerpt" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Treść Artykułu</label>
-                <textarea id="art-content" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brandAccent"></textarea>
-              </div>
-              <div class="flex gap-3">
-                <button type="submit" class="bg-brandPrimary hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
-                  Zapisz Artykuł
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div class="glass-panel p-6 rounded-2xl">
-            <h3 class="text-sm font-bold uppercase text-slate-400 mb-4 tracking-wider">Lista Artykułów</h3>
-            <div id="cms-articles-list" class="space-y-3"></div>
-          </div>
-        </div>
-
-        <!-- MATCHCENTER & SQUAD EDITORS -->
-        <div class="space-y-6">
-          <div class="glass-panel p-6 rounded-2xl">
-            <h2 class="text-xl font-bold mb-4 text-brandAccent flex items-center gap-2">
-              <i class="fas fa-stopwatch"></i> MatchCenter
-            </h2>
-            <form onsubmit="saveMatchCenter(event)" class="space-y-3">
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Typ Meczu</label>
-                <input type="text" id="cms-match-type" value="Mecz Towarzyski" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Gospodarz</label>
-                <input type="text" id="cms-home-team" value="EFFE CLUB" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">Gość</label>
-                <input type="text" id="cms-away-team" value="RIVAL FC" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brandAccent">
-              </div>
-              <button type="submit" class="w-full bg-brandPrimary hover:bg-blue-600 text-white font-bold py-2 rounded-xl text-xs transition">
-                Aktualizuj MatchCenter
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    let articles = [
+    // LOAD DATA FROM LOCALSTORAGE OR DEFAULTS
+    let articles = JSON.parse(localStorage.getItem('ss_articles')) || [
       {
         id: 1,
-        title: "Effe Club Gotowy Do Meczu Towarzyskiego",
+        title: "Super Strikers Gotowi Do Nowych Wyzwań",
         date: "2026-08-19",
-        excerpt: "Przygotowania do starcia towarzyskiego dobiegają końca. Trener ogłosił wyjściową jedenastkę.",
-        content: "Nasz zespół trenował intensywnie przez cały tydzień, skupiając się na taktyce oraz stałych fragmentach gry. Mecz towarzyski będzie idealnym sprawdzianem przed nadchodzącym nowym sezonem ligowym. Oczekujemy świetnej atmosfery na trybunach!"
+        excerpt: "Przygotowania drużyny dobiegają końca.",
+        content: "<p>Nasz zespół Super Strikers trenował intensywnie przez cały tydzień, przygotowując się do wyjścia na murawę!</p>"
+      },
+      {
+        id: 2,
+        title: "Oficjalna Prezentacja Kadry",
+        date: "2026-08-20",
+        excerpt: "Poznaj nasz pełny skład na ten sezon.",
+        content: "<p>Wspólnie walczymy o najwyższe cele. Sprawdź naszą kadrę w zakładce Skład.</p>"
       }
     ];
 
-    let squad = [
-      { id: 1, number: "01", name: "Marek Piotrowski", position: "Bramkarz", stat: "Czyste konta: 7" },
-      { id: 2, number: "09", name: "Adam Szymański", position: "Napastnik", stat: "Bramki: 14" }
+    let matchCenter = JSON.parse(localStorage.getItem('ss_matchCenter')) || {
+      type: "Mecz Towarzyski",
+      home: "SUPER STRIKERS",
+      away: "RIVAL FC",
+      venue: "Stadion Główny, Białystok",
+      time: "Sobota, 18:00",
+      score: "3 : 1",
+      scorers: "Kowalski 14', Nowak 45'"
+    };
+
+    let leagueTable = JSON.parse(localStorage.getItem('ss_leagueTable')) || [
+      { pos: 1, team: "SUPER STRIKERS", m: 12, pkt: 31 },
+      { pos: 2, team: "Rival FC", m: 12, pkt: 28 },
+      { pos: 3, team: "Unia Białystok", m: 12, pkt: 24 }
     ];
 
-    function checkRoute() {
-      const path = window.location.pathname;
-      const hash = window.location.hash;
+    let squad = JSON.parse(localStorage.getItem('ss_squad')) || [
+      { id: 1, number: "01", name: "Marek Piotrowski", position: "Bramkarz" },
+      { id: 2, number: "09", name: "Adam Szymański", position: "Napastnik" },
+      { id: 3, number: "10", name: "Kacper Zieliński", position: "Pomocnik" }
+    ];
 
-      if (path.includes('/panel') || hash === '#panel') {
-        document.getElementById('main-site').classList.add('hidden');
-        document.getElementById('cms-panel').classList.remove('hidden');
-      } else {
-        document.getElementById('main-site').classList.remove('hidden');
-        document.getElementById('cms-panel').classList.add('hidden');
-      }
-    }
+    // SORT ARTICLES: NEWEST DATE FIRST
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    window.addEventListener('popstate', checkRoute);
-    window.addEventListener('hashchange', checkRoute);
-    window.addEventListener('load', checkRoute);
-
-    function closeCMS() {
-      window.location.hash = '';
-      checkRoute();
-    }
-
-    function renderArticles() {
+    function renderSite() {
+      // Articles Grid
       const grid = document.getElementById('articles-grid');
-      const cmsList = document.getElementById('cms-articles-list');
       grid.innerHTML = '';
-      cmsList.innerHTML = '';
-
       articles.forEach(art => {
         grid.innerHTML += `
           <div onclick="openArticleModal(${art.id})" class="glass-card rounded-2xl p-6 cursor-pointer hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
@@ -403,14 +287,46 @@
             </div>
           </div>
         `;
+      });
 
-        cmsList.innerHTML += `
-          <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
-            <div>
-              <p class="text-sm font-bold text-white">${art.title}</p>
-              <p class="text-xs text-slate-400">${art.date}</p>
-            </div>
-            <button onclick="editArticle(${art.id})" class="text-xs bg-brandPrimary/20 text-brandAccent px-3 py-1.5 rounded-lg border border-brandAccent/30">Edytuj</button>
+      // Match Center
+      document.getElementById('match-type-badge').innerText = matchCenter.type;
+      document.getElementById('home-team-name').innerText = matchCenter.home;
+      document.getElementById('away-team-name').innerText = matchCenter.away;
+      document.getElementById('match-venue').innerText = matchCenter.venue;
+      document.getElementById('match-time-text').innerText = matchCenter.time;
+      document.getElementById('match-scorers').innerText = 'Strzelcy: ' + matchCenter.scorers;
+      
+      // Last Match Section
+      document.getElementById('last-home').innerText = matchCenter.home;
+      document.getElementById('last-away').innerText = matchCenter.away;
+      document.getElementById('last-score').innerText = matchCenter.score;
+      document.getElementById('last-scorers').innerText = 'Strzelcy: ' + matchCenter.scorers;
+
+      // Table
+      const tBody = document.getElementById('table-body');
+      tBody.innerHTML = '';
+      leagueTable.forEach(row => {
+        const isSuper = row.team.toUpperCase().includes('SUPER STRIKERS');
+        tBody.innerHTML += `
+          <tr class="${isSuper ? 'bg-brandPrimary/20 font-bold' : 'hover:bg-white/5'} transition">
+            <td class="p-4 ${isSuper ? 'text-brandAccent' : 'text-slate-400'}">${row.pos}</td>
+            <td class="p-4 ${isSuper ? 'text-white' : 'text-slate-300'}">${row.team}</td>
+            <td class="p-4 text-center text-slate-400">${row.m}</td>
+            <td class="p-4 text-center font-bold ${isSuper ? 'text-brandAccent' : 'text-white'}">${row.pkt}</td>
+          </tr>
+        `;
+      });
+
+      // Squad Grid
+      const sGrid = document.getElementById('squad-grid');
+      sGrid.innerHTML = '';
+      squad.forEach(p => {
+        sGrid.innerHTML += `
+          <div class="glass-card rounded-2xl p-5 relative group hover:border-brandAccent/50 transition">
+            <div class="text-4xl font-black text-slate-700 group-hover:text-brandAccent transition mb-3">${p.number}</div>
+            <h3 class="font-bold text-lg text-white">${p.name}</h3>
+            <p class="text-xs text-brandAccent uppercase tracking-wider mb-3 font-semibold">${p.position}</p>
           </div>
         `;
       });
@@ -420,8 +336,8 @@
       const art = articles.find(a => a.id === id);
       if (!art) return;
       document.getElementById('modal-title').innerText = art.title;
-      document.getElementById('modal-date').innerText = 'Data: ' + art.date;
-      document.getElementById('modal-content').innerText = art.content;
+      document.getElementById('modal-date').innerText = 'Data Publikacji: ' + art.date;
+      document.getElementById('modal-content').innerHTML = art.content;
       document.getElementById('article-modal').classList.remove('hidden');
       document.getElementById('article-modal').classList.add('modal-active');
     }
@@ -431,34 +347,7 @@
       document.getElementById('article-modal').classList.remove('modal-active');
     }
 
-    function saveArticle(e) {
-      e.preventDefault();
-      const id = document.getElementById('art-id').value;
-      const title = document.getElementById('art-title').value;
-      const date = document.getElementById('art-date').value;
-      const excerpt = document.getElementById('art-excerpt').value;
-      const content = document.getElementById('art-content').value;
-
-      if (id) {
-        const index = articles.findIndex(a => a.id == id);
-        articles[index] = { id: parseInt(id), title, date, excerpt, content };
-      } else {
-        articles.unshift({ id: Date.now(), title, date, excerpt, content });
-      }
-
-      document.getElementById('article-form').reset();
-      renderArticles();
-    }
-
-    function saveMatchCenter(e) {
-      e.preventDefault();
-      document.getElementById('match-type-badge').innerText = document.getElementById('cms-match-type').value;
-      document.getElementById('home-team-name').innerText = document.getElementById('cms-home-team').value;
-      document.getElementById('away-team-name').innerText = document.getElementById('cms-away-team').value;
-      alert("Zaktualizowano MatchCenter!");
-    }
-
-    renderArticles();
+    renderSite();
   </script>
 </body>
 </html>
