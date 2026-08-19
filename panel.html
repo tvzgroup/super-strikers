@@ -101,13 +101,6 @@
           <input type="number" id="mc-score-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
 
-        <div class="md:col-span-3">
-          <div class="flex items-center gap-2 bg-black/30 p-3 rounded-xl border border-white/5">
-            <input type="checkbox" id="mc-is-cancelled" class="accent-brandRed rounded h-4 w-4">
-            <label for="mc-is-cancelled" class="text-xs font-bold text-slate-300">Mecz odwołany (zastępuje wynik informacją o odwołaniu)</label>
-          </div>
-        </div>
-
         <div class="md:col-span-2">
           <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
           <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
@@ -155,7 +148,20 @@
           <input type="text" id="sq-name" placeholder="Imię i Nazwisko" required class="col-span-2 w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="sq-pos" placeholder="Pozycja (np. Napastnik)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <select id="sq-pos" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
+            <option value="" disabled selected>Wybierz pozycję / rolę</option>
+            <option value="I Trener">I Trener</option>
+            <option value="II Trener">II Trener</option>
+            <option value="Trener Bramkarzy">Trener Bramkarzy</option>
+            <option value="Bramkarz">Bramkarz</option>
+            <option value="Lewy Obrońca">Lewy Obrońca</option>
+            <option value="Środkowy Obrońca">Środkowy Obrońca</option>
+            <option value="Prawy Obrońca">Prawy Obrońca</option>
+            <option value="Lewy Pomocnik">Lewy Pomocnik</option>
+            <option value="Środkowy Pomocnik">Środkowy Pomocnik</option>
+            <option value="Prawy Pomocnik">Prawy Pomocnik</option>
+            <option value="Napastnik">Napastnik</option>
+          </select>
           <input type="number" id="sq-m" placeholder="Liczba meczów" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -167,7 +173,7 @@
             <option value="fa-mitten">Ikona: Rękawica</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Zawodnika</button>
+        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Zawodnika / Trenera</button>
       </form>
 
       <div id="squad-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
@@ -213,10 +219,6 @@
           <input type="text" id="fx-info" placeholder="Szczegóły (np. 17:30 • Dom)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <input type="text" id="fx-round" placeholder="Runda (np. Kolejka 6)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
-        <div class="flex items-center gap-2 bg-black/30 p-3 rounded-xl border border-white/5">
-          <input type="checkbox" id="fx-is-cancelled" class="accent-brandRed rounded h-4 w-4">
-          <label for="fx-is-cancelled" class="text-xs font-bold text-slate-300">Oznacz mecz jako ODWOŁANY</label>
-        </div>
         <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Mecz</button>
       </form>
 
@@ -237,7 +239,6 @@
       home: "SUPER STRIKERS", away: "RIVAL FC",
       scoreHome: 3, scoreAway: 1, tag: "MECZ TOWARZYSKI",
       date: "Sobota, 18:00", status: "Koniec Meczu",
-      isCancelled: false,
       homeScorers: ["Kowalski 14'", "Szymański 45'"], awayScorers: ["Nowak 60'"]
     };
 
@@ -249,15 +250,15 @@
 
     const defaultSquad = [
       { id: 1, num: 1, name: "Marek Kowal", pos: "Bramkarz", m: 12, stat: "Czyste konta: 5", icon: "fa-mitten" },
-      { id: 2, num: 4, name: "Piotr Adamski", pos: "Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
-      { id: 3, num: 8, name: "Kamil Szymański", pos: "Pomocnik / Kapitan", m: 18, stat: "Asysty: 9", icon: "fa-running" },
+      { id: 2, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", m: 15, stat: "Bramki: 1", icon: "fa-shield-alt" },
+      { id: 3, num: 8, name: "Kamil Szymański", pos: "Środkowy Pomocnik", m: 18, stat: "Asysty: 9", icon: "fa-running" },
       { id: 4, num: 9, name: "Tomasz Kowalski", pos: "Napastnik", m: 14, stat: "Bramki: 11", icon: "fa-futbol" },
-      { id: 5, num: 10, name: "Michał Nowak", pos: "Pomocnik", m: 10, stat: "Asysty: 4", icon: "fa-running" }
+      { id: 5, num: 10, name: "Michał Nowak", pos: "Lewy Pomocnik", m: 10, stat: "Asysty: 4", icon: "fa-running" }
     ];
 
     const defaultFixtures = [
-      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6", isCancelled: false },
-      { id: 2, teams: "Eagle FC vs Super Strikers", day: "NIE", date: "01", info: "16:00 • Wyjazd", round: "Kolejka 7", isCancelled: true }
+      { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6" },
+      { id: 2, teams: "Eagle FC vs Super Strikers", day: "NIE", date: "01", info: "16:00 • Wyjazd", round: "Kolejka 7" }
     ];
 
     let articles, matchCenter, tableData, squad, fixtures;
@@ -289,7 +290,6 @@
       document.getElementById('mc-tag').value = matchCenter.tag;
       document.getElementById('mc-date').value = matchCenter.date;
       document.getElementById('mc-status').value = matchCenter.status;
-      document.getElementById('mc-is-cancelled').checked = matchCenter.isCancelled || false;
       document.getElementById('mc-home-scorers').value = (matchCenter.homeScorers || []).join(', ');
       document.getElementById('mc-away-scorers').value = (matchCenter.awayScorers || []).join(', ');
     }
@@ -303,7 +303,6 @@
         tag: document.getElementById('mc-tag').value,
         date: document.getElementById('mc-date').value,
         status: document.getElementById('mc-status').value,
-        isCancelled: document.getElementById('mc-is-cancelled').checked,
         homeScorers: document.getElementById('mc-home-scorers').value.split(',').map(s => s.trim()).filter(s => s),
         awayScorers: document.getElementById('mc-away-scorers').value.split(',').map(s => s.trim()).filter(s => s)
       };
@@ -426,7 +425,7 @@
       container.innerHTML = fixtures.map(f => `
         <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
           <div class="truncate mr-2">
-            <span class="font-bold text-white">${f.teams} ${f.isCancelled ? '<span class="text-red-500 uppercase text-[10px] ml-1">[ODWOŁANY]</span>' : ''}</span>
+            <span class="font-bold text-white">${f.teams}</span>
             <span class="text-slate-500 block text-[10px]">${f.day} ${f.date} • ${f.info}</span>
           </div>
           <button onclick="deleteFixture(${f.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
@@ -442,8 +441,7 @@
         day: document.getElementById('fx-day').value,
         date: document.getElementById('fx-date').value,
         info: document.getElementById('fx-info').value,
-        round: document.getElementById('fx-round').value,
-        isCancelled: document.getElementById('fx-is-cancelled').checked
+        round: document.getElementById('fx-round').value
       };
       fixtures.push(newFix);
       localStorage.setItem('fixtures', JSON.stringify(fixtures));
