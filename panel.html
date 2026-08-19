@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Zarządzania | Super Strikers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandPrimary: '#0066B3',
+            brandAccent: '#00D2FF',
+            darkBg: '#0B0F17'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="bg-darkBg text-slate-100 font-sans p-6 sm:p-10 min-h-screen">
+
+  <div class="max-w-6xl mx-auto">
+    <!-- CMS HEADER -->
+    <div class="flex flex-wrap justify-between items-center mb-10 pb-6 border-b border-white/10 gap-4">
+      <div>
+        <span class="bg-brandAccent/20 text-brandAccent border border-brandAccent/30 text-xs font-bold px-3 py-1 rounded-md uppercase">Panel CMS</span>
+        <h1 class="text-3xl font-black text-white mt-2">Zarządzanie Super Strikers</h1>
+      </div>
+      <a href="../" class="bg-gradient-to-r from-brandPrimary to-brandAccent text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow-lg hover:opacity-90 transition flex items-center gap-2">
+        <i class="fas fa-external-link-alt"></i> Przejdź do Strony
+      </a>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      
+      <!-- ARTICLES EDITOR WITH FORMATTING BAR -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="glass-panel p-6 rounded-2xl">
+          <h2 class="text-xl font-bold mb-4 text-brandAccent flex items-center gap-2">
+            <i class="fas fa-newspaper"></i> Edytor Artykułów z Datą
+          </h2>
+          
+          <form id="article-form" onsubmit="saveArticle(event)" class="space-y-4">
+            <input type="hidden" id="art-id">
+            
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Tytuł Artykułu</label>
+                <input type="text" id="art-title" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Data Publikacji</label>
+                <input type="date" id="art-date" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Krótki Opis (Zatrawka)</label>
+              <input type="text" id="art-excerpt" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-brandAccent">
+            </div>
+
+            <!-- WYSIWYG TOOLBAR -->
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Treść Artykułu (Formatowanie)</label>
+              <div class="flex gap-2 bg-white/10 p-2 rounded-t-xl border border-white/10">
+                <button type="button" onclick="execCmd('bold')" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded font-bold text-xs">B</button>
+                <button type="button" onclick="execCmd('italic')" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded italic text-xs">I</button>
+                <button type="button" onclick="execCmd('insertUnorderedList')" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-xs"><i class="fas fa-list-ul"></i></button>
+                <button type="button" onclick="execCmd('formatBlock', '<h3>')" class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-xs font-bold">H3</button>
+              </div>
+              <div id="art-editor" contenteditable="true" class="w-full min-h-[150px] bg-white/5 border-x border-b border-white/10 rounded-b-xl p-4 text-sm text-white focus:outline-none"></div>
+            </div>
+
+            <div class="flex gap-3">
+              <button type="submit" class="bg-brandPrimary hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
+                Zapisz Artykuł
+              </button>
+              <button type="button" onclick="resetArtForm()" class="bg-white/10 text-slate-300 font-bold px-4 py-2.5 rounded-xl text-sm transition">
+                Anuluj
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl">
+          <h3 class="text-sm font-bold uppercase text-slate-400 mb-4 tracking-wider">Zarządzaj Artykułami</h3>
+          <div id="cms-articles-list" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- MATCH CENTER, TABLE & SQUAD EDITORS -->
+      <div class="space-y-6">
+        
+        <!-- MATCH CENTER & LAST MATCH -->
+        <div class="glass-panel p-6 rounded-2xl">
+          <h2 class="text-xl font-bold mb-4 text-brandAccent flex items-center gap-2">
+            <i class="fas fa-stopwatch"></i> MatchCenter & Ostatnie Spotkanie
+          </h2>
+          <form onsubmit="saveMatchCenter(event)" class="space-y-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Gospodarz</label>
+              <input type="text" id="mc-home" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Gość</label>
+              <input type="text" id="mc-away" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Wynik</label>
+                <input type="text" id="mc-score" placeholder="3 : 1" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Data/Godzina</label>
+                <input type="text" id="mc-time" placeholder="Sobota, 18:00" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Stadion / Miejsce</label>
+              <input type="text" id="mc-venue" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Bramek</label>
+              <input type="text" id="mc-scorers" placeholder="Kowalski 14', Nowak 45'" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+            </div>
+            <button type="submit" class="w-full bg-brandPrimary hover:bg-blue-600 text-white font-bold py-2 rounded-xl text-xs transition">
+              Zapisz Mecz
+            </button>
+          </form>
+        </div>
+
+        <!-- SQUAD EDITOR -->
+        <div class="glass-panel p-6 rounded-2xl">
+          <h2 class="text-xl font-bold mb-4 text-brandAccent flex items-center gap-2">
+            <i class="fas fa-users-cog"></i> Edycja Składu
+          </h2>
+          <form onsubmit="addSquadPlayer(event)" class="space-y-3 mb-4">
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Numer</label>
+                <input type="text" id="sq-num" placeholder="10" required class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+              </div>
+              <div class="col-span-2">
+                <label class="block text-xs font-bold text-slate-400 mb-1">Imię i Nazwisko</label>
+                <input type="text" id="sq-name" placeholder="Jan Kowalski" required class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-400 mb-1">Pozycja</label>
+              <input type="text" id="sq-pos" placeholder="Pomocnik" required class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+            </div>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs transition">
+              Dodaj do Składu
+            </button>
+          </form>
+          <div id="cms-squad-list" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function execCmd(cmd, val = null) {
+      document.execCommand(cmd, false, val);
+    }
+
+    // STATE MANAGEMENT
+    let articles = JSON.parse(localStorage.getItem('ss_articles')) || [];
+    let matchCenter = JSON.parse(localStorage.getItem('ss_matchCenter')) || {
+      type: "Mecz Towarzyski", home: "SUPER STRIKERS", away: "RIVAL FC", venue: "Stadion Główny", time: "Sobota, 18:00", score: "3 : 1", scorers: "Kowalski 14'"
+    };
+    let squad = JSON.parse(localStorage.getItem('ss_squad')) || [];
+
+    function initCMS() {
+      // Load MatchCenter inputs
+      document.getElementById('mc-home').value = matchCenter.home;
+      document.getElementById('mc-away').value = matchCenter.away;
+      document.getElementById('mc-score').value = matchCenter.score;
+      document.getElementById('mc-time').value = matchCenter.time;
+      document.getElementById('mc-venue').value = matchCenter.venue;
+      document.getElementById('mc-scorers').value = matchCenter.scorers;
+
+      renderCMSArticles();
+      renderCMSSquad();
+    }
+
+    // ARTICLES HANDLERS
+    function renderCMSArticles() {
+      const list = document.getElementById('cms-articles-list');
+      list.innerHTML = '';
+      articles.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      articles.forEach(art => {
+        list.innerHTML += `
+          <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5">
+            <div>
+              <p class="text-sm font-bold text-white">${art.title}</p>
+              <p class="text-xs text-slate-400">${art.date}</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editArticle(${art.id})" class="text-xs bg-brandPrimary/20 text-brandAccent px-3 py-1.5 rounded-lg border border-brandAccent/30">Edytuj</button>
+              <button onclick="deleteArticle(${art.id})" class="text-xs bg-red-500/20 text-red-400 px-3 py-1.5 rounded-lg border border-red-500/30">Usuń</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function saveArticle(e) {
+      e.preventDefault();
+      const id = document.getElementById('art-id').value;
+      const title = document.getElementById('art-title').value;
+      const date = document.getElementById('art-date').value;
+      const excerpt = document.getElementById('art-excerpt').value;
+      const content = document.getElementById('art-editor').innerHTML;
+
+      if (id) {
+        const idx = articles.findIndex(a => a.id == id);
+        articles[idx] = { id: parseInt(id), title, date, excerpt, content };
+      } else {
+        articles.push({ id: Date.now(), title, date, excerpt, content });
+      }
+
+      localStorage.setItem('ss_articles', JSON.stringify(articles));
+      resetArtForm();
+      renderCMSArticles();
+      alert("Artykuł został zapisany!");
+    }
+
+    function editArticle(id) {
+      const art = articles.find(a => a.id === id);
+      if(!art) return;
+      document.getElementById('art-id').value = art.id;
+      document.getElementById('art-title').value = art.title;
+      document.getElementById('art-date').value = art.date;
+      document.getElementById('art-excerpt').value = art.excerpt;
+      document.getElementById('art-editor').innerHTML = art.content;
+    }
+
+    function deleteArticle(id) {
+      articles = articles.filter(a => a.id !== id);
+      localStorage.setItem('ss_articles', JSON.stringify(articles));
+      renderCMSArticles();
+    }
+
+    function resetArtForm() {
+      document.getElementById('article-form').reset();
+      document.getElementById('art-editor').innerHTML = '';
+      document.getElementById('art-id').value = '';
+    }
+
+    // MATCH CENTER HANDLER
+    function saveMatchCenter(e) {
+      e.preventDefault();
+      matchCenter = {
+        type: "Mecz Towarzyski",
+        home: document.getElementById('mc-home').value,
+        away: document.getElementById('mc-away').value,
+        score: document.getElementById('mc-score').value,
+        time: document.getElementById('mc-time').value,
+        venue: document.getElementById('mc-venue').value,
+        scorers: document.getElementById('mc-scorers').value
+      };
+      localStorage.setItem('ss_matchCenter', JSON.stringify(matchCenter));
+      alert("Zapisano ustawienia meczu!");
+    }
+
+    // SQUAD HANDLERS
+    function renderCMSSquad() {
+      const list = document.getElementById('cms-squad-list');
+      list.innerHTML = '';
+      squad.forEach(p => {
+        list.innerHTML += `
+          <div class="flex justify-between items-center bg-white/5 px-3 py-1.5 rounded-lg text-xs">
+            <span><strong class="text-brandAccent">#${p.number}</strong> ${p.name} (${p.position})</span>
+            <button onclick="deletePlayer(${p.id})" class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+          </div>
+        `;
+      });
+    }
+
+    function addSquadPlayer(e) {
+      e.preventDefault();
+      const p = {
+        id: Date.now(),
+        number: document.getElementById('sq-num').value,
+        name: document.getElementById('sq-name').value,
+        position: document.getElementById('sq-pos').value
+      };
+      squad.push(p);
+      localStorage.setItem('ss_squad', JSON.stringify(squad));
+      renderCMSSquad();
+      e.target.reset();
+    }
+
+    function deletePlayer(id) {
+      squad = squad.filter(p => p.id !== id);
+      localStorage.setItem('ss_squad', JSON.stringify(squad));
+      renderCMSSquad();
+    }
+
+    initCMS();
+  </script>
+</body>
+</html>
