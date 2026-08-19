@@ -39,35 +39,45 @@
     .glass-glow {
       box-shadow: 0 0 25px -5px rgba(220, 38, 38, 0.3);
     }
-    /* Ukrycie paska przewijania w sekcji zawodników */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
+    /* Stylizacja paska przewijania sekcji kadry */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
     }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(220, 38, 38, 0.5);
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(220, 38, 38, 0.8);
     }
   </style>
 </head>
 <body class="bg-darkBg text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-brandRed selection:text-white">
 
-  <!-- NAWIGACJA -->
+  <!-- NAWIGACJA Z WYŚRODKOWANYMI PRZYCISKAMI -->
   <nav class="fixed top-0 left-0 w-full z-40 glass-panel border-b border-red-500/20">
-    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between relative">
       
       <!-- LOGO W NAWIGACJI -->
       <div class="flex items-center space-x-3">
         <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Super Strikers Logo" class="h-10 w-auto drop-shadow-[0_0_8px_rgba(220,38,38,0.5)]">
-        <span class="font-black text-lg sm:text-xl text-white tracking-wider">SUPER <span class="text-brandRed">STRIKERS</span></span>
+        <span class="font-black text-lg sm:text-xl text-white tracking-wider hidden sm:inline">SUPER <span class="text-brandRed">STRIKERS</span></span>
       </div>
 
-      <!-- MENU NAWIGACJI -->
-      <div class="flex space-x-4 sm:space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
+      <!-- WYŚRODKOWANE MENU NAWIGACJI -->
+      <div class="flex-1 flex justify-center space-x-3 sm:space-x-8 text-xs font-bold uppercase tracking-wider text-slate-300">
         <a href="#centrum-meczowe" class="hover:text-brandRed transition">Mecz</a>
         <a href="#artykuly" class="hover:text-brandRed transition">Aktualności</a>
         <a href="#kadra" class="hover:text-brandRed transition">Kadra</a>
         <a href="#tabela" class="hover:text-brandRed transition">Tabela</a>
       </div>
+
+      <!-- PUSTY DIV DLA ZACHOWANIA SYMETRII LOGO -->
+      <div class="w-10 sm:w-auto"></div>
 
     </div>
   </nav>
@@ -197,7 +207,7 @@
     </div>
   </section>
 
-  <!-- KADRA ZESPOŁU (KAFELKI PRZESUWANE W BOK) -->
+  <!-- KADRA ZESPOŁU (NAPRAWIONE PRZEWIJANIE KAFELKÓW) -->
   <section id="kadra" class="py-12 bg-black/40">
     <div class="max-w-6xl mx-auto px-4">
       <div class="mb-6 flex justify-between items-end">
@@ -210,8 +220,8 @@
         </div>
       </div>
 
-      <!-- SLIDER ZAWODNIKÓW -->
-      <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4 snap-x snap-mandatory">
+      <!-- SLIDER ZAWODNIKÓW Z OBLUGĄ SCROLLA -->
+      <div class="flex gap-4 overflow-x-auto custom-scrollbar pb-4 snap-x snap-mandatory touch-pan-x overscroll-x-contain">
         
         <!-- ZAWODNIK 1 -->
         <div class="min-w-[220px] max-w-[220px] glass-panel rounded-3xl p-5 snap-start relative group overflow-hidden flex-shrink-0">
@@ -369,7 +379,7 @@
         <div class="glass-panel rounded-2xl p-4 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="text-center">
-              <span class="block text-xs font-bold text-slate-400">NEI</span>
+              <span class="block text-xs font-bold text-slate-400">NIE</span>
               <span class="block text-lg font-black text-white">01</span>
             </div>
             <div class="h-8 w-px bg-white/10"></div>
