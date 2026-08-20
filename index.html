@@ -3,24 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inter Białystok – Oficjalna Strona Klubu</title>
-
-  <!-- Google Fonts -->
+  <title>Inter Białystok – Official Website</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --rm-navy: #0e1825;
-      --rm-navy-dark: #080f19;
-      --rm-white: #ffffff;
-      --rm-gold: #eeb111;
-      --rm-gold-hover: #d49b08;
-      --rm-gray-bg: #f4f5f7;
-      --rm-text-dark: #111827;
-      --rm-text-muted: #6b7280;
-      --rm-card-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --rm-blue: #0b1e36;
+      --rm-bg-gray: #f3f5f8;
+      --rm-text-dark: #0f172a;
+      --rm-border: #e2e8f0;
+      --rm-accent-blue: #2563eb;
+      --rm-radius: 20px;
     }
 
     * {
@@ -30,716 +24,269 @@
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--rm-gray-bg);
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
       color: var(--rm-text-dark);
-      line-height: 1.5;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP BAR */
-    .top-bar {
-      background-color: var(--rm-navy-dark);
-      color: #9ca3af;
-      font-size: 0.75rem;
-      padding: 8px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .top-bar-links a {
-      color: #9ca3af;
-      text-decoration: none;
-      margin-left: 15px;
-      transition: color 0.2s ease;
-    }
-
-    .top-bar-links a:hover {
-      color: var(--rm-gold);
-    }
-
-    /* 2. HEADER & NAVIGATION */
+    /* HEADER */
     header {
-      background-color: var(--rm-navy);
-      color: var(--rm-white);
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--rm-border);
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      z-index: 100;
     }
 
     .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 5%;
-      max-width: 1400px;
+      max-width: 1440px;
       margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: var(--rm-white);
-      text-decoration: none;
-      text-transform: uppercase;
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 4px;
+    }
+
+    .menu-icon span {
+      width: 20px;
+      height: 2px;
+      background-color: var(--rm-blue);
+      border-radius: 2px;
+    }
+
+    .logos {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .logo-crest {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, var(--rm-gold) 0%, #b8860b 100%);
+    .crest-main {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
+      background: var(--rm-blue);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--rm-navy);
-      font-weight: 900;
-      font-size: 1.1rem;
-      border: 2px solid var(--rm-white);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-weight: 800;
+      font-size: 0.85rem;
     }
 
-    .logo span {
-      color: var(--rm-gold);
-    }
-
-    .nav-links {
+    .crest-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--rm-border);
       display: flex;
-      gap: 28px;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--rm-blue);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
       list-style: none;
     }
 
-    .nav-links a {
-      color: var(--rm-white);
+    .nav-menu a {
       text-decoration: none;
+      color: var(--rm-blue);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--rm-accent-blue);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-logo {
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: var(--rm-blue);
+    }
+
+    .btn-login {
+      border: 1.5px solid var(--rm-accent-blue);
+      color: var(--rm-accent-blue);
+      background: transparent;
+      padding: 8px 20px;
+      border-radius: 8px;
       font-weight: 700;
       font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.3s ease;
-      position: relative;
-      padding: 5px 0;
-    }
-
-    .nav-links a:hover {
-      color: var(--rm-gold);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background-color: var(--rm-gold);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .btn-gold {
-      background-color: var(--rm-gold);
-      color: var(--rm-navy);
-      padding: 10px 22px;
-      border-radius: 4px;
-      font-weight: 800;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      text-decoration: none;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      border: none;
       cursor: pointer;
-      display: inline-block;
-    }
-
-    .btn-gold:hover {
-      background-color: var(--rm-gold-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(238, 177, 17, 0.3);
-    }
-
-    /* 3. HERO SECTION */
-    .hero {
-      position: relative;
-      height: 72vh;
-      min-height: 500px;
-      background: linear-gradient(180deg, rgba(14, 24, 37, 0.3) 0%, rgba(14, 24, 37, 0.95) 100%), 
-                  url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      display: flex;
-      align-items: flex-end;
-      padding: 60px 5% 80px 5%;
-      color: var(--rm-white);
-    }
-
-    .hero-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .badge {
-      background-color: var(--rm-gold);
-      color: var(--rm-navy);
-      font-weight: 800;
-      font-size: 0.75rem;
-      padding: 5px 12px;
-      text-transform: uppercase;
-      display: inline-block;
-      margin-bottom: 15px;
-      border-radius: 2px;
-      letter-spacing: 1px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      line-height: 1.05;
-      margin-bottom: 15px;
-      letter-spacing: -0.5px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: #d1d5db;
-      max-width: 620px;
-      margin-bottom: 25px;
-      font-weight: 400;
-    }
-
-    /* 4. MATCH CENTER BANNER */
-    .match-center {
-      background-color: var(--rm-navy);
-      color: var(--rm-white);
-      margin: -40px auto 60px auto;
-      max-width: 1200px;
-      width: 90%;
-      border-radius: 8px;
-      padding: 25px 40px;
-      position: relative;
-      z-index: 10;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      border-bottom: 4px solid var(--rm-gold);
-    }
-
-    .match-teams {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 6px;
+      transition: all 0.2s;
     }
 
-    .team-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .btn-login:hover {
+      background: rgba(37, 99, 235, 0.05);
     }
 
-    .team-name {
-      font-weight: 900;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    /* MAIN HERO BANNER */
+    .hero-container {
+      max-width: 1440px;
+      margin: 24px auto;
+      padding: 0 24px;
     }
 
-    .score-badge {
-      background-color: var(--rm-navy-dark);
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--rm-gold);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      letter-spacing: 2px;
-    }
-
-    .match-details {
-      text-align: right;
-      font-size: 0.85rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .match-details .status {
-      color: var(--rm-gold);
-      font-weight: 800;
-      margin-top: 4px;
-    }
-
-    /* 5. GENERAL SECTIONS */
-    .section-container {
-      max-width: 1400px;
-      margin: 0 auto 70px auto;
-      padding: 0 5%;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 35px;
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      position: relative;
-      letter-spacing: -0.5px;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 45px;
-      height: 4px;
-      background-color: var(--rm-gold);
-    }
-
-    .see-all-link {
-      color: var(--rm-navy);
-      font-weight: 800;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      text-decoration: none;
-      letter-spacing: 1px;
-      transition: color 0.2s ease;
-    }
-
-    .see-all-link:hover {
-      color: var(--rm-gold-hover);
-    }
-
-    /* NEWS GRID */
-    .news-grid {
+    .hero-card {
+      background-color: var(--rm-bg-gray);
+      border-radius: var(--rm-radius);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-    }
-
-    .news-card {
-      background: var(--rm-white);
-      border-radius: 8px;
+      grid-template-columns: 1.3fr 1fr;
       overflow: hidden;
-      box-shadow: var(--rm-card-shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
+      min-height: 480px;
     }
 
-    .news-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-    }
-
-    .card-img-wrapper {
-      position: relative;
-      height: 210px;
-      overflow: hidden;
-    }
-
-    .card-img {
+    .hero-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      display: block;
     }
 
-    .news-card:hover .card-img {
-      transform: scale(1.05);
-    }
-
-    .card-body {
-      padding: 22px;
+    .hero-text-box {
+      padding: 60px 48px;
       display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .card-category {
-      color: var(--rm-gold);
-      font-weight: 800;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      line-height: 1.3;
-      margin-bottom: 12px;
-      color: var(--rm-navy);
-    }
-
-    .card-desc {
-      font-size: 0.88rem;
-      color: var(--rm-text-muted);
-      line-height: 1.5;
-    }
-
-    /* SQUAD / PLAYERS SECTION */
-    .squad-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 25px;
-    }
-
-    .player-card {
-      background-color: var(--rm-navy);
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-      color: var(--rm-white);
-      box-shadow: var(--rm-card-shadow);
-      transition: transform 0.3s ease;
-    }
-
-    .player-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .player-img {
-      width: 100%;
-      height: 320px;
-      object-fit: cover;
-      filter: grayscale(20%);
-      transition: filter 0.3s ease;
-    }
-
-    .player-card:hover .player-img {
-      filter: grayscale(0%);
-    }
-
-    .player-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 20px;
-      background: linear-gradient(180deg, rgba(14,24,37,0) 0%, rgba(14,24,37,0.95) 70%);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .player-number {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: var(--rm-gold);
-      line-height: 1;
-    }
-
-    .player-details h3 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .player-details p {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* FOOTER */
-    footer {
-      background-color: var(--rm-navy-dark);
-      color: var(--rm-white);
-      padding: 60px 5% 25px 5%;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .footer-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      margin-bottom: 50px;
-    }
-
-    .footer-col h4 {
-      color: var(--rm-gold);
-      font-weight: 800;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-
-    .footer-col ul {
-      list-style: none;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 10px;
-    }
-
-    .footer-col ul a {
-      color: #9ca3af;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: color 0.2s ease;
-    }
-
-    .footer-col ul a:hover {
-      color: var(--rm-white);
-    }
-
-    .footer-bottom {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding-top: 25px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      font-size: 0.8rem;
-      color: #6b7280;
     }
 
-    /* RESPONSIVENESS */
-    @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .match-center { flex-direction: column; text-align: center; }
-      .match-details { text-align: center; }
-      .hero { height: 60vh; }
+    .hero-title {
+      color: var(--rm-blue);
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    /* CARDS GRID BELOW HERO */
+    .grid-container {
+      max-width: 1440px;
+      margin: 24px auto 60px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .mini-card {
+      border-radius: var(--rm-radius);
+      overflow: hidden;
+      height: 200px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      transition: transform 0.2s;
+    }
+
+    .mini-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .mini-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-card { grid-template-columns: 1fr; }
+      .nav-menu { display: none; }
+      .grid-container { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. TOP BAR -->
-  <div class="top-bar">
-    <div>Oficjalny Serwis Klubu Inter Białystok</div>
-    <div class="top-bar-links">
-      <a href="#">Social Media</a>
-      <a href="#">Sklep Online</a>
-      <a href="#">PL</a>
-    </div>
-  </div>
-
-  <!-- 2. HEADER -->
+  <!-- HEADER -->
   <header>
     <div class="nav-container">
-      <a href="#" class="logo">
-        <div class="logo-crest">IB</div>
-        INTER <span>BIAŁYSTOK</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#news">Aktualności</a></li>
-        <li><a href="#matches">Mecze</a></li>
-        <li><a href="#squad">Pierwszy Zespół</a></li>
-        <li><a href="#club">O Klubie</a></li>
+      <div class="nav-left">
+        <button class="menu-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="logos">
+          <div class="crest-main">IB</div>
+          <div class="crest-badge">15</div>
+        </div>
+      </div>
+
+      <ul class="nav-menu">
+        <li><a href="#">Sponsorzy</a></li>
+        <li><a href="#">Kibice</a></li>
+        <li><a href="#">Bilety</a></li>
+        <li><a href="#">Strefa VIP</a></li>
+        <li><a href="#">Stadion</a></li>
+        <li><a href="#">Sklep</a></li>
+        <li><a href="#">Inter Play</a></li>
       </ul>
-      <a href="#tickets" class="btn-gold">Bilety & Sklep</a>
+
+      <div class="nav-right">
+        <span class="brand-logo">SPONSOR</span>
+        <button class="btn-login">
+          <span>&#128100;</span> Zaloguj
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- 3. HERO SECTION -->
-  <section class="hero">
-    <div class="hero-content">
-      <span class="badge">Powrót Do Gry</span>
-      <h1>Wracamy Do Gry Po Przerwie!</h1>
-      <p>Inter Białystok ponownie wkracza na ligowe boiska. Przygotowania do nadchodzącego sezonu weszły w decydującą fazę.</p>
-      <a href="#news" class="btn-gold">Czytaj Więcej</a>
+  <!-- MAIN BANNER (HERO SECTION) -->
+  <main class="hero-container">
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80" alt="Oficjalna prezentacja" class="hero-image">
+      <div class="hero-text-box">
+        <h1 class="hero-title">Oficjalne zaprezentowanie nowego zespołu Inter Białystok</h1>
+      </div>
+    </div>
+  </main>
+
+  <!-- CARDS GRID -->
+  <section class="grid-container">
+    <div class="mini-card">
+      <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80" alt="Mecz">
+    </div>
+    <div class="mini-card">
+      <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=500&q=80" alt="Stadion">
+    </div>
+    <div class="mini-card">
+      <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=500&q=80" alt="Trening">
+    </div>
+    <div class="mini-card">
+      <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=500&q=80" alt="Sklep">
     </div>
   </section>
-
-  <!-- 4. MATCH CENTER BANNER -->
-  <div class="match-center" id="matches">
-    <div class="match-teams">
-      <div class="team-box">
-        <span class="team-name">INTER BIAŁYSTOK</span>
-      </div>
-      <div class="score-badge">3 : 1</div>
-      <div class="team-box">
-        <span class="team-name">SUPER STRIKERS</span>
-      </div>
-    </div>
-    <div class="match-details">
-      <div>Liga Lokalna • Kolejka 1</div>
-      <div class="status">Mecz Zakończony</div>
-    </div>
-  </div>
-
-  <!-- 5. NEWS SECTION -->
-  <section class="section-container" id="news">
-    <div class="section-header">
-      <h2 class="section-title">Aktualności</h2>
-      <a href="#" class="see-all-link">Zobacz Wszystkie Artykuły &rarr;</a>
-    </div>
-    
-    <div class="news-grid">
-      
-      <!-- Card 1 -->
-      <a href="#" class="news-card">
-        <div class="card-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Trening Inter Białystok">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Pierwsza Drużyna</span>
-          <h3 class="card-title">Intensywny Trening Przed Nadchodzącym Starciem</h3>
-          <p class="card-desc">Zespół zrealizował jednostkę taktyczną, szlifując schematy rozegrania piłki przed najbliższym pojedynkiem.</p>
-        </div>
-      </a>
-
-      <!-- Card 2 -->
-      <a href="#" class="news-card">
-        <div class="card-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Rebranding">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Klub</span>
-          <h3 class="card-title">Otwarcie Nowego Rozdziału W Historii Klubu</h3>
-          <p class="card-desc">Organizacyjne zmiany i odświeżony branding wyznaczają cel na nadchodzące miesiące rywalizacji.</p>
-        </div>
-      </a>
-
-      <!-- Card 3 -->
-      <a href="#" class="news-card">
-        <div class="card-img-wrapper">
-          <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Stroje">
-        </div>
-        <div class="card-body">
-          <span class="card-category">Oficjalny Sklep</span>
-          <h3 class="card-title">Nowe Stroje Meczowe Na Sezon Gotowe</h3>
-          <p class="card-desc">Zaprezentowano oficjalny komplet meczowy łączący klasyczną elegancję z nowoczesnymi detalami.</p>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- 6. SQUAD SECTION -->
-  <section class="section-container" id="squad">
-    <div class="section-header">
-      <h2 class="section-title">Pierwszy Zespół</h2>
-      <a href="#" class="see-all-link">Pełny Skład &rarr;</a>
-    </div>
-
-    <div class="squad-grid">
-      
-      <!-- Player 1 -->
-      <div class="player-card">
-        <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=500&q=80" class="player-img" alt="Zawodnik">
-        <div class="player-info">
-          <div class="player-details">
-            <h3>Mateusz Piotrowski</h3>
-            <p>Napastnik / Aktor</p>
-          </div>
-          <div class="player-number">9</div>
-        </div>
-      </div>
-
-      <!-- Player 2 -->
-      <div class="player-card">
-        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80" class="player-img" alt="Zawodnik">
-        <div class="player-info">
-          <div class="player-details">
-            <h3>Pomocnik</h3>
-            <p>Środkowy Pomocnik</p>
-          </div>
-          <div class="player-number">10</div>
-        </div>
-      </div>
-
-      <!-- Player 3 -->
-      <div class="player-card">
-        <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=500&q=80" class="player-img" alt="Zawodnik">
-        <div class="player-info">
-          <div class="player-details">
-            <h3>Obrońca</h3>
-            <p>Środkowy Obrońca</p>
-          </div>
-          <div class="player-number">4</div>
-        </div>
-      </div>
-
-      <!-- Player 4 -->
-      <div class="player-card">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=500&q=80" class="player-img" alt="Bramkarz">
-        <div class="player-info">
-          <div class="player-details">
-            <h3>Bramkarz</h3>
-            <p>Bramkarz</p>
-          </div>
-          <div class="player-number">1</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 7. FOOTER -->
-  <footer id="club">
-    <div class="footer-content">
-      <div class="footer-col">
-        <h3 style="color: var(--rm-white); font-weight: 900; margin-bottom: 15px;">INTER BIAŁYSTOK</h3>
-        <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.6;">Oficjalna strona klubu piłkarskiego z Białegostoku.</p>
-      </div>
-
-      <div class="footer-col">
-        <h4>Klub</h4>
-        <ul>
-          <li><a href="#">O Nas</a></li>
-          <li><a href="#">Stadion / Boisko</a></li>
-          <li><a href="#">Sponsorzy</a></li>
-          <li><a href="#">Kontakt</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Kibice</h4>
-        <ul>
-          <li><a href="#">Bilety na mecze</a></li>
-          <li><a href="#">Oficjalny Sklep</a></li>
-          <li><a href="#">Social Media</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Siedziba</h4>
-        <p style="color: #9ca3af; font-size: 0.85rem;">
-          Białystok, Polska<br>
-          E-mail: kontakt@interbialystok.pl
-        </p>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div>&copy; 2026 Inter Białystok. Wszelkie prawa zastrzeżone.</div>
-      <div>Zaprojektowano w stylu Real Madrid C.F.</div>
-    </div>
-  </footer>
 
 </body>
 </html>
