@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficjalna Strona</title>
+  <title>Klub Sportowy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -14,8 +14,9 @@
       --rm-btn-radius: 12px;
       --red-accent: #e11d48;
       --red-hover: #f43f5e;
-      --dark-card: rgba(18, 18, 22, 0.75);
-      --glass-border: rgba(255, 255, 255, 0.12);
+      --dark-card: rgba(18, 18, 22, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-bg: rgba(20, 10, 15, 0.45);
     }
 
     * {
@@ -34,24 +35,28 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* MENU WYSPA (FLOATING ISLAND NAV) */
+    /* MENU WYSPA (FLOATING GLASS ISLAND NAV) */
     .nav-wrapper {
       position: sticky;
       top: 20px;
       z-index: 1000;
-      max-width: 1320px;
+      max-width: 1360px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
     header {
-      background: rgba(15, 15, 20, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 10px 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(225, 29, 72, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.25); /* Podświetlenie górnej krawędzi szkła */
+      border-radius: 24px;
+      padding: 12px 28px;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.6), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(225, 29, 72, 0.12);
     }
 
     .nav-container {
@@ -60,42 +65,24 @@
       justify-content: space-between;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .menu-icon {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 6px;
-    }
-
-    .menu-icon span {
-      width: 22px;
-      height: 2px;
-      background-color: #ffffff;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
+    /* Logo przesunięte maksymalnie do lewej */
     .logo-img {
-      height: 48px;
+      height: 52px;
       width: auto;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+      transition: transform 0.3s ease;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.03);
     }
 
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 32px;
       list-style: none;
     }
 
@@ -103,7 +90,7 @@
       text-decoration: none;
       color: #e2e8f0;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       transition: all 0.25s ease;
       letter-spacing: 0.3px;
     }
@@ -116,14 +103,14 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
-    /* ŁADNIEJSZE PRZYCISKI */
+    /* PRZYCISKI KLUBOWE */
     .btn-primary {
       background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
       color: #ffffff;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 10px 22px;
       border-radius: var(--rm-btn-radius);
       font-weight: 700;
@@ -158,14 +145,14 @@
     }
 
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.18);
       border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
     }
 
     /* HERO BANNER */
     .hero-container {
-      max-width: 1320px;
+      max-width: 1360px;
       margin: 30px auto;
       padding: 0 20px;
     }
@@ -207,7 +194,7 @@
 
     /* CARDS GRID BELOW HERO */
     .grid-container {
-      max-width: 1320px;
+      max-width: 1360px;
       margin: 24px auto 60px auto;
       padding: 0 20px;
       display: grid;
@@ -222,7 +209,6 @@
       border: 1px solid var(--glass-border);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: all 0.3s ease;
-      position: relative;
     }
 
     .mini-card:hover {
@@ -246,34 +232,30 @@
 </head>
 <body>
 
-  <!-- MENU WYSPA -->
+  <!-- SZKLANA WYSPA NAWIGACYJNA -->
   <div class="nav-wrapper">
     <header>
       <div class="nav-container">
-        <div class="nav-left">
-          <button class="menu-icon" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <!-- PODMIENIONE LOGO -->
-          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo" class="logo-img">
-        </div>
+        
+        <!-- LOGO MAKSYMALNIE PO LEWEJ BEZ IKONY PRED NIM -->
+        <a href="#">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="logo-img">
+        </a>
 
+        <!-- MENU DLA KLUBU AMATORSKIEGO -->
         <ul class="nav-menu">
-          <li><a href="#">Sponsorzy</a></li>
-          <li><a href="#">Kibice</a></li>
-          <li><a href="#">Strefa VIP</a></li>
-          <li><a href="#">Stadion</a></li>
-          <li><a href="#">Sklep</a></li>
-          <li><a href="#">RM Play</a></li>
+          <li><a href="#">Klub</a></li>
+          <li><a href="#">Drużyna</a></li>
+          <li><a href="#">Terminarz</a></li>
+          <li><a href="#">Tabela</a></li>
+          <li><a href="#">Kontakt</a></li>
         </ul>
 
+        <!-- PRZYCISKI AKCJI KLUBU AMATORSKIEGO -->
         <div class="nav-right">
-          <a href="#" class="btn-secondary">Sponsor</a>
+          <a href="#" class="btn-secondary">Wesprzyj klub</a>
           <a href="#" class="btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            Zaloguj
+            Dołącz do nas
           </a>
         </div>
       </div>
@@ -285,9 +267,9 @@
     <div class="hero-card">
       <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80" alt="Prezentacja" class="hero-image">
       <div class="hero-text-box">
-        <h1 class="hero-title">Oficjalna prezentacja i dołączenie do zespołu</h1>
+        <h1 class="hero-title">Rozpoczynamy przygotowania do nowego sezonu!</h1>
         <div>
-          <a href="#" class="btn-primary" style="display: inline-flex;">Zobacz szczegóły</a>
+          <a href="#" class="btn-primary" style="display: inline-flex;">Sprawdź terminarz</a>
         </div>
       </div>
     </div>
@@ -305,7 +287,7 @@
       <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?auto=format&fit=crop&w=500&q=80" alt="Trening">
     </div>
     <div class="mini-card">
-      <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=500&q=80" alt="Sklep">
+      <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=500&q=80" alt="Galeria">
     </div>
   </section>
 
