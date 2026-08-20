@@ -12,10 +12,10 @@
       theme: {
         extend: {
           colors: {
-            darkBg: '#08080a',
+            darkBg: '#060608',
             brandRed: '#dc2626',
             brandRedDark: '#991b1b',
-            glassDark: 'rgba(15, 15, 20, 0.75)'
+            glassDark: 'rgba(12, 12, 18, 0.85)'
           }
         }
       }
@@ -23,18 +23,18 @@
   </script>
   <style>
     .glass-panel {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(220, 38, 38, 0.05) 100%), rgba(15, 15, 20, 0.75);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(220, 38, 38, 0.05) 100%), rgba(12, 12, 18, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
     }
     .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: rgba(220, 38, 38, 0.5);
@@ -48,7 +48,7 @@
   <header class="glass-panel border-b border-red-500/20 sticky top-0 z-30 mb-8">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="bg-brandRed text-white p-2 rounded-xl">
+        <div class="bg-brandRed text-white p-2 rounded-xl shadow-lg shadow-red-600/30">
           <i class="fas fa-sliders-h text-lg"></i>
         </div>
         <h1 class="font-black text-lg sm:text-xl uppercase tracking-wider">
@@ -65,60 +65,89 @@
 
   <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-    <!-- CENTRUM MECZOWE -->
+    <!-- CENTRUM MECZOWE (DODAWANIE I EDYCJA MECOW) -->
     <section class="glass-panel rounded-3xl p-6 border border-red-500/20 lg:col-span-2">
       <div class="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
-        <h2 class="text-xl font-black uppercase"><i class="fas fa-trophy text-brandRed mr-2"></i> Centrum Meczowe (Główny Mecz)</h2>
-        <button onclick="saveMatchCenter()" class="bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold px-4 py-2 rounded-xl transition">
-          Zapisz Wynik
-        </button>
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-trophy text-brandRed mr-2"></i> Centrum Meczowe</h2>
+        <span class="text-xs text-slate-400">Zarządzaj meczykami głównymi</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Gospodarz</label>
-          <input type="text" id="mc-home" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Tag Meczu</label>
-          <input type="text" id="mc-tag" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Gość</label>
-          <input type="text" id="mc-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+      <!-- FORMULARZ DODAWANIA MECZU DO MATCH CENTER -->
+      <form onsubmit="saveMatchCenterItem(event)" class="space-y-4 bg-black/40 p-4 rounded-2xl border border-white/5 mb-6">
+        <input type="hidden" id="mc-edit-id">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Typ Spotkania</label>
+            <select id="mc-type" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none" onchange="toggleMatchStatusUI()">
+              <option value="Mecz Ligowy">Mecz Ligowy</option>
+              <option value="Mecz Towarzyski">Mecz Towarzyski</option>
+              <option value="Puchar">Puchar</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Nazwa Ligi / Rozgrywek</label>
+            <input type="text" id="mc-league-name" placeholder="np. Klasa A / Liga Letnia" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div class="flex items-center gap-4 pt-5">
+            <label class="flex items-center gap-2 text-xs font-bold text-slate-300 cursor-pointer">
+              <input type="checkbox" id="mc-is-cancelled" onchange="toggleMatchStatusUI()" class="accent-brandRed h-4 w-4 rounded">
+              <span class="text-red-400">Mecz Odwołany / Przełożony</span>
+            </label>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Gospodarz</label>
+            <input type="text" id="mc-home" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Status / Czas</label>
+            <input type="text" id="mc-status" placeholder="np. Koniec Meczu / 17:30" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Gość</label>
+            <input type="text" id="mc-away" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+
+          <div id="mc-score-home-box">
+            <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gospodarza</label>
+            <input type="number" id="mc-score-home" min="0" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-400 mb-1">Data Spotkania</label>
+            <input type="text" id="mc-date" placeholder="np. Sobota, 24 Sierpnia" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div id="mc-score-away-box">
+            <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gościa</label>
+            <input type="number" id="mc-score-away" min="0" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+
+          <div class="md:col-span-3">
+            <label class="block text-xs font-bold text-slate-400 mb-1">Miejsce Meczu</label>
+            <input type="text" id="mc-location" placeholder="np. Stadion Miejski, Białystok" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+
+          <div class="md:col-span-3 scorers-field">
+            <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
+            <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
+          <div class="md:col-span-3 scorers-field">
+            <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gościa (po przecinku)</label>
+            <input type="text" id="mc-away-scorers" placeholder="Nowak 60'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gospodarza</label>
-          <input type="number" id="mc-score-home" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+        <div class="flex gap-2">
+          <button type="submit" id="mc-submit-btn" class="bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold px-6 py-2.5 rounded-xl transition">
+            Dodaj Mecz do Centrum
+          </button>
+          <button type="button" id="mc-cancel-btn" onclick="resetMatchCenterForm()" class="hidden bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">
+            Anuluj Edycję
+          </button>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Status Meczu</label>
-          <input type="text" id="mc-status" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Gole Gościa</label>
-          <input type="number" id="mc-score-away" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
+      </form>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-400 mb-1">Data / Godzina</label>
-          <input type="text" id="mc-date" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div class="md:col-span-2">
-          <label class="block text-xs font-bold text-slate-400 mb-1">Miejsce Meczu (Stadion / Boisko)</label>
-          <input type="text" id="mc-location" placeholder="np. Stadion Miejski, Białystok" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-
-        <div class="md:col-span-3">
-          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gospodarza (po przecinku)</label>
-          <input type="text" id="mc-home-scorers" placeholder="Kowalski 14', Szymański 45'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-        <div class="md:col-span-3">
-          <label class="block text-xs font-bold text-slate-400 mb-1">Strzelcy Gościa (po przecinku)</label>
-          <input type="text" id="mc-away-scorers" placeholder="Nowak 60'" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
-        </div>
-      </div>
+      <!-- LISTA MECZÓW W CENTRUM -->
+      <div id="match-center-list" class="space-y-3"></div>
     </section>
 
     <!-- AUTOMATYCZNA TABELA LIGOWA I WYNIKI -->
@@ -132,14 +161,14 @@
             <input type="text" id="lt-name" placeholder="Nazwa Drużyny" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
             <div class="flex items-center gap-2">
               <input type="checkbox" id="lt-isUser" class="accent-brandRed rounded h-4 w-4">
-              <label for="lt-isUser" class="text-xs text-slate-300">Wyróżnij w tabeli</label>
+              <label for="lt-isUser" class="text-xs text-slate-300">Wyróżnij w tabeli (Twój klub)</label>
             </div>
             <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Drużynę</button>
           </form>
         </div>
 
         <div>
-          <h2 class="text-xl font-black uppercase mb-4 pb-2 border-b border-white/10"><i class="fas fa-calculator text-brandRed mr-2"></i> 2. Wpisz Wynik</h2>
+          <h2 class="text-xl font-black uppercase mb-4 pb-2 border-b border-white/10"><i class="fas fa-calculator text-brandRed mr-2"></i> 2. Wpisz Wynik Spotkania</h2>
           <form onsubmit="addLeagueMatch(event)" class="space-y-3 bg-black/30 p-4 rounded-2xl border border-white/5">
             <select id="lm-home" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
               <option value="" disabled selected>Gospodarz</option>
@@ -151,7 +180,7 @@
             <select id="lm-away" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none text-slate-300">
               <option value="" disabled selected>Gość</option>
             </select>
-            <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Zapisz Wynik Spotkania</button>
+            <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Aktualizuj Tabelę</button>
           </form>
         </div>
       </div>
@@ -181,7 +210,7 @@
 
         <!-- ROZEGRANE MECZE LIGOWE -->
         <div>
-          <h3 class="text-sm font-black uppercase mb-2 text-slate-400">Rozegrane Mecze Ligowe</h3>
+          <h3 class="text-sm font-black uppercase mb-2 text-slate-400">Historię Meczów Ligowych</h3>
           <div id="league-matches-list" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
         </div>
       </div>
@@ -191,17 +220,31 @@
     <!-- ZARZĄDZANIE ARTYKUŁAMI -->
     <section class="glass-panel rounded-3xl p-6 border border-red-500/20">
       <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
-        <h2 class="text-xl font-black uppercase"><i class="fas fa-newspaper text-brandRed mr-2"></i> Aktualności</h2>
+        <h2 class="text-xl font-black uppercase"><i class="fas fa-newspaper text-brandRed mr-2"></i> Artykuły i Newsy</h2>
       </div>
 
-      <form onsubmit="addArticle(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+      <form onsubmit="saveArticle(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <input type="hidden" id="art-edit-id">
         <input type="text" id="art-title" placeholder="Tytuł artykułu" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         <div class="grid grid-cols-2 gap-2">
           <input type="text" id="art-category" placeholder="Kategoria (np. Raport)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <input type="text" id="art-date" placeholder="Data (np. 18 Sierpnia 2026)" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
-        <textarea id="art-content" placeholder="Treść artykułu..." rows="3" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none custom-scrollbar"></textarea>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Artykuł</button>
+
+        <!-- PRZYCISKI FORMATOWANIA TEKSTU -->
+        <div class="flex items-center gap-1 bg-black/60 p-1.5 rounded-xl border border-white/10 text-xs">
+          <button type="button" onclick="formatText('b')" class="px-2.5 py-1 bg-white/5 hover:bg-white/20 rounded font-bold">B</button>
+          <button type="button" onclick="formatText('i')" class="px-2.5 py-1 bg-white/5 hover:bg-white/20 rounded italic">I</button>
+          <button type="button" onclick="formatText('h3')" class="px-2.5 py-1 bg-white/5 hover:bg-white/20 rounded font-bold">H3</button>
+          <button type="button" onclick="formatText('ul')" class="px-2.5 py-1 bg-white/5 hover:bg-white/20 rounded">Lista</button>
+        </div>
+
+        <textarea id="art-content" placeholder="Treść artykułu (możesz używać tagów HTML)..." rows="4" required class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none custom-scrollbar"></textarea>
+        
+        <div class="flex gap-2">
+          <button type="submit" id="art-submit-btn" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj Artykuł</button>
+          <button type="button" id="art-cancel-btn" onclick="resetArticleForm()" class="hidden bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition">Anuluj</button>
+        </div>
       </form>
 
       <div id="articles-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
@@ -213,9 +256,10 @@
         <h2 class="text-xl font-black uppercase"><i class="fas fa-users text-brandRed mr-2"></i> Kadra Zespołu</h2>
       </div>
 
-      <form onsubmit="addSquadMember(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+      <form onsubmit="saveSquadMember(event)" class="space-y-3 mb-6 bg-black/30 p-4 rounded-2xl border border-white/5">
+        <input type="hidden" id="sq-edit-id">
         <div class="grid grid-cols-3 gap-2">
-          <input type="number" id="sq-num" placeholder="Nr zawodnika" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
+          <input type="number" id="sq-num" placeholder="Nr" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
           <input type="text" id="sq-name" placeholder="Imię i Nazwisko" required class="col-span-2 w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm focus:border-brandRed outline-none">
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -240,7 +284,10 @@
             <option value="fa-mitten">Ikona: Rękawica</option>
           </select>
         </div>
-        <button type="submit" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj do Kadry</button>
+        <div class="flex gap-2">
+          <button type="submit" id="sq-submit-btn" class="w-full bg-brandRed hover:bg-brandRedDark text-white text-xs font-bold py-2 rounded-xl transition">Dodaj do Kadry</button>
+          <button type="button" id="sq-cancel-btn" onclick="resetSquadForm()" class="hidden bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4 py-2 rounded-xl transition">Anuluj</button>
+        </div>
       </form>
 
       <div id="squad-list" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
@@ -269,16 +316,17 @@
   <script>
     // DOMYŚLNE DANE
     const defaultArticles = [
-      { id: 1, title: "Pewne zwycięstwo w meczu domowym!", date: "18 Sierpnia 2026", category: "Raport Meczowy", content: "Super Strikers pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty zawalczyła o pełną pulę." },
-      { id: 2, title: "Powrót na boiska w pełnej krasie", date: "15 Sierpnia 2026", category: "Klub", content: "Po przerwie technologicznej i organizacyjnej wracamy do regularnych rozgrywek. Zobacz nowe barwy oraz oficjalne logo." }
+      { id: 1, title: "Pewne zwycięstwo w meczu domowym!", date: "18 Sierpnia 2026", category: "Raport Meczowy", content: "<b>Super Strikers</b> pokonuje Rival FC 3:1 po kapitalnym meczu. Dominacja od pierwszej do ostatniej minuty." }
     ];
 
-    const defaultMatchCenter = {
-      home: "SUPER STRIKERS", away: "RIVAL FC",
-      scoreHome: 3, scoreAway: 1, tag: "MECZ TOWARZYSKI",
-      date: "Sobota, 18:00", location: "Stadion Miejski, Białystok", status: "Koniec Meczu",
-      homeScorers: ["Kowalski 14'", "Szymański 45'"], awayScorers: ["Nowak 60'"]
-    };
+    const defaultMatchCenterList = [
+      {
+        id: 1, type: "Mecz Towarzyski", leagueName: "Sparing Przedsezonowy", isCancelled: false,
+        home: "SUPER STRIKERS", away: "RIVAL FC", scoreHome: 3, scoreAway: 1,
+        date: "Sobota, 18:00", status: "Koniec Meczu", location: "Stadion Miejski, Białystok",
+        homeScorers: ["Kowalski 14'", "Szymański 45'"], awayScorers: ["Nowak 60'"]
+      }
+    ];
 
     const defaultTeams = [
       { id: 1, name: "SUPER STRIKERS BIAŁYSTOK", isUser: true },
@@ -287,36 +335,33 @@
     ];
 
     const defaultLeagueMatches = [
-      { id: 1, home: "SUPER STRIKERS BIAŁYSTOK", away: "Rival FC", scoreHome: 3, scoreAway: 1 },
-      { id: 2, name: "Rival FC", home: "Rival FC", away: "Inter Białystok", scoreHome: 2, scoreAway: 0 },
-      { id: 3, home: "SUPER STRIKERS BIAŁYSTOK", away: "Inter Białystok", scoreHome: 1, scoreAway: 1 }
+      { id: 1, home: "SUPER STRIKERS BIAŁYSTOK", away: "Rival FC", scoreHome: 3, scoreAway: 1 }
     ];
 
     const defaultSquad = [
-      { id: 1, num: "-", name: "Jan Wiśniewski", pos: "I Trener", icon: "fa-user-tie" },
-      { id: 2, num: 1, name: "Marek Kowal", pos: "Bramkarz", icon: "fa-mitten" },
-      { id: 3, num: 4, name: "Piotr Adamski", pos: "Środkowy Obrońca", icon: "fa-shield-alt" }
+      { id: 1, num: "", name: "Jan Wiśniewski", pos: "I Trener", icon: "fa-user-tie" },
+      { id: 2, num: 1, name: "Marek Kowal", pos: "Bramkarz", icon: "fa-mitten" }
     ];
 
     const defaultFixtures = [
       { id: 1, teams: "Super Strikers vs Inter Białystok", day: "SOB", date: "24", info: "17:30 • Stadion Miejski", round: "Kolejka 6" }
     ];
 
-    let articles, matchCenter, teamsData, leagueMatchesData, squad, fixtures;
+    let articles, matchCenterList, teamsData, leagueMatchesData, squad, fixtures;
 
     function initData() {
       articles = JSON.parse(localStorage.getItem('articles')) || defaultArticles;
-      matchCenter = JSON.parse(localStorage.getItem('matchCenter')) || defaultMatchCenter;
+      matchCenterList = JSON.parse(localStorage.getItem('matchCenterList')) || defaultMatchCenterList;
       teamsData = JSON.parse(localStorage.getItem('teamsData')) || defaultTeams;
       leagueMatchesData = JSON.parse(localStorage.getItem('leagueMatchesData')) || defaultLeagueMatches;
       squad = JSON.parse(localStorage.getItem('squad')) || defaultSquad;
       fixtures = JSON.parse(localStorage.getItem('fixtures')) || defaultFixtures;
 
-      fillMatchCenterInputs();
       renderAllLists();
     }
 
     function renderAllLists() {
+      renderMatchCenterList();
       renderArticlesList();
       renderSquadList();
       renderFixturesList();
@@ -324,43 +369,146 @@
       calculateAndRenderTable();
     }
 
-    // CENTRUM MECZOWE
-    function fillMatchCenterInputs() {
-      document.getElementById('mc-home').value = matchCenter.home;
-      document.getElementById('mc-away').value = matchCenter.away;
-      document.getElementById('mc-score-home').value = matchCenter.scoreHome;
-      document.getElementById('mc-score-away').value = matchCenter.scoreAway;
-      document.getElementById('mc-tag').value = matchCenter.tag;
-      document.getElementById('mc-date').value = matchCenter.date;
-      document.getElementById('mc-location').value = matchCenter.location || '';
-      document.getElementById('mc-status').value = matchCenter.status;
-      document.getElementById('mc-home-scorers').value = (matchCenter.homeScorers || []).join(', ');
-      document.getElementById('mc-away-scorers').value = (matchCenter.awayScorers || []).join(', ');
+    /* --- MATCH CENTER --- */
+    function toggleMatchStatusUI() {
+      const isCancelled = document.getElementById('mc-is-cancelled').checked;
+      const scoreHomeBox = document.getElementById('mc-score-home-box');
+      const scoreAwayBox = document.getElementById('mc-score-away-box');
+      const scorersFields = document.querySelectorAll('.scorers-field');
+
+      if (isCancelled) {
+        scoreHomeBox.classList.add('opacity-40', 'pointer-events-none');
+        scoreAwayBox.classList.add('opacity-40', 'pointer-events-none');
+        scorersFields.forEach(el => el.classList.add('opacity-40', 'pointer-events-none'));
+      } else {
+        scoreHomeBox.classList.remove('opacity-40', 'pointer-events-none');
+        scoreAwayBox.classList.remove('opacity-40', 'pointer-events-none');
+        scorersFields.forEach(el => el.classList.remove('opacity-40', 'pointer-events-none'));
+      }
     }
 
-    function saveMatchCenter() {
-      matchCenter = {
+    function saveMatchCenterItem(e) {
+      e.preventDefault();
+      const editId = document.getElementById('mc-edit-id').value;
+      const isCancelled = document.getElementById('mc-is-cancelled').checked;
+
+      const itemData = {
+        id: editId ? parseInt(editId) : Date.now(),
+        type: document.getElementById('mc-type').value,
+        leagueName: document.getElementById('mc-league-name').value,
+        isCancelled: isCancelled,
         home: document.getElementById('mc-home').value,
         away: document.getElementById('mc-away').value,
-        scoreHome: parseInt(document.getElementById('mc-score-home').value) || 0,
-        scoreAway: parseInt(document.getElementById('mc-score-away').value) || 0,
-        tag: document.getElementById('mc-tag').value,
+        scoreHome: isCancelled ? 0 : (parseInt(document.getElementById('mc-score-home').value) || 0),
+        scoreAway: isCancelled ? 0 : (parseInt(document.getElementById('mc-score-away').value) || 0),
+        status: isCancelled ? 'ODWOŁANY' : document.getElementById('mc-status').value,
         date: document.getElementById('mc-date').value,
         location: document.getElementById('mc-location').value,
-        status: document.getElementById('mc-status').value,
-        homeScorers: document.getElementById('mc-home-scorers').value.split(',').map(s => s.trim()).filter(s => s),
-        awayScorers: document.getElementById('mc-away-scorers').value.split(',').map(s => s.trim()).filter(s => s)
+        homeScorers: isCancelled ? [] : document.getElementById('mc-home-scorers').value.split(',').map(s => s.trim()).filter(Boolean),
+        awayScorers: isCancelled ? [] : document.getElementById('mc-away-scorers').value.split(',').map(s => s.trim()).filter(Boolean)
       };
-      localStorage.setItem('matchCenter', JSON.stringify(matchCenter));
-      alert('Zapisano dane centrum meczowego!');
+
+      if (editId) {
+        const idx = matchCenterList.findIndex(m => m.id === parseInt(editId));
+        if (idx !== -1) matchCenterList[idx] = itemData;
+      } else {
+        matchCenterList.unshift(itemData);
+      }
+
+      localStorage.setItem('matchCenterList', JSON.stringify(matchCenterList));
+      resetMatchCenterForm();
+      renderMatchCenterList();
     }
 
-    // TABELA LIGOWA I AUTOMATYCZNE PRZELICZANIE
+    function editMatchCenterItem(id) {
+      const item = matchCenterList.find(m => m.id === id);
+      if (!item) return;
+
+      document.getElementById('mc-edit-id').value = item.id;
+      document.getElementById('mc-type').value = item.type || 'Mecz Ligowy';
+      document.getElementById('mc-league-name').value = item.leagueName || '';
+      document.getElementById('mc-is-cancelled').checked = !!item.isCancelled;
+      document.getElementById('mc-home').value = item.home;
+      document.getElementById('mc-away').value = item.away;
+      document.getElementById('mc-score-home').value = item.scoreHome;
+      document.getElementById('mc-score-away').value = item.scoreAway;
+      document.getElementById('mc-status').value = item.status;
+      document.getElementById('mc-date').value = item.date;
+      document.getElementById('mc-location').value = item.location || '';
+      document.getElementById('mc-home-scorers').value = (item.homeScorers || []).join(', ');
+      document.getElementById('mc-away-scorers').value = (item.awayScorers || []).join(', ');
+
+      document.getElementById('mc-submit-btn').innerText = 'Zapisz Zmiany w Meczu';
+      document.getElementById('mc-cancel-btn').classList.remove('hidden');
+      toggleMatchStatusUI();
+    }
+
+    function deleteMatchCenterItem(id) {
+      matchCenterList = matchCenterList.filter(m => m.id !== id);
+      localStorage.setItem('matchCenterList', JSON.stringify(matchCenterList));
+      renderMatchCenterList();
+    }
+
+    function resetMatchCenterForm() {
+      document.getElementById('mc-edit-id').value = '';
+      document.getElementById('mc-type').value = 'Mecz Ligowy';
+      document.getElementById('mc-league-name').value = '';
+      document.getElementById('mc-is-cancelled').checked = false;
+      document.getElementById('mc-home').value = '';
+      document.getElementById('mc-away').value = '';
+      document.getElementById('mc-score-home').value = '';
+      document.getElementById('mc-score-away').value = '';
+      document.getElementById('mc-status').value = '';
+      document.getElementById('mc-date').value = '';
+      document.getElementById('mc-location').value = '';
+      document.getElementById('mc-home-scorers').value = '';
+      document.getElementById('mc-away-scorers').value = '';
+
+      document.getElementById('mc-submit-btn').innerText = 'Dodaj Mecz do Centrum';
+      document.getElementById('mc-cancel-btn').classList.add('hidden');
+      toggleMatchStatusUI();
+    }
+
+    function renderMatchCenterList() {
+      const container = document.getElementById('match-center-list');
+      if (matchCenterList.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak zapisanych meczów w centrum.</p>`;
+        return;
+      }
+
+      container.innerHTML = matchCenterList.map(m => `
+        <div class="p-3 bg-black/40 rounded-2xl border border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="font-black px-2 py-0.5 rounded bg-brandRed/20 text-brandRed uppercase text-[10px]">${m.type}</span>
+              ${m.leagueName ? `<span class="text-slate-400 font-bold">${m.leagueName}</span>` : ''}
+              ${m.isCancelled ? `<span class="bg-red-600 text-white font-bold px-2 py-0.5 rounded text-[10px]">ODWOŁANY</span>` : ''}
+            </div>
+            <div class="text-sm font-black text-white">
+              ${m.home} ${m.isCancelled ? 'vs' : `${m.scoreHome} - ${m.scoreAway}`} ${m.away}
+            </div>
+            <div class="text-slate-400 text-[11px]">
+              ${m.date} • ${m.location || 'Brak lokalizacji'} • Status: ${m.status}
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="editMatchCenterItem(${m.id})" class="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-xl transition">
+              <i class="fas fa-edit"></i> Edytuj
+            </button>
+            <button onclick="deleteMatchCenterItem(${m.id})" class="bg-red-500/20 hover:bg-red-500/40 text-red-400 px-3 py-1.5 rounded-xl transition">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* --- TABELA LIGOWA --- */
     function updateLeagueSelects() {
       const homeSelect = document.getElementById('lm-home');
       const awaySelect = document.getElementById('lm-away');
-
       const options = teamsData.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+      
       homeSelect.innerHTML = `<option value="" disabled selected>Gospodarz</option>` + options;
       awaySelect.innerHTML = `<option value="" disabled selected>Gość</option>` + options;
     }
@@ -420,59 +568,31 @@
     }
 
     function calculateAndRenderTable() {
-      // Inicjalizacja statystyk dla każdej drużyny
       const stats = {};
       teamsData.forEach(team => {
-        stats[team.name] = {
-          id: team.id,
-          name: team.name,
-          isUser: team.isUser,
-          m: 0,
-          gf: 0,
-          ga: 0,
-          gd: 0,
-          pkt: 0
-        };
+        stats[team.name] = { id: team.id, name: team.name, isUser: team.isUser, m: 0, gf: 0, ga: 0, gd: 0, pkt: 0 };
       });
 
-      // Wyliczanie statystyk z rozegranych meczów
       leagueMatchesData.forEach(match => {
         if (stats[match.home] && stats[match.away]) {
           const home = stats[match.home];
           const away = stats[match.away];
 
-          home.m += 1;
-          away.m += 1;
+          home.m += 1; away.m += 1;
+          home.gf += match.scoreHome; home.ga += match.scoreAway;
+          away.gf += match.scoreAway; away.ga += match.scoreHome;
 
-          home.gf += match.scoreHome;
-          home.ga += match.scoreAway;
-          away.gf += match.scoreAway;
-          away.ga += match.scoreHome;
-
-          if (match.scoreHome > match.scoreAway) {
-            home.pkt += 3;
-          } else if (match.scoreHome < match.scoreAway) {
-            away.pkt += 3;
-          } else {
-            home.pkt += 1;
-            away.pkt += 1;
-          }
+          if (match.scoreHome > match.scoreAway) home.pkt += 3;
+          else if (match.scoreHome < match.scoreAway) away.pkt += 3;
+          else { home.pkt += 1; away.pkt += 1; }
         }
       });
 
-      // Wyliczenie różnicy bramek i przekształcenie do tablicy
-      const tableArray = Object.values(stats).map(t => {
-        t.gd = t.gf - t.ga;
-        return t;
-      });
-
-      // Sortowanie: Punkty -> Różnica Bramek -> Bramki Zdobyte
+      const tableArray = Object.values(stats).map(t => { t.gd = t.gf - t.ga; return t; });
       tableArray.sort((a, b) => b.pkt - a.pkt || b.gd - a.gd || b.gf - a.gf);
 
-      // Zapisujemy wyliczoną tabelę do wykorzystania przez główną stronę
       localStorage.setItem('tableData', JSON.stringify(tableArray));
 
-      // Renderowanie Tabeli w HTML
       const tableBody = document.getElementById('generated-table-body');
       tableBody.innerHTML = tableArray.map((t, index) => `
         <tr class="hover:bg-white/5 transition ${t.isUser ? 'font-bold text-brandRed bg-brandRed/10' : ''}">
@@ -488,45 +608,68 @@
         </tr>
       `).join('');
 
-      // Renderowanie listy meczów
       const matchesContainer = document.getElementById('league-matches-list');
       matchesContainer.innerHTML = leagueMatchesData.map(m => `
         <div class="flex items-center justify-between p-2 bg-black/40 rounded-xl border border-white/5 text-xs">
-          <div>
-            <span class="font-bold text-white">${m.home} ${m.scoreHome} - ${m.scoreAway} ${m.away}</span>
-          </div>
+          <span><b class="text-white">${m.home}</b> ${m.scoreHome} - ${m.scoreAway} <b class="text-white">${m.away}</b></span>
           <button onclick="deleteLeagueMatch(${m.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
         </div>
       `).join('');
     }
 
-    // ARTYKUŁY
-    function renderArticlesList() {
-      const container = document.getElementById('articles-list');
-      container.innerHTML = articles.map(art => `
-        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
-          <div class="truncate mr-2">
-            <span class="font-bold text-white">${art.title}</span>
-            <span class="text-slate-500 block text-[10px]">${art.date} • ${art.category}</span>
-          </div>
-          <button onclick="deleteArticle(${art.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
-        </div>
-      `).join('');
+    /* --- ARTYKUŁY I FORMATOWANIE TEKSTU --- */
+    function formatText(tag) {
+      const textarea = document.getElementById('art-content');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = textarea.value.substring(start, end);
+
+      let formatted = '';
+      if (tag === 'b') formatted = `<b>${selected || 'pogrubiony tekst'}</b>`;
+      if (tag === 'i') formatted = `<i>${selected || 'kursywa'}</i>`;
+      if (tag === 'h3') formatted = `\n<h3>${selected || 'Nagłówek'}</h3>\n`;
+      if (tag === 'ul') formatted = `\n<ul>\n  <li>${selected || 'Element listy'}</li>\n</ul>\n`;
+
+      textarea.value = textarea.value.substring(0, start) + formatted + textarea.value.substring(end);
+      textarea.focus();
     }
 
-    function addArticle(e) {
+    function saveArticle(e) {
       e.preventDefault();
-      const newArt = {
-        id: Date.now(),
+      const editId = document.getElementById('art-edit-id').value;
+
+      const artData = {
+        id: editId ? parseInt(editId) : Date.now(),
         title: document.getElementById('art-title').value,
         category: document.getElementById('art-category').value,
         date: document.getElementById('art-date').value,
         content: document.getElementById('art-content').value
       };
-      articles.unshift(newArt);
+
+      if (editId) {
+        const idx = articles.findIndex(a => a.id === parseInt(editId));
+        if (idx !== -1) articles[idx] = artData;
+      } else {
+        articles.unshift(artData);
+      }
+
       localStorage.setItem('articles', JSON.stringify(articles));
+      resetArticleForm();
       renderArticlesList();
-      e.target.reset();
+    }
+
+    function editArticle(id) {
+      const art = articles.find(a => a.id === id);
+      if (!art) return;
+
+      document.getElementById('art-edit-id').value = art.id;
+      document.getElementById('art-title').value = art.title;
+      document.getElementById('art-category').value = art.category;
+      document.getElementById('art-date').value = art.date;
+      document.getElementById('art-content').value = art.content;
+
+      document.getElementById('art-submit-btn').innerText = 'Zapisz Zmiany w Artykule';
+      document.getElementById('art-cancel-btn').classList.remove('hidden');
     }
 
     function deleteArticle(id) {
@@ -535,7 +678,34 @@
       renderArticlesList();
     }
 
-    // KADRA
+    function resetArticleForm() {
+      document.getElementById('art-edit-id').value = '';
+      document.getElementById('art-title').value = '';
+      document.getElementById('art-category').value = '';
+      document.getElementById('art-date').value = '';
+      document.getElementById('art-content').value = '';
+
+      document.getElementById('art-submit-btn').innerText = 'Dodaj Artykuł';
+      document.getElementById('art-cancel-btn').classList.add('hidden');
+    }
+
+    function renderArticlesList() {
+      const container = document.getElementById('articles-list');
+      container.innerHTML = articles.map(art => `
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold text-white">${art.title}</span>
+            <span class="text-slate-500 block text-[10px]">${art.date} • ${art.category}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editArticle(${art.id})" class="text-slate-300 hover:text-white p-1"><i class="fas fa-edit"></i></button>
+            <button onclick="deleteArticle(${art.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* --- KADRA ZESPOŁU --- */
     function handlePositionChange() {
       const pos = document.getElementById('sq-pos').value;
       const isCoach = pos === 'I Trener' || pos === 'II Trener';
@@ -550,38 +720,44 @@
       }
     }
 
-    function renderSquadList() {
-      const container = document.getElementById('squad-list');
-      container.innerHTML = squad.map(p => {
-        const numDisplay = p.num ? `#${p.num}` : '';
-        return `
-          <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
-            <div class="truncate mr-2">
-              <span class="font-bold text-white">${numDisplay} ${p.name}</span>
-              <span class="text-slate-500 block text-[10px]">${p.pos}</span>
-            </div>
-            <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function addSquadMember(e) {
+    function saveSquadMember(e) {
       e.preventDefault();
+      const editId = document.getElementById('sq-edit-id').value;
       const pos = document.getElementById('sq-pos').value;
       const numVal = document.getElementById('sq-num').value;
 
-      const newPlayer = {
-        id: Date.now(),
+      const playerData = {
+        id: editId ? parseInt(editId) : Date.now(),
         num: numVal ? parseInt(numVal) : '',
         name: document.getElementById('sq-name').value,
         pos: pos,
         icon: document.getElementById('sq-icon').value
       };
-      squad.push(newPlayer);
+
+      if (editId) {
+        const idx = squad.findIndex(p => p.id === parseInt(editId));
+        if (idx !== -1) squad[idx] = playerData;
+      } else {
+        squad.push(playerData);
+      }
+
       localStorage.setItem('squad', JSON.stringify(squad));
+      resetSquadForm();
       renderSquadList();
-      e.target.reset();
+    }
+
+    function editSquadMember(id) {
+      const p = squad.find(item => item.id === id);
+      if (!p) return;
+
+      document.getElementById('sq-edit-id').value = p.id;
+      document.getElementById('sq-num').value = p.num;
+      document.getElementById('sq-name').value = p.name;
+      document.getElementById('sq-pos').value = p.pos;
+      document.getElementById('sq-icon').value = p.icon;
+
+      document.getElementById('sq-submit-btn').innerText = 'Zapisz Zmiany w Kadrze';
+      document.getElementById('sq-cancel-btn').classList.remove('hidden');
       handlePositionChange();
     }
 
@@ -591,7 +767,34 @@
       renderSquadList();
     }
 
-    // TERMINARZ
+    function resetSquadForm() {
+      document.getElementById('sq-edit-id').value = '';
+      document.getElementById('sq-num').value = '';
+      document.getElementById('sq-name').value = '';
+      document.getElementById('sq-pos').value = '';
+
+      document.getElementById('sq-submit-btn').innerText = 'Dodaj do Kadry';
+      document.getElementById('sq-cancel-btn').classList.add('hidden');
+      handlePositionChange();
+    }
+
+    function renderSquadList() {
+      const container = document.getElementById('squad-list');
+      container.innerHTML = squad.map(p => `
+        <div class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl border border-white/5 text-xs">
+          <div class="truncate mr-2">
+            <span class="font-bold text-white">${p.num ? `#${p.num}` : ''} ${p.name}</span>
+            <span class="text-slate-500 block text-[10px]">${p.pos}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="editSquadMember(${p.id})" class="text-slate-300 hover:text-white p-1"><i class="fas fa-edit"></i></button>
+            <button onclick="deleteSquadMember(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* --- TERMINARZ --- */
     function renderFixturesList() {
       const container = document.getElementById('fixtures-list');
       container.innerHTML = fixtures.map(f => `
@@ -628,6 +831,9 @@
     }
 
     window.onload = initData;
+  </script>
+</body>
+</html>;
   </script>
 </body>
 </html>
