@@ -145,6 +145,7 @@
     /* KONTENER GŁÓWNY Z MARGINESEM NA WYSPĘ */
     .main-wrapper {
       padding-top: 100px;
+      padding-bottom: 80px;
     }
 
     /* MATCH CENTER */
@@ -237,7 +238,7 @@
     }
 
     .cancelled-tag {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 800;
       color: #f43f5e;
       background: rgba(244, 63, 94, 0.1);
@@ -250,11 +251,11 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: #cbd5e1;
       margin-bottom: 20px;
-      padding: 8px 12px;
-      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.25);
       border-radius: 12px;
     }
 
@@ -486,3 +487,291 @@
       color: var(--red-hover);
       font-weight: 700;
       text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .nav-container { display: flex; justify-content: space-between; }
+      .nav-menu, .nav-spacer { display: none; }
+      .match-grid, .news-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SZKLANA WYSPA NAWIGACYJNA -->
+  <div class="nav-wrapper" id="navIsland">
+    <header>
+      <div class="nav-container">
+        <a href="#" class="logo-link">
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="logo-img">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="#match-center">Match Center</a></li>
+          <li><a href="#tabela">Tabela</a></li>
+          <li><a href="#aktualnosci">Aktualności</a></li>
+          <li><a href="#druzyna">Drużyna</a></li>
+        </ul>
+        <div class="nav-spacer"></div>
+      </div>
+    </header>
+  </div>
+
+  <div class="main-wrapper">
+    
+    <!-- MATCH CENTER + TABELA -->
+    <section class="match-center-container" id="match-center">
+      <h2 class="section-title">Match Center</h2>
+      <div class="match-grid">
+        
+        <!-- MECZE LISTA -->
+        <div class="match-list-container" id="match-center-list"></div>
+
+        <!-- TABELA LIGOWA -->
+        <div class="table-card" id="tabela">
+          <div class="table-header">
+            <span>Tabela Ligowa</span>
+            <span>Pozycja</span>
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Klub</th>
+                <th>M</th>
+                <th>Bramki</th>
+                <th>Pkt</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AKTUALNOŚCI KLUBOWE -->
+    <div class="content-container" id="aktualnosci">
+      <h2 class="section-title">Aktualności</h2>
+      <div class="news-grid" id="news-grid"></div>
+    </div>
+
+    <!-- DRUŻYNA -->
+    <div class="content-container" id="druzyna">
+      <h2 class="section-title">Drużyna</h2>
+      <div class="squad-grid" id="squad-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- OKNO MODALNE (POP-UP) -->
+  <div class="modal-overlay" id="articleModal" onclick="closeModalOnOverlay(event)">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeArticle()">&times;</button>
+      <div class="modal-date" id="modalDate">Data</div>
+      <h2 class="modal-title" id="modalTitle">Tytuł Artykułu</h2>
+      <div class="modal-body" id="modalBody">
+        Treść artykułu...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Baza danych artykułów potrzebna do wywołania modala
+    let currentArticles = [];
+
+    function renderPage() {
+      renderMatchCenter();
+      renderTable();
+      renderNews();
+      renderSquad();
+    }
+
+    // 1. MATCH CENTER
+    function renderMatchCenter() {
+      const defaultMatches = [{
+        id: 1, type: "Mecz Towarzyski", leagueName: "Sparing Przedsezonowy", isCancelled: false,
+        home: "Gospodarze", away: "Rywale", scoreHome: 3, scoreAway: 1,
+        date: "Sobota, 10 Maja", status: "Zakończony", location: "Stadion Miejski",
+        homeScorers: [], awayScorers: []
+      }];
+
+      const matches = JSON.parse(localStorage.getItem('matchCenterList')) || defaultMatches;
+      const container = document.getElementById('match-center-list');
+
+      if (!matches || matches.length === 0) {
+        container.innerHTML = `<div class="match-card"><p style="text-align:center; color:#94a3b8;">Brak zaplanowanych spotkań.</p></div>`;
+        return;
+      }
+
+      container.innerHTML = matches.map(m => {
+        const homeScorersTxt = (m.homeScorers && m.homeScorers.length > 0) ? m.homeScorers.join(', ') : '';
+        const awayScorersTxt = (m.awayScorers && m.awayScorers.length > 0) ? m.awayScorers.join(', ') : '';
+        const hasScorers = homeScorersTxt || awayScorersTxt;
+
+        return `
+          <div class="match-card">
+            <div class="match-header">
+              <span>${m.leagueName || 'Rozgrywki'}</span>
+              <span class="match-type-tag">${m.type || 'Mecz'}</span>
+              <span>${m.status || 'Zapowiedź'}</span>
+            </div>
+            <div class="match-teams">
+              <div class="team">
+                <span class="team-name">${m.home}</span>
+              </div>
+              ${m.isCancelled 
+                ? `<div class="cancelled-tag">ODWOŁANY</div>` 
+                : `<div class="score">${m.scoreHome} : ${m.scoreAway}</div>`
+              }
+              <div class="team">
+                <span class="team-name">${m.away}</span>
+              </div>
+            </div>
+
+            ${(!m.isCancelled && hasScorers) ? `
+              <div class="match-scorers">
+                <div class="scorers-home">${homeScorersTxt}</div>
+                <div class="scorers-away">${awayScorersTxt}</div>
+              </div>
+            ` : ''}
+
+            <div class="match-footer">${m.date}${m.location ? ' • ' + m.location : ''}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 2. TABELA LIGOWA
+    function renderTable() {
+      const defaultTable = [
+        { id: 1, name: "Lider Ligi", isUser: false, m: 10, gf: 20, ga: 5, pkt: 25 },
+        { id: 2, name: "Nasz Klub", isUser: true, m: 10, gf: 18, ga: 8, pkt: 22 },
+        { id: 3, name: "Rywal 2", isUser: false, m: 10, gf: 14, ga: 10, pkt: 18 },
+        { id: 4, name: "Rywal 3", isUser: false, m: 10, gf: 10, ga: 15, pkt: 14 }
+      ];
+
+      const tableData = JSON.parse(localStorage.getItem('tableData')) || defaultTable;
+      const tbody = document.getElementById('table-body');
+
+      tbody.innerHTML = tableData.map((t, index) => `
+        <tr class="${t.isUser ? 'active-team' : ''}">
+          <td>${index + 1}</td>
+          <td>${t.name}</td>
+          <td>${t.m}</td>
+          <td>${t.gf !== undefined ? t.gf + ':' + t.ga : '-'}</td>
+          <td>${t.pkt}</td>
+        </tr>
+      `).join('');
+    }
+
+    // 3. AKTUALNOŚCI
+    function renderNews() {
+      const defaultNews = [
+        { id: 1, title: "Podsumowanie wygranego spotkania domowego", date: "12 Maja 2026", category: "Raport Meczowy", content: "Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością. Od pierwszych minut kontrolowaliśmy przebieg spotkania, co przełożyło się na pewne zwycięstwo 3:1." },
+        { id: 2, title: "Przygotowania do kolejki ligowej", date: "08 Maja 2026", category: "Trening", content: "Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem. Trenerzy skupiają się na poprawie skuteczności w stałych fragmentach gry." },
+        { id: 3, title: "Komunikat Zarządu Klubu", date: "01 Maja 2026", category: "Klub", content: "Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych oraz planowanych treningów." }
+      ];
+
+      currentArticles = JSON.parse(localStorage.getItem('articles')) || defaultNews;
+      const container = document.getElementById('news-grid');
+
+      container.innerHTML = currentArticles.map((a, index) => {
+        const plainText = a.content ? a.content.replace(/<[^>]*>?/gm, '') : '';
+        const excerpt = plainText.length > 90 ? plainText.substring(0, 90) + '...' : plainText;
+
+        return `
+          <div class="news-card" onclick="openArticleByIndex(${index})">
+            <div>
+              <div class="news-date">${a.date}${a.category ? ' • ' + a.category : ''}</div>
+              <h3 class="news-title">${a.title}</h3>
+              <p class="news-excerpt">${excerpt}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 4. KADRA DRUŻYNY
+    function renderSquad() {
+      const defaultSquad = [
+        { id: 1, num: 1, name: "Jan Kowalski", pos: "Bramkarz" },
+        { id: 2, num: 4, name: "Michał Nowak", pos: "Obrońca" },
+        { id: 3, num: 8, name: "Piotr Wiśniewski", pos: "Pomocnik" },
+        { id: 4, num: 10, name: "Kamil Wójcik", pos: "Napastnik" }
+      ];
+
+      const squad = JSON.parse(localStorage.getItem('squad')) || defaultSquad;
+      const container = document.getElementById('squad-grid');
+
+      container.innerHTML = squad.map(p => `
+        <div class="player-card">
+          ${p.num ? `<div class="player-number">${p.num}</div>` : ''}
+          <div class="player-position">${p.pos}</div>
+          <div class="player-name">${p.name}</div>
+        </div>
+      `).join('');
+    }
+
+    /* OBSŁUGA OKNA MODALNEGO ARTYKUŁÓW */
+    function openArticleByIndex(index) {
+      const article = currentArticles[index];
+      if (!article) return;
+
+      document.getElementById('modalDate').innerText = article.date + (article.category ? ' • ' + article.category : '');
+      document.getElementById('modalTitle').innerText = article.title;
+      document.getElementById('modalBody').innerHTML = article.content;
+      document.getElementById('articleModal').classList.add('active');
+    }
+
+    function closeArticle() {
+      document.getElementById('articleModal').classList.remove('active');
+    }
+
+    function closeModalOnOverlay(event) {
+      if (event.target.id === 'articleModal') {
+        closeArticle();
+      }
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeArticle();
+      }
+    });
+
+    /* AUTOHIDE NAWIGACJI PRZY SKROLOWANIU */
+    let lastScrollY = window.scrollY;
+    const navIsland = document.getElementById('navIsland');
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        navIsland.classList.add('nav-hidden');
+      } else {
+        navIsland.classList.remove('nav-hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    });
+
+    // Wczytanie danych ze schowka po załadowaniu drzewa DOM
+    document.addEventListener('DOMContentLoaded', renderPage);
+  </script>
+
+</body>
+</html>
