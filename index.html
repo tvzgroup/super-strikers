@@ -151,20 +151,29 @@
       display: flex;
     }
 
-    .dropdown-content a {
+    .dropdown-content a, .dropdown-content button {
       padding: 10px 20px;
       font-size: 0.88rem;
       color: #cbd5e1;
       width: 100%;
       box-sizing: border-box;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
 
-    .dropdown-content a:hover {
+    .dropdown-content a:hover, .dropdown-content button:hover {
       background: rgba(225, 29, 72, 0.2);
       color: #ffffff;
     }
 
-    /* PRZYCISK TŁUMACZENIA */
+    /* SELECTOR JĘZYKÓW */
+    .lang-dropdown {
+      position: relative;
+    }
+
     .lang-btn {
       background: rgba(225, 29, 72, 0.15);
       border: 1px solid rgba(225, 29, 72, 0.4);
@@ -599,7 +608,7 @@
           <li><a href="#aktualnosci" data-i18n="nav_news">Aktualności</a></li>
           <li><a href="#druzyna" data-i18n="nav_squad">Pierwsza Drużyna</a></li>
           
-          <!-- ROZWIJANE MENU "O KLUPIE" z linkami do podstron -->
+          <!-- ROZWIJANE MENU "O KLUPIE" -->
           <li class="dropdown">
             <button class="dropdown-btn">
               <span data-i18n="nav_about_drop">O Klubie</span> ▼
@@ -611,11 +620,17 @@
             </div>
           </li>
 
-          <!-- PRZYCISK TŁUMACZENIA -->
-          <li>
-            <button class="lang-btn" onclick="toggleLanguage()">
-              🌐 <span id="lang-label">PL / EN</span>
+          <!-- WYBÓR JĘZYKA (PL / EN / ES / RU) -->
+          <li class="dropdown lang-dropdown">
+            <button class="lang-btn">
+              🌐 <span id="lang-label">PL</span> ▼
             </button>
+            <div class="dropdown-content">
+              <button onclick="setLanguage('pl')">🇵🇱 Polski (PL)</button>
+              <button onclick="setLanguage('en')">🇬🇧 English (EN)</button>
+              <button onclick="setLanguage('es')">🇪🇸 Español (ES)</button>
+              <button onclick="setLanguage('ru')">🇷🇺 Русский (RU)</button>
+            </div>
           </li>
         </ul>
       </div>
@@ -721,7 +736,7 @@
   </footer>
 
   <script>
-    // SŁOWNIK TŁUMACZEŃ
+    // SŁOWNIK TŁUMACZEŃ Z POZYCJAMI I TYPAMI MECZÓW
     const i18n = {
       pl: {
         nav_mc: "Match Center",
@@ -748,7 +763,19 @@
         footer_rights: "Wszelkie prawa zastrzeżone.",
         footer_privacy: "Polityka Prywatności",
         footer_terms: "Regulamin Serwisu",
-        footer_press: "Kontakt dla Prasy"
+        footer_press: "Kontakt dla Prasy",
+        // Dynamiczne frazy
+        positions: {
+          "Bramkarz": "Bramkarz",
+          "Obrońca": "Obrońca",
+          "Pomocnik": "Pomocnik",
+          "Napastnik": "Napastnik"
+        },
+        matchTypes: {
+          "Mecz Towarzyski": "Mecz Towarzyski",
+          "Mecz Ligowy": "Mecz Ligowy",
+          "Puchar": "Puchar"
+        }
       },
       en: {
         nav_mc: "Match Center",
@@ -775,22 +802,119 @@
         footer_rights: "All rights reserved.",
         footer_privacy: "Privacy Policy",
         footer_terms: "Terms of Service",
-        footer_press: "Press Inquiries"
+        footer_press: "Press Inquiries",
+        positions: {
+          "Bramkarz": "Goalkeeper",
+          "Obrońca": "Defender",
+          "Pomocnik": "Midfielder",
+          "Napastnik": "Forward"
+        },
+        matchTypes: {
+          "Mecz Towarzyski": "Friendly Match",
+          "Mecz Ligowy": "League Match",
+          "Puchar": "Cup Match"
+        }
+      },
+      es: {
+        nav_mc: "Centro de Partidos",
+        nav_table: "Clasificación",
+        nav_news: "Noticias",
+        nav_squad: "Primer Equipo",
+        nav_about_drop: "El Club",
+        drop_about: "Sobre Nosotros",
+        drop_people: "Miembros del Club",
+        drop_contact: "Contacto",
+        title_mc: "Centro de Partidos",
+        title_news: "Últimas Noticias",
+        title_squad: "Plantilla Del Primer Equipo",
+        table_head_league: "Tabla de Clasificación",
+        table_head_pos: "Posición",
+        th_club: "Club",
+        th_m: "PJ",
+        th_goals: "Goles",
+        th_pts: "Pts",
+        footer_desc: "Plataforma oficial de noticias del club Super Strikers Białystok. Sigue los resultados, horarios y novedades en vivo.",
+        footer_nav: "Navegación",
+        contact_location: "Sede del Club:",
+        contact_email: "Correo Electrónico:",
+        footer_rights: "Todos los derechos reservados.",
+        footer_privacy: "Política de Privacidad",
+        footer_terms: "Términos del Servicio",
+        footer_press: "Prensa",
+        positions: {
+          "Bramkarz": "Portero",
+          "Obrońca": "Defensa",
+          "Pomocnik": "Centrocampista",
+          "Napastnik": "Delantero"
+        },
+        matchTypes: {
+          "Mecz Towarzyski": "Partido Amistoso",
+          "Mecz Ligowy": "Partido de Liga",
+          "Puchar": "Copa"
+        }
+      },
+      ru: {
+        nav_mc: "Mатч-центр",
+        nav_table: "Таблица",
+        nav_news: "Новости",
+        nav_squad: "Основной состав",
+        nav_about_drop: "О клубе",
+        drop_about: "О нас",
+        drop_people: "Люди клуба",
+        drop_contact: "Контакты",
+        title_mc: "Матч-центр",
+        title_news: "Последние новости",
+        title_squad: "Основной состав",
+        table_head_league: "Турнирная таблица",
+        table_head_pos: "Позиция",
+        th_club: "Клуб",
+        th_m: "И",
+        th_goals: "Голы",
+        th_pts: "Очки",
+        footer_desc: "Официальный новостной портал клуба Super Strikers Białystok. Следите за результатами, расписанием и новостями в прямом эфире.",
+        footer_nav: "Навигация",
+        contact_location: "Штаб-квартира:",
+        contact_email: "Электронная почта:",
+        footer_rights: "Все права защищены.",
+        footer_privacy: "Политика конфиденциальности",
+        footer_terms: "Условия использования",
+        footer_press: "Пресс-служба",
+        positions: {
+          "Bramkarz": "Вратарь",
+          "Obrońca": "Защитник",
+          "Pomocnik": "Полузащитник",
+          "Napastnik": "Нападающий"
+        },
+        matchTypes: {
+          "Mecz Towarzyski": "Товарищеский матч",
+          "Mecz Ligowy": "Матч лиги",
+          "Puchar": "Кубок"
+        }
       }
     };
 
     let currentLang = 'pl';
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'pl' ? 'en' : 'pl';
-      document.getElementById('lang-label').innerText = currentLang.toUpperCase();
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('lang-label').innerText = lang.toUpperCase();
 
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
-        if (i18n[currentLang][key]) {
+        if (i18n[currentLang] && i18n[currentLang][key]) {
           elem.innerText = i18n[currentLang][key];
         }
       });
+
+      renderPage();
+    }
+
+    function translatePosition(pos) {
+      return (i18n[currentLang].positions && i18n[currentLang].positions[pos]) || pos;
+    }
+
+    function translateMatchType(type) {
+      return (i18n[currentLang].matchTypes && i18n[currentLang].matchTypes[type]) || type;
     }
 
     function renderPage() {
@@ -813,7 +937,7 @@
 
       container.innerHTML = matches.map(m => `
         <div class="match-card">
-          <div class="match-header"><span class="match-type-tag">${m.type || 'Mecz'}</span></div>
+          <div class="match-header"><span class="match-type-tag">${translateMatchType(m.type || 'Mecz Towarzyski')}</span></div>
           <div class="match-teams">
             <div class="team"><span class="team-name">${m.home}</span></div>
             <div class="score">${m.scoreHome} : ${m.scoreAway}</div>
@@ -881,7 +1005,7 @@
       container.innerHTML = squad.map(p => `
         <div class="player-card">
           <div class="player-number">${p.num}</div>
-          <div class="player-position">${p.pos}</div>
+          <div class="player-position">${translatePosition(p.pos)}</div>
           <div class="player-name">${p.name}</div>
         </div>
       `).join('');
