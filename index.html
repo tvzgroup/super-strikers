@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klub Sportowy - Match Center</title>
+  <title>Super Strikers - Match Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -360,7 +360,7 @@
       line-height: 1.5;
     }
 
-    /* KADRA & SZTAB */
+    /* KADRA */
     .squad-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -408,66 +408,169 @@
       font-weight: 800;
     }
 
-    /* STOPKA */
-    footer {
+    /* SPONSORZY I PARTNERZY */
+    .sponsors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .sponsor-card {
       background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--rm-radius);
+      padding: 30px 20px;
+      backdrop-filter: blur(16px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .sponsor-card:hover {
+      border-color: rgba(225, 29, 72, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .sponsor-type {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--red-hover);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .sponsor-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* POPRAWIONA STOPKA */
+    footer {
+      background: rgba(12, 5, 8, 0.85);
       border-top: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
-      padding: 40px 20px;
-      margin-top: 40px;
+      padding: 60px 20px 30px 20px;
+      margin-top: 60px;
     }
 
     .footer-container {
       max-width: 1360px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
       gap: 40px;
     }
 
-    .footer-about p {
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      align-self: flex-start;
+    }
+
+    .footer-brand p {
       color: #94a3b8;
-      font-size: 0.9rem;
-      margin-top: 12px;
+      font-size: 0.88rem;
       line-height: 1.6;
-      max-width: 400px;
+      max-width: 360px;
     }
 
     .footer-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       color: #ffffff;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: var(--red-accent);
+      border-radius: 1px;
     }
 
     .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .footer-links a {
       color: #94a3b8;
       text-decoration: none;
       font-size: 0.9rem;
-      transition: color 0.2s ease;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .footer-links a:hover {
-      color: var(--red-hover);
+      color: #ffffff;
+      transform: translateX(3px);
+    }
+
+    .footer-contact-item {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-contact-item span {
+      color: #ffffff;
+      font-weight: 600;
     }
 
     .footer-bottom {
       max-width: 1360px;
-      margin: 30px auto 0 auto;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      text-align: center;
-      font-size: 0.8rem;
+      margin: 50px auto 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
       color: #64748b;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      color: #64748b;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: #94a3b8;
     }
 
     /* OKNO MODALNE */
@@ -555,10 +658,16 @@
       line-height: 1.7;
     }
 
+    @media (max-width: 1024px) {
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
     @media (max-width: 900px) {
       .nav-container { display: flex; justify-content: space-between; }
       .nav-menu, .nav-spacer { display: none; }
-      .match-grid, .news-grid, .footer-container { grid-template-columns: 1fr; }
+      .match-grid, .news-grid { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -576,7 +685,7 @@
           <li><a href="#tabela">Tabela</a></li>
           <li><a href="#aktualnosci">Aktualności</a></li>
           <li><a href="#druzyna">Drużyna</a></li>
-          <li><a href="#sztab">Sztab</a></li>
+          <li><a href="#partnerzy">Partnerzy</a></li>
         </ul>
         <div class="nav-spacer"></div>
       </div>
@@ -628,41 +737,65 @@
       <div class="squad-grid" id="squad-grid"></div>
     </div>
 
-    <!-- SZTAB SZKOLENIOWY -->
-    <div class="content-container" id="sztab">
-      <h2 class="section-title">Sztab Szkoleniowy</h2>
-      <div class="squad-grid" id="staff-grid"></div>
+    <!-- SPONSORZY I PARTNERZY -->
+    <div class="content-container" id="partnerzy">
+      <h2 class="section-title">Sponsorzy i Partnerzy</h2>
+      <div class="sponsors-grid" id="sponsors-grid"></div>
     </div>
 
   </div>
 
-  <!-- STOPKA -->
+  <!-- POPRAWIONA STOPKA -->
   <footer>
     <div class="footer-container">
-      <div class="footer-about">
-        <h3 class="footer-title">Klub Sportowy</h3>
-        <p>Oficjalny serwis informacyjny drużyny. Śledź na bieżąco nasze wyniki, harmonogramy spotkań oraz aktualności klubowe.</p>
+      <div class="footer-brand">
+        <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="footer-logo">
+        <p>Oficjalny serwis informacyjny klubu Super Strikers Białystok. Śledź nasze wyniki, terminarze i aktualności na żywo.</p>
       </div>
+
       <div>
         <h4 class="footer-title">Nawigacja</h4>
         <ul class="footer-links">
           <li><a href="#match-center">Match Center</a></li>
-          <li><a href="#tabela">Tabela</a></li>
+          <li><a href="#tabela">Tabela Ligowa</a></li>
           <li><a href="#aktualnosci">Aktualności</a></li>
-          <li><a href="#druzyna">Drużyna</a></li>
+          <li><a href="#druzyna">Pierwsza Drużyna</a></li>
+          <li><a href="#partnerzy">Sponsorzy</a></li>
         </ul>
       </div>
+
+      <div>
+        <h4 class="footer-title">Social Media</h4>
+        <ul class="footer-links">
+          <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+          <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+          <li><a href="https://tiktok.com" target="_blank">TikTok</a></li>
+        </ul>
+      </div>
+
       <div>
         <h4 class="footer-title">Kontakt</h4>
-        <ul class="footer-links">
-          <li><a href="mailto:kontakt@klub.pl">kontakt@klub.pl</a></li>
-          <li><a href="#">Social Media</a></li>
-          <li><a href="#">Dla Prasy</a></li>
-        </ul>
+        <div class="footer-contact-item">
+          <span>Siedziba Klubu:</span>
+          Białystok, Polska
+        </div>
+        <div class="footer-contact-item" style="margin-top: 12px;">
+          <span>Adres E-mail:</span>
+          kontakt@superstrikers.pl
+        </div>
       </div>
     </div>
+
     <div class="footer-bottom">
-      &copy; 2026 Klub Sportowy. Wszelkie prawa zastrzeżone.
+      <div>
+        &copy; 2026 Super Strikers Białystok. Wszelkie prawa zastrzeżone.
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#">Polityka Prywatności</a>
+        <a href="#">Regulamin Serwisu</a>
+        <a href="#">Kontakt dla Prasy</a>
+      </div>
     </div>
   </footer>
 
@@ -686,15 +819,15 @@
       renderTable();
       renderNews();
       renderSquad();
-      renderStaff();
+      renderSponsors();
     }
 
     // 1. MATCH CENTER
     function renderMatchCenter() {
       const defaultMatches = [{
         id: 1, type: "Mecz Towarzyski", leagueName: "Sparing Przedsezonowy", isCancelled: false,
-        home: "Gospodarze", away: "Rywale", scoreHome: 3, scoreAway: 1,
-        date: "Sobota, 10 Maja", status: "Zakończony", location: "Stadion Miejski",
+        home: "Super Strikers", away: "GDK", scoreHome: 3, scoreAway: 1,
+        date: "16.08.2026, 17:00", status: "Zakończony", location: "Stadion Miejski",
         homeScorers: [], awayScorers: []
       }];
 
@@ -746,7 +879,7 @@
     function renderTable() {
       const defaultTable = [
         { id: 1, name: "Lider Ligi", isUser: false, m: 10, gf: 20, ga: 5, pkt: 25 },
-        { id: 2, name: "Nasz Klub", isUser: true, m: 10, gf: 18, ga: 8, pkt: 22 },
+        { id: 2, name: "Super Strikers", isUser: true, m: 10, gf: 18, ga: 8, pkt: 22 },
         { id: 3, name: "Rywal 2", isUser: false, m: 10, gf: 14, ga: 10, pkt: 18 },
         { id: 4, name: "Rywal 3", isUser: false, m: 10, gf: 10, ga: 15, pkt: 14 }
       ];
@@ -768,8 +901,8 @@
     // 3. AKTUALNOŚCI
     function renderNews() {
       const defaultNews = [
-        { id: 1, title: "Podsumowanie wygranego spotkania domowego", date: "12 Maja 2026", category: "Raport Meczowy", content: "Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością. Od pierwszych minut kontrolowaliśmy przebieg spotkania, co przełożyło się na pewne zwycięstwo 3:1." },
-        { id: 2, title: "Przygotowania do kolejki ligowej", date: "08 Maja 2026", category: "Trening", content: "Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem. Trenerzy skupiają się na poprawie skuteczności w stałych fragmentach gry." },
+        { id: 1, title: "Podsumowanie wygranego spotkania domowego", date: "12 Maja 2026", category: "Raport Meczowy", content: "Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością. Od pierwszych minut kontrolowaliśmy przebieg spotkania." },
+        { id: 2, title: "Przygotowania do kolejki ligowej", date: "08 Maja 2026", category: "Trening", content: "Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem. Trenerzy skupiają się na poprawie skuteczności." },
         { id: 3, title: "Komunikat Zarządu Klubu", date: "01 Maja 2026", category: "Klub", content: "Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych oraz planowanych treningów." }
       ];
 
@@ -813,22 +946,22 @@
       `).join('');
     }
 
-    // 5. SZTAB SZKOLENIOWY
-    function renderStaff() {
-      const defaultStaff = [
-        { id: 1, name: "Adam Zieliński", pos: "I Trener" },
-        { id: 2, name: "Marek Dąbrowski", pos: "Asystent Trenera" },
-        { id: 3, name: "Tomasz Lewandowski", pos: "Trener Bramkarzy" },
-        { id: 4, name: "Grzegorz Kamiński", pos: "Fizjoterapeuta" }
+    // 5. SPONSORZY I PARTNERZY
+    function renderSponsors() {
+      const defaultSponsors = [
+        { id: 1, name: "Sponsor Główny", type: "Główny Partner" },
+        { id: 2, name: "Partner Techniczny", type: "Sprzęt" },
+        { id: 3, name: "Lokalny Biznes", type: "Sponsor" },
+        { id: 4, name: "Patron Medialny", type: "Media" }
       ];
 
-      const staff = JSON.parse(localStorage.getItem('staff')) || defaultStaff;
-      const container = document.getElementById('staff-grid');
+      const sponsors = JSON.parse(localStorage.getItem('sponsors')) || defaultSponsors;
+      const container = document.getElementById('sponsors-grid');
 
-      container.innerHTML = staff.map(s => `
-        <div class="player-card">
-          <div class="player-position">${s.pos}</div>
-          <div class="player-name">${s.name}</div>
+      container.innerHTML = sponsors.map(s => `
+        <div class="sponsor-card">
+          <div class="sponsor-type">${s.type}</div>
+          <div class="sponsor-name">${s.name}</div>
         </div>
       `).join('');
     }
