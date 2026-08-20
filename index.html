@@ -400,7 +400,7 @@
       line-height: 1.5;
     }
 
-    /* KADRA & LUDZIE KLUBU */
+    /* KADRA DRUŻYNY */
     .squad-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -446,17 +446,6 @@
     .player-name {
       font-size: 1.1rem;
       font-weight: 800;
-    }
-
-    /* O NAS */
-    .about-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--rm-radius);
-      padding: 32px;
-      backdrop-filter: blur(16px);
-      line-height: 1.7;
-      color: #cbd5e1;
     }
 
     /* STOPKA */
@@ -601,7 +590,7 @@
   <div class="nav-wrapper" id="navIsland">
     <header>
       <div class="nav-container">
-        <a href="#" class="logo-link">
+        <a href="index.html" class="logo-link">
           <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="logo-img">
         </a>
         <ul class="nav-menu">
@@ -610,14 +599,14 @@
           <li><a href="#aktualnosci" data-i18n="nav_news">Aktualności</a></li>
           <li><a href="#druzyna" data-i18n="nav_squad">Pierwsza Drużyna</a></li>
           
-          <!-- ROZWIJANE MENU "O KLUPIE" -->
+          <!-- ROZWIJANE MENU "O KLUPIE" z linkami do podstron -->
           <li class="dropdown">
             <button class="dropdown-btn">
               <span data-i18n="nav_about_drop">O Klubie</span> ▼
             </button>
             <div class="dropdown-content">
-              <a href="#o-nas" data-i18n="drop_about">O Nas</a>
-              <a href="#ludzie-klubu" data-i18n="drop_people">Ludzie Klubu</a>
+              <a href="o-nas.html" data-i18n="drop_about">O Nas</a>
+              <a href="ludzie-klubu.html" data-i18n="drop_people">Ludzie Klubu</a>
               <a href="#kontakt" data-i18n="drop_contact">Kontakt</a>
             </div>
           </li>
@@ -674,20 +663,6 @@
       <div class="squad-grid" id="squad-grid"></div>
     </div>
 
-    <!-- LUDZIE KLUBU -->
-    <div class="content-container" id="ludzie-klubu">
-      <h2 class="section-title" data-i18n="title_people">Ludzie Klubu</h2>
-      <div class="squad-grid" id="people-grid"></div>
-    </div>
-
-    <!-- O NAS -->
-    <div class="content-container" id="o-nas">
-      <h2 class="section-title" data-i18n="title_about">O Nas</h2>
-      <div class="about-card" data-i18n="about_text">
-        Super Strikers Białystok to dynamicznie rozwijający się klub sportowy z Białegostoku. Naszą misją jest rozwijanie pasji do piłki nożnej, budowanie silnej społeczności oraz walka o najwyższe cele na boisku.
-      </div>
-    </div>
-
   </div>
 
   <!-- STOPKA -->
@@ -705,7 +680,8 @@
           <li><a href="#tabela" data-i18n="nav_table">Tabela Ligowa</a></li>
           <li><a href="#aktualnosci" data-i18n="nav_news">Aktualności</a></li>
           <li><a href="#druzyna" data-i18n="nav_squad">Pierwsza Drużyna</a></li>
-          <li><a href="#ludzie-klubu" data-i18n="drop_people">Ludzie Klubu</a></li>
+          <li><a href="ludzie-klubu.html" data-i18n="drop_people">Ludzie Klubu</a></li>
+          <li><a href="o-nas.html" data-i18n="drop_about">O Nas</a></li>
         </ul>
       </div>
 
@@ -759,15 +735,12 @@
         title_mc: "Match Center",
         title_news: "Aktualności",
         title_squad: "Pierwsza Drużyna",
-        title_people: "Ludzie Klubu",
-        title_about: "O Nas",
         table_head_league: "Tabela Ligowa",
         table_head_pos: "Pozycja",
         th_club: "Klub",
         th_m: "M",
         th_goals: "Bramki",
         th_pts: "Pkt",
-        about_text: "Super Strikers Białystok to dynamicznie rozwijający się klub sportowy z Białegostoku. Naszą misją jest rozwijanie pasji do piłki nożnej, budowanie silnej społeczności oraz walka o najwyższe cele na boisku.",
         footer_desc: "Oficjalny serwis informacyjny klubu Super Strikers Białystok. Śledź nasze wyniki, terminarze i aktualności na żywo.",
         footer_nav: "Nawigacja",
         contact_location: "Siedziba Klubu:",
@@ -789,15 +762,12 @@
         title_mc: "Match Center",
         title_news: "Latest News",
         title_squad: "First Team Squad",
-        title_people: "Club Staff & Management",
-        title_about: "About Us",
         table_head_league: "League Table",
         table_head_pos: "Position",
         th_club: "Club",
         th_m: "P",
         th_goals: "Goals",
         th_pts: "Pts",
-        about_text: "Super Strikers Białystok is a dynamically growing sports club based in Białystok. Our mission is to foster passion for football, build a vibrant community, and strive for excellence on the pitch.",
         footer_desc: "Official news platform of Super Strikers Białystok. Follow match results, fixtures, and club updates live.",
         footer_nav: "Navigation",
         contact_location: "Headquarters:",
@@ -828,7 +798,6 @@
       renderTable();
       renderNews();
       renderSquad();
-      renderPeople();
     }
 
     // 1. MATCH CENTER
@@ -912,23 +881,6 @@
       container.innerHTML = squad.map(p => `
         <div class="player-card">
           <div class="player-number">${p.num}</div>
-          <div class="player-position">${p.pos}</div>
-          <div class="player-name">${p.name}</div>
-        </div>
-      `).join('');
-    }
-
-    // 5. LUDZIE KLUBU
-    function renderPeople() {
-      const people = [
-        { name: "Marek Wiśniewski", pos: "Prezes Klubu" },
-        { name: "Adam Zieliński", pos: "Trener Główny" },
-        { name: "Piotr Zieliński", pos: "Menedżer Zespołu" }
-      ];
-
-      const container = document.getElementById('people-grid');
-      container.innerHTML = people.map(p => `
-        <div class="player-card">
           <div class="player-position">${p.pos}</div>
           <div class="player-name">${p.name}</div>
         </div>
