@@ -98,52 +98,10 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
-    /* HERO BANNER */
-    .hero-container {
-      max-width: 1360px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    .hero-card {
-      background: var(--dark-card);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--rm-radius);
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      overflow: hidden;
-      min-height: 440px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(12px);
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero-text-box {
-      padding: 60px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .hero-title {
-      color: #ffffff;
-      font-size: 2.3rem;
-      font-weight: 800;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
-    }
-
-    /* MATCH CENTER SECTION */
+    /* MATCH CENTER (GŁÓWNY MODUŁ) */
     .match-center-container {
       max-width: 1360px;
-      margin: 40px auto 60px auto;
+      margin: 40px auto;
       padding: 0 20px;
     }
 
@@ -169,15 +127,15 @@
 
     .match-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
     }
 
     .match-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--rm-radius);
-      padding: 24px;
+      padding: 32px;
       backdrop-filter: blur(16px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       display: flex;
@@ -191,11 +149,10 @@
     }
 
     .match-header {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       color: #94a3b8;
-      margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
     }
@@ -204,21 +161,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 15px 0;
+      margin: 30px 0;
     }
 
     .team {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       width: 40%;
       text-align: center;
     }
 
     .team-badge {
-      width: 48px;
-      height: 48px;
+      width: 64px;
+      height: 64px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--glass-border);
       border-radius: 50%;
@@ -226,65 +183,56 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
     }
 
     .team-name {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       font-weight: 700;
     }
 
     .score {
-      font-size: 1.8rem;
+      font-size: 2.8rem;
       font-weight: 900;
       color: var(--red-accent);
       letter-spacing: 2px;
     }
 
-    .vs-badge {
-      font-size: 0.85rem;
-      font-weight: 800;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 6px 12px;
-      border-radius: 20px;
-      color: #cbd5e1;
-    }
-
     .match-footer {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: #94a3b8;
       text-align: center;
-      margin-top: 15px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 12px;
+      padding-top: 16px;
     }
 
-    /* MINI TABELA */
+    /* TABELA LIGOWA */
     .table-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--rm-radius);
-      padding: 24px;
+      padding: 32px;
       backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
     .mini-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
-      margin-top: 10px;
+      font-size: 0.95rem;
+      margin-top: 16px;
     }
 
     .mini-table th {
       text-align: left;
       color: #94a3b8;
-      padding-bottom: 10px;
+      padding-bottom: 12px;
       font-weight: 600;
       border-bottom: 1px solid var(--glass-border);
     }
 
     .mini-table td {
-      padding: 10px 0;
+      padding: 14px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
@@ -293,8 +241,7 @@
       color: var(--red-hover);
     }
 
-    @media (max-width: 1024px) {
-      .hero-card { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
       .nav-menu { display: none; }
       .match-grid { grid-template-columns: 1fr; }
     }
@@ -302,7 +249,7 @@
 </head>
 <body>
 
-  <!-- SZKLANA WYSPA NAWIGACYJNA BEZ PRZYCISKÓW -->
+  <!-- SZKLANA WYSPA NAWIGACYJNA -->
   <div class="nav-wrapper">
     <header>
       <div class="nav-container">
@@ -323,26 +270,16 @@
     </header>
   </div>
 
-  <!-- MAIN HERO BANNER -->
-  <main class="hero-container">
-    <div class="hero-card">
-      <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80" alt="Prezentacja" class="hero-image">
-      <div class="hero-text-box">
-        <h1 class="hero-title">Gotowi na nowe wyzwania ligowe!</h1>
-      </div>
-    </div>
-  </main>
-
-  <!-- MATCH CENTER SECTION (DO EDYCJI W PANELU) -->
+  <!-- MATCH CENTER + TABELA -->
   <section class="match-center-container">
     <h2 class="section-title">Match Center</h2>
     
     <div class="match-grid">
       
-      <!-- OSTATNI MECZ -->
-      <div class="match-card" id="last-match">
+      <!-- MECZ -->
+      <div class="match-card" id="match-node">
         <div class="match-header">
-          <span>Ostatni mecz</span>
+          <span>Ostatni Mecz</span>
           <span>Liga</span>
         </div>
         <div class="match-teams">
@@ -359,31 +296,11 @@
         <div class="match-footer">Sobota, 10 Maja • Stadion Miejski</div>
       </div>
 
-      <!-- NADCHODZĄCY MECZ -->
-      <div class="match-card" id="next-match">
-        <div class="match-header">
-          <span>Nadchodzące spotkanie</span>
-          <span>Liga</span>
-        </div>
-        <div class="match-teams">
-          <div class="team">
-            <div class="team-badge">Nasz</div>
-            <span class="team-name">Nasz Klub</span>
-          </div>
-          <div class="vs-badge">VS</div>
-          <div class="team">
-            <div class="team-badge">OPP</div>
-            <span class="team-name">Przeciwnik</span>
-          </div>
-        </div>
-        <div class="match-footer">Niedziela, 18 Maja • 15:00</div>
-      </div>
-
-      <!-- MINI TABELA LIGOWA -->
-      <div class="table-card" id="league-table">
+      <!-- TABELA LIGOWA -->
+      <div class="table-card" id="league-table-node">
         <div class="match-header">
           <span>Tabela Ligowa</span>
-          <span>Poz.</span>
+          <span>Pozycja</span>
         </div>
         <table class="mini-table">
           <thead>
@@ -412,6 +329,12 @@
               <td>Rywal 2</td>
               <td>10</td>
               <td>18</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Rywal 3</td>
+              <td>10</td>
+              <td>14</td>
             </tr>
           </tbody>
         </table>
