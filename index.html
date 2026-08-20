@@ -139,7 +139,7 @@
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
       border-radius: 16px;
-      padding: 10px 0;
+      padding: 8px 0;
       min-width: 180px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.6);
       display: none;
@@ -162,6 +162,7 @@
       border: none;
       cursor: pointer;
       font-family: inherit;
+      transition: all 0.2s ease;
     }
 
     .dropdown-content a:hover, .dropdown-content button:hover {
@@ -169,29 +170,87 @@
       color: #ffffff;
     }
 
-    /* SELECTOR JĘZYKÓW */
+    /* NOWY LEPSZY SELECTOR JĘZYKA */
     .lang-dropdown {
       position: relative;
     }
 
     .lang-btn {
-      background: rgba(225, 29, 72, 0.15);
-      border: 1px solid rgba(225, 29, 72, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #ffffff;
-      padding: 8px 16px;
-      border-radius: var(--rm-btn-radius);
+      padding: 8px 14px;
+      border-radius: 14px;
       font-weight: 700;
       font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .lang-btn:hover {
-      background: var(--red-accent);
-      box-shadow: 0 0 15px rgba(225, 29, 72, 0.4);
+    .lang-btn:hover, .lang-dropdown.active .lang-btn {
+      background: rgba(225, 29, 72, 0.2);
+      border-color: rgba(225, 29, 72, 0.6);
+      box-shadow: 0 0 20px rgba(225, 29, 72, 0.25);
+    }
+
+    .lang-flag {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .lang-arrow {
+      font-size: 0.65rem;
+      transition: transform 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .lang-dropdown.active .lang-arrow {
+      transform: rotate(180deg);
+    }
+
+    .lang-dropdown .dropdown-content {
+      right: 0;
+      left: auto;
+      min-width: 170px;
+      padding: 6px;
+      border-radius: 18px;
+      background: rgba(15, 6, 10, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(225, 29, 72, 0.15);
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      display: flex;
+    }
+
+    .lang-dropdown.active .dropdown-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px !important;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .lang-option.selected {
+      background: rgba(225, 29, 72, 0.25);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .lang-option:hover {
+      background: rgba(225, 29, 72, 0.4) !important;
     }
 
     /* TYTUŁY SEKCJI */
@@ -620,16 +679,26 @@
             </div>
           </li>
 
-          <!-- WYBÓR JĘZYKA (PL / EN / ES / RU) -->
-          <li class="dropdown lang-dropdown">
-            <button class="lang-btn">
-              🌐 <span id="lang-label">PL</span> ▼
+          <!-- WYBÓR JĘZYKA (NOWY / POPRAWIONY) -->
+          <li class="lang-dropdown" id="langDropdown">
+            <button class="lang-btn" onclick="toggleLangDropdown(event)">
+              <span class="lang-flag" id="lang-flag">🇵🇱</span>
+              <span id="lang-label">PL</span>
+              <span class="lang-arrow">▼</span>
             </button>
             <div class="dropdown-content">
-              <button onclick="setLanguage('pl')">🇵🇱 Polski (PL)</button>
-              <button onclick="setLanguage('en')">🇬🇧 English (EN)</button>
-              <button onclick="setLanguage('es')">🇪🇸 Español (ES)</button>
-              <button onclick="setLanguage('ru')">🇷🇺 Русский (RU)</button>
+              <button class="lang-option selected" onclick="setLanguage('pl')" id="opt-pl">
+                <span class="lang-flag">🇵🇱</span> Polski (PL)
+              </button>
+              <button class="lang-option" onclick="setLanguage('en')" id="opt-en">
+                <span class="lang-flag">🇬🇧</span> English (EN)
+              </button>
+              <button class="lang-option" onclick="setLanguage('es')" id="opt-es">
+                <span class="lang-flag">🇪🇸</span> Español (ES)
+              </button>
+              <button class="lang-option" onclick="setLanguage('ru')" id="opt-ru">
+                <span class="lang-flag">🇷🇺</span> Русский (RU)
+              </button>
             </div>
           </li>
         </ul>
@@ -764,7 +833,6 @@
         footer_privacy: "Polityka Prywatności",
         footer_terms: "Regulamin Serwisu",
         footer_press: "Kontakt dla Prasy",
-        // Dynamiczne frazy
         positions: {
           "Bramkarz": "Bramkarz",
           "Obrońca": "Obrońca",
@@ -893,18 +961,50 @@
       }
     };
 
+    const flags = {
+      pl: "🇵🇱",
+      en: "🇬🇧",
+      es: "🇪🇸",
+      ru: "🇷🇺"
+    };
+
     let currentLang = 'pl';
+
+    function toggleLangDropdown(event) {
+      event.stopPropagation();
+      const drop = document.getElementById('langDropdown');
+      drop.classList.toggle('active');
+    }
+
+    // Zamknij menu jeśli kliknięto poza nim
+    window.addEventListener('click', () => {
+      const drop = document.getElementById('langDropdown');
+      if (drop) drop.classList.remove('active');
+    });
 
     function setLanguage(lang) {
       currentLang = lang;
+      
+      // Aktualizacja etykiety i flagi w przycisku
       document.getElementById('lang-label').innerText = lang.toUpperCase();
+      document.getElementById('lang-flag').innerText = flags[lang];
 
+      // Oznaczenie aktywnego opcji w menu
+      document.querySelectorAll('.lang-option').forEach(btn => btn.classList.remove('selected'));
+      const activeBtn = document.getElementById(`opt-${lang}`);
+      if (activeBtn) activeBtn.classList.add('selected');
+
+      // Tłumaczenie elementów statycznych z data-i18n
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (i18n[currentLang] && i18n[currentLang][key]) {
           elem.innerText = i18n[currentLang][key];
         }
       });
+
+      // Zamknięcie menu
+      const drop = document.getElementById('langDropdown');
+      if (drop) drop.classList.remove('active');
 
       renderPage();
     }
