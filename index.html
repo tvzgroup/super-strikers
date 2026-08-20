@@ -25,6 +25,10 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: radial-gradient(circle at 50% 0%, #4c0519 0%, #110206 40%, #050102 100%);
@@ -34,14 +38,23 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* SZKLANA WYSPA NAWIGACYJNA */
+    /* SZKLANA WYSPA NAWIGACYJNA Z CHOWANIEM */
     .nav-wrapper {
-      position: sticky;
+      position: fixed;
       top: 20px;
+      left: 0;
+      right: 0;
       z-index: 1000;
       max-width: 1360px;
       margin: 0 auto;
       padding: 0 20px;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .nav-wrapper.nav-hidden {
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
     }
 
     header {
@@ -129,11 +142,17 @@
       border-radius: 2px;
     }
 
+    /* KONTENER GŁÓWNY Z MARGINESEM NA WYSPĘ */
+    .main-wrapper {
+      padding-top: 100px;
+    }
+
     /* MATCH CENTER */
     .match-center-container {
       max-width: 1360px;
       margin: 40px auto;
       padding: 0 20px;
+      scroll-margin-top: 120px;
     }
 
     .match-grid {
@@ -263,13 +282,15 @@
       color: var(--red-hover);
     }
 
-    /* AKTUALNOŚCI */
+    /* KONTENER SEKCJI */
     .content-container {
       max-width: 1360px;
-      margin: 40px auto;
+      margin: 60px auto;
       padding: 0 20px;
+      scroll-margin-top: 120px;
     }
 
+    /* AKTUALNOŚCI */
     .news-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -314,6 +335,54 @@
       font-size: 0.85rem;
       color: #94a3b8;
       line-height: 1.5;
+    }
+
+    /* SEKCJA DRUŻYNA */
+    .squad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .player-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--rm-radius);
+      padding: 24px;
+      backdrop-filter: blur(16px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(225, 29, 72, 0.4);
+    }
+
+    .player-number {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.05);
+      user-select: none;
+    }
+
+    .player-position {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--red-hover);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .player-name {
+      font-size: 1.1rem;
+      font-weight: 800;
     }
 
     /* OKNO MODALNE (POP-UP Z ARTYKUŁEM) */
@@ -409,125 +478,155 @@
 <body>
 
   <!-- SZKLANA WYSPA NAWIGACYJNA -->
-  <div class="nav-wrapper">
+  <div class="nav-wrapper" id="navIsland">
     <header>
       <div class="nav-container">
         <a href="#" class="logo-link">
           <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="logo-img">
         </a>
         <ul class="nav-menu">
-          <li><a href="#">Klub</a></li>
-          <li><a href="#">Drużyna</a></li>
-          <li><a href="#">Match Center</a></li>
-          <li><a href="#">Tabela</a></li>
-          <li><a href="#">Kontakt</a></li>
+          <li><a href="#match-center">Match Center</a></li>
+          <li><a href="#tabela">Tabela</a></li>
+          <li><a href="#aktualnosci">Aktualności</a></li>
+          <li><a href="#druzyna">Drużyna</a></li>
         </ul>
         <div class="nav-spacer"></div>
       </div>
     </header>
   </div>
 
-  <!-- MATCH CENTER + TABELA -->
-  <section class="match-center-container">
-    <h2 class="section-title">Match Center</h2>
-    <div class="match-grid">
-      
-      <!-- MECZ -->
-      <div class="match-card" id="match-node">
-        <div class="match-header">
-          <span>Ostatni Mecz</span>
-          <span class="match-type-tag">Mecz Towarzyski</span>
-          <span>Zakończony</span>
-        </div>
-        <div class="match-teams">
-          <div class="team">
-            <span class="team-name">Gospodarze</span>
+  <div class="main-wrapper">
+    
+    <!-- MATCH CENTER + TABELA -->
+    <section class="match-center-container" id="match-center">
+      <h2 class="section-title">Match Center</h2>
+      <div class="match-grid">
+        
+        <!-- MECZ -->
+        <div class="match-card" id="match-node">
+          <div class="match-header">
+            <span>Ostatni Mecz</span>
+            <span class="match-type-tag">Mecz Towarzyski</span>
+            <span>Zakończony</span>
           </div>
-          <div class="score">3 : 1</div>
-          <div class="team">
-            <span class="team-name">Rywale</span>
+          <div class="match-teams">
+            <div class="team">
+              <span class="team-name">Gospodarze</span>
+            </div>
+            <div class="score">3 : 1</div>
+            <div class="team">
+              <span class="team-name">Rywale</span>
+            </div>
+          </div>
+          <div class="match-footer">Sobota, 10 Maja • Stadion Miejski</div>
+        </div>
+
+        <!-- TABELA LIGOWA -->
+        <div class="table-card" id="tabela">
+          <div class="table-header">
+            <span>Tabela Ligowa</span>
+            <span>Pozycja</span>
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Klub</th>
+                <th>M</th>
+                <th>Pkt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Lider Ligi</td>
+                <td>10</td>
+                <td>25</td>
+              </tr>
+              <tr class="active-team">
+                <td>2</td>
+                <td>Nasz Klub</td>
+                <td>10</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Rywal 2</td>
+                <td>10</td>
+                <td>18</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Rywal 3</td>
+                <td>10</td>
+                <td>14</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AKTUALNOŚCI KLUBOWE -->
+    <div class="content-container" id="aktualnosci">
+      <h2 class="section-title">Aktualności</h2>
+      <div class="news-grid">
+        
+        <div class="news-card" onclick="openArticle('12 Maja 2026', 'Podsumowanie wygranego spotkania domowego', 'Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością. Od pierwszych minut kontrolowaliśmy przebieg spotkania, co przełożyło się na pewne zwycięstwo 3:1. Dziękujemy kibicom za gorący doping przez pełne 90 minut!')">
+          <div>
+            <div class="news-date">12 Maja 2026</div>
+            <h3 class="news-title">Podsumowanie wygranego spotkania domowego</h3>
+            <p class="news-excerpt">Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością...</p>
           </div>
         </div>
-        <div class="match-footer">Sobota, 10 Maja • Stadion Miejski</div>
-      </div>
 
-      <!-- TABELA LIGOWA -->
-      <div class="table-card" id="league-table-node">
-        <div class="table-header">
-          <span>Tabela Ligowa</span>
-          <span>Pozycja</span>
+        <div class="news-card" onclick="openArticle('08 Maja 2026', 'Przygotowania do kolejki ligowej', 'Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem. Trenerzy skupiają się na poprawie skuteczności w stałych fragmentach gry oraz taktyce defensywnej. Skład jest gotowy do walki o pełną pulę.')">
+          <div>
+            <div class="news-date">08 Maja 2026</div>
+            <h3 class="news-title">Przygotowania do kolejki ligowej</h3>
+            <p class="news-excerpt">Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem...</p>
+          </div>
         </div>
-        <table class="mini-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Klub</th>
-              <th>M</th>
-              <th>Pkt</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Lider Ligi</td>
-              <td>10</td>
-              <td>25</td>
-            </tr>
-            <tr class="active-team">
-              <td>2</td>
-              <td>Nasz Klub</td>
-              <td>10</td>
-              <td>22</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Rywal 2</td>
-              <td>10</td>
-              <td>18</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Rywal 3</td>
-              <td>10</td>
-              <td>14</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
+        <div class="news-card" onclick="openArticle('01 Maja 2026', 'Komunikat Zarządu Klubu', 'Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych oraz planowanych treningów. Przebudowa zaplecza technicznego przebiega zgodnie z planem. Zapraszamy do śledzenia naszych oficjalnych kanałów.')">
+          <div>
+            <div class="news-date">01 Maja 2026</div>
+            <h3 class="news-title">Komunikat Zarządu Klubu</h3>
+            <p class="news-excerpt">Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych...</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </section>
 
-  <!-- AKTUALNOŚCI KLUBOWE -->
-  <div class="content-container">
-    <h2 class="section-title">Aktualności</h2>
-    <div class="news-grid">
-      
-      <div class="news-card" onclick="openArticle('12 Maja 2026', 'Podsumowanie wygranego spotkania domowego', 'Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością. Od pierwszych minut kontrolowaliśmy przebieg spotkania, co przełożyło się na pewne zwycięstwo 3:1. Dziękujemy kibicom za gorący doping przez pełne 90 minut!')">
-        <div>
-          <div class="news-date">12 Maja 2026</div>
-          <h3 class="news-title">Podsumowanie wygranego spotkania domowego</h3>
-          <p class="news-excerpt">Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością...</p>
+    <!-- DRUŻYNA -->
+    <div class="content-container" id="druzyna">
+      <h2 class="section-title">Drużyna</h2>
+      <div class="squad-grid">
+        <div class="player-card">
+          <div class="player-number">1</div>
+          <div class="player-position">Bramkarz</div>
+          <div class="player-name">Jan Kowalski</div>
+        </div>
+        <div class="player-card">
+          <div class="player-number">4</div>
+          <div class="player-position">Obrońca</div>
+          <div class="player-name">Michał Nowak</div>
+        </div>
+        <div class="player-card">
+          <div class="player-number">8</div>
+          <div class="player-position">Pomocnik</div>
+          <div class="player-name">Piotr Wiśniewski</div>
+        </div>
+        <div class="player-card">
+          <div class="player-number">10</div>
+          <div class="player-position">Napastnik</div>
+          <div class="player-name">Kamil Wójcik</div>
         </div>
       </div>
-
-      <div class="news-card" onclick="openArticle('08 Maja 2026', 'Przygotowania do kolejki ligowej', 'Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem. Trenerzy skupiają się na poprawie skuteczności w stałych fragmentach gry oraz taktyce defensywnej. Skład jest gotowy do walki o pełną pulę.')">
-        <div>
-          <div class="news-date">08 Maja 2026</div>
-          <h3 class="news-title">Przygotowania do kolejki ligowej</h3>
-          <p class="news-excerpt">Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem...</p>
-        </div>
-      </div>
-
-      <div class="news-card" onclick="openArticle('01 Maja 2026', 'Komunikat Zarządu Klubu', 'Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych oraz planowanych treningów. Przebudowa zaplecza technicznego przebiega zgodnie z planem. Zapraszamy do śledzenia naszych oficjalnych kanałów.')">
-        <div>
-          <div class="news-date">01 Maja 2026</div>
-          <h3 class="news-title">Komunikat Zarządu Klubu</h3>
-          <p class="news-excerpt">Ważne informacje organizacyjne dotyczące nadchodzących wydarzeń sportowych...</p>
-        </div>
-      </div>
-
     </div>
+
   </div>
 
   <!-- OKNO MODALNE (POP-UP) -->
@@ -543,6 +642,7 @@
   </div>
 
   <script>
+    /* LOGIKA OTWIERANIA I ZAMYKANIA MODALA */
     function openArticle(date, title, body) {
       document.getElementById('modalDate').innerText = date;
       document.getElementById('modalTitle').innerText = title;
@@ -564,6 +664,24 @@
       if (event.key === 'Escape') {
         closeArticle();
       }
+    });
+
+    /* CHOWANIE NAWIGACJI PODCZAS SKROLOWANIA */
+    let lastScrollY = window.scrollY;
+    const navIsland = document.getElementById('navIsland');
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Skrolowanie w dół - schowaj menu
+        navIsland.classList.add('nav-hidden');
+      } else {
+        // Skrolowanie w górę - pokaż menu
+        navIsland.classList.remove('nav-hidden');
+      }
+
+      lastScrollY = currentScrollY;
     });
   </script>
 
