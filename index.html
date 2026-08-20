@@ -199,13 +199,10 @@
       text-align: right;
     }
 
+    /* BEZ RAMKI - TYP MECZU */
     .match-type-tag {
-      background: rgba(225, 29, 72, 0.15);
       color: var(--red-hover);
-      border: 1px solid rgba(225, 29, 72, 0.3);
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -237,14 +234,12 @@
       letter-spacing: 2px;
     }
 
+    /* BEZ RAMKI - ODWOŁANY */
     .cancelled-tag {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 800;
       color: #f43f5e;
-      background: rgba(244, 63, 94, 0.1);
-      padding: 6px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(244, 63, 94, 0.3);
+      letter-spacing: 1px;
     }
 
     .match-scorers {
@@ -590,7 +585,6 @@
   </div>
 
   <script>
-    // Baza danych artykułów potrzebna do wywołania modala
     let currentArticles = [];
 
     function renderPage() {
@@ -705,7 +699,7 @@
       }).join('');
     }
 
-    // 4. KADRA DRUŻYNY
+    // 4. KADRA DRUŻYNA
     function renderSquad() {
       const defaultSquad = [
         { id: 1, num: 1, name: "Jan Kowalski", pos: "Bramkarz" },
@@ -726,7 +720,7 @@
       `).join('');
     }
 
-    /* OBSŁUGA OKNA MODALNEGO ARTYKUŁÓW */
+    /* OBSŁUGA OKNA MODALNEGO */
     function openArticleByIndex(index) {
       const article = currentArticles[index];
       if (!article) return;
@@ -753,7 +747,7 @@
       }
     });
 
-    /* AUTOHIDE NAWIGACJI PRZY SKROLOWANIU */
+    /* AUTOHIDE NAWIGACJI */
     let lastScrollY = window.scrollY;
     const navIsland = document.getElementById('navIsland');
 
@@ -769,7 +763,6 @@
       lastScrollY = currentScrollY;
     });
 
-    // Wczytanie danych ze schowka po załadowaniu drzewa DOM
     document.addEventListener('DOMContentLoaded', renderPage);
   </script>
 
