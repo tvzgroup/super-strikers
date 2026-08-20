@@ -61,7 +61,13 @@
     .nav-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center; /* Wyśrodkowanie menu */
+      position: relative;
+    }
+
+    .logo-link {
+      position: absolute;
+      left: 0;
     }
 
     .logo-img {
@@ -77,6 +83,7 @@
       transform: scale(1.03);
     }
 
+    /* WYŚRODKOWANE MENU */
     .nav-menu {
       display: flex;
       align-items: center;
@@ -154,7 +161,21 @@
       text-transform: uppercase;
       color: #94a3b8;
       display: flex;
+      align-items: center;
       justify-content: space-between;
+    }
+
+    /* TYP MECZU (TAG) */
+    .match-type-tag {
+      background: rgba(225, 29, 72, 0.15);
+      color: var(--red-hover);
+      border: 1px solid rgba(225, 29, 72, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .match-teams {
@@ -242,6 +263,7 @@
     }
 
     @media (max-width: 900px) {
+      .nav-container { justify-content: flex-end; }
       .nav-menu { display: none; }
       .match-grid { grid-template-columns: 1fr; }
     }
@@ -254,10 +276,11 @@
     <header>
       <div class="nav-container">
         
-        <a href="#">
+        <a href="#" class="logo-link">
           <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo Klubu" class="logo-img">
         </a>
 
+        <!-- WYŚRODKOWANA LISTA LINKÓW -->
         <ul class="nav-menu">
           <li><a href="#">Klub</a></li>
           <li><a href="#">Drużyna</a></li>
@@ -280,7 +303,8 @@
       <div class="match-card" id="match-node">
         <div class="match-header">
           <span>Ostatni Mecz</span>
-          <span>Liga</span>
+          <!-- TYP MECZU DO EDYCJI W PANELU -->
+          <span class="match-type-tag">Mecz Towarzyski</span>
         </div>
         <div class="match-teams">
           <div class="team">
