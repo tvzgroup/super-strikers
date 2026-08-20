@@ -59,15 +59,14 @@
     }
 
     .nav-container {
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: center; /* Wyśrodkowanie menu */
-      position: relative;
     }
 
     .logo-link {
-      position: absolute;
-      left: 0;
+      display: flex;
+      align-items: center;
     }
 
     .logo-img {
@@ -83,10 +82,11 @@
       transform: scale(1.03);
     }
 
-    /* WYŚRODKOWANE MENU */
+    /* IDEALNIE WYŚRODKOWANE MENU */
     .nav-menu {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 32px;
       list-style: none;
     }
@@ -103,6 +103,10 @@
     .nav-menu a:hover {
       color: #ffffff;
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    }
+
+    .nav-spacer {
+      width: 52px; /* Zapewnia równowagę dla logo po lewej */
     }
 
     /* MATCH CENTER (GŁÓWNY MODUŁ) */
@@ -160,22 +164,27 @@
       font-weight: 700;
       text-transform: uppercase;
       color: #94a3b8;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
     }
 
-    /* TYP MECZU (TAG) */
+    .match-header span:last-child {
+      text-align: right;
+    }
+
+    /* WYŚRODKOWANY TAG */
     .match-type-tag {
       background: rgba(225, 29, 72, 0.15);
       color: var(--red-hover);
       border: 1px solid rgba(225, 29, 72, 0.3);
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      justify-self: center;
     }
 
     .match-teams {
@@ -237,6 +246,15 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
+    .table-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+    }
+
     .mini-table {
       width: 100%;
       border-collapse: collapse;
@@ -263,8 +281,8 @@
     }
 
     @media (max-width: 900px) {
-      .nav-container { justify-content: flex-end; }
-      .nav-menu { display: none; }
+      .nav-container { display: flex; justify-content: space-between; }
+      .nav-menu, .nav-spacer { display: none; }
       .match-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -289,6 +307,8 @@
           <li><a href="#">Kontakt</a></li>
         </ul>
 
+        <div class="nav-spacer"></div>
+
       </div>
     </header>
   </div>
@@ -303,8 +323,9 @@
       <div class="match-card" id="match-node">
         <div class="match-header">
           <span>Ostatni Mecz</span>
-          <!-- TYP MECZU DO EDYCJI W PANELU -->
+          <!-- TYP MECZU NA ŚRODKU NAGŁÓWKA -->
           <span class="match-type-tag">Mecz Towarzyski</span>
+          <span>Zakończony</span>
         </div>
         <div class="match-teams">
           <div class="team">
@@ -322,7 +343,7 @@
 
       <!-- TABELA LIGOWA -->
       <div class="table-card" id="league-table-node">
-        <div class="match-header">
+        <div class="table-header">
           <span>Tabela Ligowa</span>
           <span>Pozycja</span>
         </div>
