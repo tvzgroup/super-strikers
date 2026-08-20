@@ -36,9 +36,11 @@
       color: #ffffff;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* SZKLANA WYSPA NAWIGACYJNA Z CHOWANIEM */
+    /* SZKLANA WYSPA NAWIGACYJNA */
     .nav-wrapper {
       position: fixed;
       top: 20px;
@@ -142,10 +144,10 @@
       border-radius: 2px;
     }
 
-    /* KONTENER GŁÓWNY Z MARGINESEM NA WYSPĘ */
     .main-wrapper {
       padding-top: 100px;
-      padding-bottom: 80px;
+      padding-bottom: 60px;
+      flex: 1;
     }
 
     /* MATCH CENTER */
@@ -191,7 +193,6 @@
       align-items: center;
     }
 
-    /* TYP MECZU Z POWROTEM W RAMCE */
     .match-type-tag {
       background: rgba(225, 29, 72, 0.15);
       color: var(--red-hover);
@@ -229,7 +230,6 @@
       letter-spacing: 2px;
     }
 
-    /* BEZ RAMKI - ODWOŁANY */
     .cancelled-tag {
       font-size: 1rem;
       font-weight: 800;
@@ -360,7 +360,7 @@
       line-height: 1.5;
     }
 
-    /* SEKCJA DRUŻYNA */
+    /* KADRA & SZTAB */
     .squad-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -408,7 +408,69 @@
       font-weight: 800;
     }
 
-    /* OKNO MODALNE (POP-UP Z ARTYKUŁEM) */
+    /* STOPKA */
+    footer {
+      background: var(--glass-bg);
+      border-top: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      padding: 40px 20px;
+      margin-top: 40px;
+    }
+
+    .footer-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+
+    .footer-about p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-top: 12px;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .footer-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--red-hover);
+    }
+
+    .footer-bottom {
+      max-width: 1360px;
+      margin: 30px auto 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* OKNO MODALNE */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -496,7 +558,7 @@
     @media (max-width: 900px) {
       .nav-container { display: flex; justify-content: space-between; }
       .nav-menu, .nav-spacer { display: none; }
-      .match-grid, .news-grid { grid-template-columns: 1fr; }
+      .match-grid, .news-grid, .footer-container { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -514,6 +576,7 @@
           <li><a href="#tabela">Tabela</a></li>
           <li><a href="#aktualnosci">Aktualności</a></li>
           <li><a href="#druzyna">Drużyna</a></li>
+          <li><a href="#sztab">Sztab</a></li>
         </ul>
         <div class="nav-spacer"></div>
       </div>
@@ -561,13 +624,49 @@
 
     <!-- DRUŻYNA -->
     <div class="content-container" id="druzyna">
-      <h2 class="section-title">Drużyna</h2>
+      <h2 class="section-title">Pierwsza Drużyna</h2>
       <div class="squad-grid" id="squad-grid"></div>
+    </div>
+
+    <!-- SZTAB SZKOLENIOWY -->
+    <div class="content-container" id="sztab">
+      <h2 class="section-title">Sztab Szkoleniowy</h2>
+      <div class="squad-grid" id="staff-grid"></div>
     </div>
 
   </div>
 
-  <!-- OKNO MODALNE (POP-UP) -->
+  <!-- STOPKA -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3 class="footer-title">Klub Sportowy</h3>
+        <p>Oficjalny serwis informacyjny drużyny. Śledź na bieżąco nasze wyniki, harmonogramy spotkań oraz aktualności klubowe.</p>
+      </div>
+      <div>
+        <h4 class="footer-title">Nawigacja</h4>
+        <ul class="footer-links">
+          <li><a href="#match-center">Match Center</a></li>
+          <li><a href="#tabela">Tabela</a></li>
+          <li><a href="#aktualnosci">Aktualności</a></li>
+          <li><a href="#druzyna">Drużyna</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-title">Kontakt</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:kontakt@klub.pl">kontakt@klub.pl</a></li>
+          <li><a href="#">Social Media</a></li>
+          <li><a href="#">Dla Prasy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Klub Sportowy. Wszelkie prawa zastrzeżone.
+    </div>
+  </footer>
+
+  <!-- OKNO MODALNE -->
   <div class="modal-overlay" id="articleModal" onclick="closeModalOnOverlay(event)">
     <div class="modal-container">
       <button class="modal-close" onclick="closeArticle()">&times;</button>
@@ -587,6 +686,7 @@
       renderTable();
       renderNews();
       renderSquad();
+      renderStaff();
     }
 
     // 1. MATCH CENTER
@@ -692,7 +792,7 @@
       }).join('');
     }
 
-    // 4. KADRA DRUŻYNA
+    // 4. KADRA DRUŻYNY
     function renderSquad() {
       const defaultSquad = [
         { id: 1, num: 1, name: "Jan Kowalski", pos: "Bramkarz" },
@@ -709,6 +809,26 @@
           ${p.num ? `<div class="player-number">${p.num}</div>` : ''}
           <div class="player-position">${p.pos}</div>
           <div class="player-name">${p.name}</div>
+        </div>
+      `).join('');
+    }
+
+    // 5. SZTAB SZKOLENIOWY
+    function renderStaff() {
+      const defaultStaff = [
+        { id: 1, name: "Adam Zieliński", pos: "I Trener" },
+        { id: 2, name: "Marek Dąbrowski", pos: "Asystent Trenera" },
+        { id: 3, name: "Tomasz Lewandowski", pos: "Trener Bramkarzy" },
+        { id: 4, name: "Grzegorz Kamiński", pos: "Fizjoterapeuta" }
+      ];
+
+      const staff = JSON.parse(localStorage.getItem('staff')) || defaultStaff;
+      const container = document.getElementById('staff-grid');
+
+      container.innerHTML = staff.map(s => `
+        <div class="player-card">
+          <div class="player-position">${s.pos}</div>
+          <div class="player-name">${s.name}</div>
         </div>
       `).join('');
     }
