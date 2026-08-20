@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super Strikers - Match Center</title>
+  <title>Super Strikers Białystok - Oficjalna Strona Klubu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -125,7 +125,7 @@
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
-    /* DROPDOWN MENU */
+    /* DROPDOWN MENU - POPRAWIONE ZOPTYMALIZOWANE PRZEJŚCIE */
     .dropdown {
       position: relative;
     }
@@ -134,24 +134,44 @@
       position: absolute;
       top: 100%;
       left: 0;
-      margin-top: 12px;
-      background: rgba(18, 8, 13, 0.95);
+      margin-top: 8px;
+      background: rgba(18, 8, 13, 0.96);
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 16px;
       padding: 8px 0;
       min-width: 180px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      display: none;
-      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7);
       z-index: 1001;
+
+      /* Płynna widoczność z opóźnieniem chowania */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+      transition-delay: 0.15s; /* Zabezpieczenie przed zbyt szybkim znikaniem */
+    }
+
+    /* Niewidzialny bufor łączący przycisk z menu */
+    .dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      display: block;
     }
 
     .dropdown:hover .dropdown-content {
-      display: flex;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0s;
     }
 
-    .dropdown-content a, .dropdown-content button {
+    .dropdown-content a {
       padding: 10px 20px;
       font-size: 0.88rem;
       color: #cbd5e1;
@@ -163,14 +183,16 @@
       cursor: pointer;
       font-family: inherit;
       transition: all 0.2s ease;
+      display: block;
+      text-decoration: none;
     }
 
-    .dropdown-content a:hover, .dropdown-content button:hover {
+    .dropdown-content a:hover {
       background: rgba(225, 29, 72, 0.2);
       color: #ffffff;
     }
 
-    /* NOWY LEPSZY SELECTOR JĘZYKA */
+    /* SELECTOR JĘZYKA */
     .lang-dropdown {
       position: relative;
     }
@@ -220,17 +242,16 @@
       background: rgba(15, 6, 10, 0.95);
       border: 1px solid rgba(255, 255, 255, 0.18);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(225, 29, 72, 0.15);
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
       display: flex;
+      flex-direction: column;
     }
 
     .lang-dropdown.active .dropdown-content {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      visibility: visible;
+      transform: translateY(0);
       pointer-events: auto;
+      transition-delay: 0s;
     }
 
     .lang-option {
@@ -253,267 +274,142 @@
       background: rgba(225, 29, 72, 0.4) !important;
     }
 
-    /* TYTUŁY SEKCJI */
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .section-title::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 22px;
-      background: var(--red-accent);
-      border-radius: 2px;
-    }
-
+    /* GŁÓWNA TREŚĆ STRONY */
     .main-wrapper {
-      padding-top: 100px;
+      padding-top: 140px;
       padding-bottom: 60px;
       flex: 1;
     }
 
-    /* MATCH CENTER */
-    .match-center-container {
-      max-width: 1360px;
-      margin: 40px auto;
-      padding: 0 20px;
-      scroll-margin-top: 120px;
-    }
-
-    .match-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 24px;
-    }
-
-    .match-list-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .match-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--rm-radius);
-      padding: 32px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.3s ease;
-    }
-
-    .match-card:hover {
-      border-color: rgba(225, 29, 72, 0.4);
-    }
-
-    .match-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .match-type-tag {
-      background: rgba(225, 29, 72, 0.15);
-      color: var(--red-hover);
-      border: 1px solid rgba(225, 29, 72, 0.3);
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .match-teams {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 30px 0 15px 0;
-    }
-
-    .team {
-      width: 38%;
-      text-align: center;
-    }
-
-    .team-name {
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    .score {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: var(--red-accent);
-      letter-spacing: 2px;
-    }
-
-    .match-footer {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 16px;
-    }
-
-    /* TABELA LIGOWA */
-    .table-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--rm-radius);
-      padding: 32px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      height: fit-content;
-    }
-
-    .table-header {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #94a3b8;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .mini-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      margin-top: 16px;
-    }
-
-    .mini-table th {
-      text-align: left;
-      color: #94a3b8;
-      padding-bottom: 12px;
-      font-weight: 600;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .mini-table td {
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .mini-table tr.active-team td {
-      font-weight: 800;
-      color: var(--red-hover);
-    }
-
-    /* KONTENER SEKCJI */
     .content-container {
       max-width: 1360px;
-      margin: 60px auto;
+      margin: 0 auto;
       padding: 0 20px;
-      scroll-margin-top: 120px;
     }
 
-    /* AKTUALNOŚCI */
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .news-card {
+    /* SEKCJA HERO BANNER */
+    .hero-banner {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--rm-radius);
-      padding: 24px;
+      padding: 60px 40px;
       backdrop-filter: blur(16px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .news-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(225, 29, 72, 0.4);
-      box-shadow: 0 12px 30px rgba(225, 29, 72, 0.15);
-    }
-
-    .news-date {
-      font-size: 0.75rem;
-      color: var(--red-hover);
-      font-weight: 700;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .news-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-
-    .news-excerpt {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      line-height: 1.5;
-    }
-
-    /* KADRA DRUŻYNY */
-    .squad-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .player-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--rm-radius);
-      padding: 24px;
-      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
       text-align: center;
+      margin-bottom: 40px;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
-    .player-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(225, 29, 72, 0.4);
-    }
-
-    .player-number {
+    .hero-banner::before {
+      content: '';
       position: absolute;
-      top: -10px;
-      right: 15px;
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.05);
-      user-select: none;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(225, 29, 72, 0.2) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    .player-position {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--red-hover);
+    .hero-tag {
+      display: inline-block;
+      background: rgba(225, 29, 72, 0.2);
+      border: 1px solid rgba(225, 29, 72, 0.4);
+      color: #f43f5e;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 20px;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
 
-    .player-name {
-      font-size: 1.1rem;
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      max-width: 750px;
+      margin: 0 auto 32px auto;
+      line-height: 1.6;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red-accent);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: var(--rm-btn-radius);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.4);
+    }
+
+    .hero-btn:hover {
+      background: var(--red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(225, 29, 72, 0.6);
+    }
+
+    /* SIATKA SEKCJI */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .section-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--rm-radius);
+      padding: 32px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
       font-weight: 800;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 24px;
+      background: var(--red-accent);
+      border-radius: 2px;
+    }
+
+    /* PLACEHOLDERY TREŚCI */
+    .placeholder-box {
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #64748b;
+      font-weight: 500;
     }
 
     /* STOPKA */
@@ -522,7 +418,7 @@
       border-top: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
       padding: 60px 20px 30px 20px;
-      margin-top: 60px;
+      margin-top: 80px;
     }
 
     .footer-container {
@@ -640,15 +536,12 @@
       color: #94a3b8;
     }
 
-    @media (max-width: 1024px) {
-      .footer-container { grid-template-columns: 1fr 1fr; }
-    }
-
     @media (max-width: 900px) {
       .nav-menu { display: none; }
-      .match-grid, .news-grid { grid-template-columns: 1fr; }
+      .grid-2col { grid-template-columns: 1fr; }
       .footer-container { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-title { font-size: 2.2rem; }
     }
   </style>
 </head>
@@ -679,7 +572,7 @@
             </div>
           </li>
 
-          <!-- WYBÓR JĘZYKA (NOWY / POPRAWIONY) -->
+          <!-- WYBÓR JĘZYKA -->
           <li class="lang-dropdown" id="langDropdown">
             <button class="lang-btn" onclick="toggleLangDropdown(event)">
               <span class="lang-flag" id="lang-flag">🇵🇱</span>
@@ -707,46 +600,54 @@
   </div>
 
   <div class="main-wrapper">
-    
-    <!-- MATCH CENTER + TABELA -->
-    <section class="match-center-container" id="match-center">
-      <h2 class="section-title" data-i18n="title_mc">Match Center</h2>
-      <div class="match-grid">
-        <div class="match-list-container" id="match-center-list"></div>
+    <div class="content-container">
+      
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <span class="hero-tag" data-i18n="hero_tag">Sezon 2026/2027</span>
+        <h1 class="hero-title" data-i18n="hero_title">Super Strikers Białystok</h1>
+        <p class="hero-subtitle" data-i18n="hero_subtitle">Wracamy do gry ze świeżą energią, nowym zespołem i jednym celem. Śledź nasze mecze, analizuj statystyki i bądź częścią białostockiej piłki.</p>
+        <a href="#match-center" class="hero-btn" data-i18n="hero_btn">Zobacz Najbliższy Mecz</a>
+      </div>
 
-        <div class="table-card" id="tabela">
-          <div class="table-header">
-            <span data-i18n="table_head_league">Tabela Ligowa</span>
-            <span data-i18n="table_head_pos">Pozycja</span>
+      <!-- GLÓWNY UKŁAD STROYN -->
+      <div class="grid-2col">
+        <!-- LEWA KOLUMNA: MATCH CENTER & AKTUALNOŚCI -->
+        <div>
+          <div class="section-card" id="match-center">
+            <h2 class="section-title" data-i18n="nav_mc">Match Center</h2>
+            <div class="placeholder-box">
+              Moduł najbliższego meczu oraz wyników ostatnich spotkań.
+            </div>
           </div>
-          <table class="mini-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th data-i18n="th_club">Klub</th>
-                <th data-i18n="th_m">M</th>
-                <th data-i18n="th_goals">Bramki</th>
-                <th data-i18n="th_pts">Pkt</th>
-              </tr>
-            </thead>
-            <tbody id="table-body"></tbody>
-          </table>
+
+          <div class="section-card" id="aktualnosci">
+            <h2 class="section-title" data-i18n="nav_news">Aktualności</h2>
+            <div class="placeholder-box">
+              Najnowsze artykuły, komunikaty klubowe oraz relacje z treningów.
+            </div>
+          </div>
+        </div>
+
+        <!-- PRAWA KOLUMNA: TABELA & PIERWSZA DRUŻYNA -->
+        <div>
+          <div class="section-card" id="tabela">
+            <h2 class="section-title" data-i18n="nav_table">Tabela Ligowa</h2>
+            <div class="placeholder-box">
+              Aktualna sytuacja w tabeli.
+            </div>
+          </div>
+
+          <div class="section-card" id="druzyna">
+            <h2 class="section-title" data-i18n="nav_squad">Pierwsza Drużyna</h2>
+            <div class="placeholder-box">
+              Skład zespołu oraz statystyki zawodników.
+            </div>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- AKTUALNOŚCI -->
-    <div class="content-container" id="aktualnosci">
-      <h2 class="section-title" data-i18n="title_news">Aktualności</h2>
-      <div class="news-grid" id="news-grid"></div>
     </div>
-
-    <!-- DRUŻYNA -->
-    <div class="content-container" id="druzyna">
-      <h2 class="section-title" data-i18n="title_squad">Pierwsza Drużyna</h2>
-      <div class="squad-grid" id="squad-grid"></div>
-    </div>
-
   </div>
 
   <!-- STOPKA -->
@@ -805,7 +706,6 @@
   </footer>
 
   <script>
-    // SŁOWNIK TŁUMACZEŃ Z POZYCJAMI I TYPAMI MECZÓW
     const i18n = {
       pl: {
         nav_mc: "Match Center",
@@ -816,15 +716,10 @@
         drop_about: "O Nas",
         drop_people: "Ludzie Klubu",
         drop_contact: "Kontakt",
-        title_mc: "Match Center",
-        title_news: "Aktualności",
-        title_squad: "Pierwsza Drużyna",
-        table_head_league: "Tabela Ligowa",
-        table_head_pos: "Pozycja",
-        th_club: "Klub",
-        th_m: "M",
-        th_goals: "Bramki",
-        th_pts: "Pkt",
+        hero_tag: "Sezon 2026/2027",
+        hero_title: "Super Strikers Białystok",
+        hero_subtitle: "Wracamy do gry ze świeżą energią, nowym zespołem i jednym celem. Śledź nasze mecze, analizuj statystyki i bądź częścią białostockiej piłki.",
+        hero_btn: "Zobacz Najbliższy Mecz",
         footer_desc: "Oficjalny serwis informacyjny klubu Super Strikers Białystok. Śledź nasze wyniki, terminarze i aktualności na żywo.",
         footer_nav: "Nawigacja",
         contact_location: "Siedziba Klubu:",
@@ -832,18 +727,7 @@
         footer_rights: "Wszelkie prawa zastrzeżone.",
         footer_privacy: "Polityka Prywatności",
         footer_terms: "Regulamin Serwisu",
-        footer_press: "Kontakt dla Prasy",
-        positions: {
-          "Bramkarz": "Bramkarz",
-          "Obrońca": "Obrońca",
-          "Pomocnik": "Pomocnik",
-          "Napastnik": "Napastnik"
-        },
-        matchTypes: {
-          "Mecz Towarzyski": "Mecz Towarzyski",
-          "Mecz Ligowy": "Mecz Ligowy",
-          "Puchar": "Puchar"
-        }
+        footer_press: "Kontakt dla Prasy"
       },
       en: {
         nav_mc: "Match Center",
@@ -854,15 +738,10 @@
         drop_about: "About Us",
         drop_people: "Club Members",
         drop_contact: "Contact",
-        title_mc: "Match Center",
-        title_news: "Latest News",
-        title_squad: "First Team Squad",
-        table_head_league: "League Table",
-        table_head_pos: "Position",
-        th_club: "Club",
-        th_m: "P",
-        th_goals: "Goals",
-        th_pts: "Pts",
+        hero_tag: "Season 2026/2027",
+        hero_title: "Super Strikers Białystok",
+        hero_subtitle: "We are back with fresh energy, a updated roster and one clear goal. Follow our matches, analyze stats, and be part of Białystok football.",
+        hero_btn: "View Next Match",
         footer_desc: "Official news platform of Super Strikers Białystok. Follow match results, fixtures, and club updates live.",
         footer_nav: "Navigation",
         contact_location: "Headquarters:",
@@ -870,18 +749,7 @@
         footer_rights: "All rights reserved.",
         footer_privacy: "Privacy Policy",
         footer_terms: "Terms of Service",
-        footer_press: "Press Inquiries",
-        positions: {
-          "Bramkarz": "Goalkeeper",
-          "Obrońca": "Defender",
-          "Pomocnik": "Midfielder",
-          "Napastnik": "Forward"
-        },
-        matchTypes: {
-          "Mecz Towarzyski": "Friendly Match",
-          "Mecz Ligowy": "League Match",
-          "Puchar": "Cup Match"
-        }
+        footer_press: "Press Inquiries"
       },
       es: {
         nav_mc: "Centro de Partidos",
@@ -892,15 +760,10 @@
         drop_about: "Sobre Nosotros",
         drop_people: "Miembros del Club",
         drop_contact: "Contacto",
-        title_mc: "Centro de Partidos",
-        title_news: "Últimas Noticias",
-        title_squad: "Plantilla Del Primer Equipo",
-        table_head_league: "Tabla de Clasificación",
-        table_head_pos: "Posición",
-        th_club: "Club",
-        th_m: "PJ",
-        th_goals: "Goles",
-        th_pts: "Pts",
+        hero_tag: "Temporada 2026/2027",
+        hero_title: "Super Strikers Białystok",
+        hero_subtitle: "Volvemos a la cancha con energía renovada, nueva plantilla y un objetivo claro. Sigue nuestros partidos y sé parte del fútbol en Białystok.",
+        hero_btn: "Ver Próximo Partido",
         footer_desc: "Plataforma oficial de noticias del club Super Strikers Białystok. Sigue los resultados, horarios y novedades en vivo.",
         footer_nav: "Navegación",
         contact_location: "Sede del Club:",
@@ -908,21 +771,10 @@
         footer_rights: "Todos los derechos reservados.",
         footer_privacy: "Política de Privacidad",
         footer_terms: "Términos del Servicio",
-        footer_press: "Prensa",
-        positions: {
-          "Bramkarz": "Portero",
-          "Obrońca": "Defensa",
-          "Pomocnik": "Centrocampista",
-          "Napastnik": "Delantero"
-        },
-        matchTypes: {
-          "Mecz Towarzyski": "Partido Amistoso",
-          "Mecz Ligowy": "Partido de Liga",
-          "Puchar": "Copa"
-        }
+        footer_press: "Prensa"
       },
       ru: {
-        nav_mc: "Mатч-центр",
+        nav_mc: "Матч-центр",
         nav_table: "Таблица",
         nav_news: "Новости",
         nav_squad: "Основной состав",
@@ -930,15 +782,10 @@
         drop_about: "О нас",
         drop_people: "Люди клуба",
         drop_contact: "Контакты",
-        title_mc: "Матч-центр",
-        title_news: "Последние новости",
-        title_squad: "Основной состав",
-        table_head_league: "Турнирная таблица",
-        table_head_pos: "Позиция",
-        th_club: "Клуб",
-        th_m: "И",
-        th_goals: "Голы",
-        th_pts: "Очки",
+        hero_tag: "Сезон 2026/2027",
+        hero_title: "Super Strikers Białystok",
+        hero_subtitle: "Мы возвращаемся в игру с новой энергией, обновленным составом и одной целью. Следите за матчами и будьте частью футбола Белостока.",
+        hero_btn: "Следующий матч",
         footer_desc: "Официальный новостной портал клуба Super Strikers Białystok. Следите за результатами, расписанием и новостями в прямом эфире.",
         footer_nav: "Навигация",
         contact_location: "Штаб-квартира:",
@@ -946,28 +793,11 @@
         footer_rights: "Все права защищены.",
         footer_privacy: "Политика конфиденциальности",
         footer_terms: "Условия использования",
-        footer_press: "Пресс-служба",
-        positions: {
-          "Bramkarz": "Вратарь",
-          "Obrońca": "Защитник",
-          "Pomocnik": "Полузащитник",
-          "Napastnik": "Нападающий"
-        },
-        matchTypes: {
-          "Mecz Towarzyski": "Товарищеский матч",
-          "Mecz Ligowy": "Матч лиги",
-          "Puchar": "Кубок"
-        }
+        footer_press: "Пресс-служба"
       }
     };
 
-    const flags = {
-      pl: "🇵🇱",
-      en: "🇬🇧",
-      es: "🇪🇸",
-      ru: "🇷🇺"
-    };
-
+    const flags = { pl: "🇵🇱", en: "🇬🇧", es: "🇪🇸", ru: "🇷🇺" };
     let currentLang = 'pl';
 
     function toggleLangDropdown(event) {
@@ -976,7 +806,6 @@
       drop.classList.toggle('active');
     }
 
-    // Zamknij menu jeśli kliknięto poza nim
     window.addEventListener('click', () => {
       const drop = document.getElementById('langDropdown');
       if (drop) drop.classList.remove('active');
@@ -985,16 +814,13 @@
     function setLanguage(lang) {
       currentLang = lang;
       
-      // Aktualizacja etykiety i flagi w przycisku
       document.getElementById('lang-label').innerText = lang.toUpperCase();
       document.getElementById('lang-flag').innerText = flags[lang];
 
-      // Oznaczenie aktywnego opcji w menu
       document.querySelectorAll('.lang-option').forEach(btn => btn.classList.remove('selected'));
       const activeBtn = document.getElementById(`opt-${lang}`);
       if (activeBtn) activeBtn.classList.add('selected');
 
-      // Tłumaczenie elementów statycznych z data-i18n
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (i18n[currentLang] && i18n[currentLang][key]) {
@@ -1002,116 +828,11 @@
         }
       });
 
-      // Zamknięcie menu
       const drop = document.getElementById('langDropdown');
       if (drop) drop.classList.remove('active');
-
-      renderPage();
     }
 
-    function translatePosition(pos) {
-      return (i18n[currentLang].positions && i18n[currentLang].positions[pos]) || pos;
-    }
-
-    function translateMatchType(type) {
-      return (i18n[currentLang].matchTypes && i18n[currentLang].matchTypes[type]) || type;
-    }
-
-    function renderPage() {
-      renderMatchCenter();
-      renderTable();
-      renderNews();
-      renderSquad();
-    }
-
-    // 1. MATCH CENTER
-    function renderMatchCenter() {
-      const defaultMatches = [{
-        id: 1, type: "Mecz Towarzyski", leagueName: "Sparing Przedsezonowy", isCancelled: false,
-        home: "Super Strikers", away: "GDK", scoreHome: 3, scoreAway: 1,
-        date: "16.08.2026, 17:00", location: "Stadion Miejski"
-      }];
-
-      const matches = JSON.parse(localStorage.getItem('matchCenterList')) || defaultMatches;
-      const container = document.getElementById('match-center-list');
-
-      container.innerHTML = matches.map(m => `
-        <div class="match-card">
-          <div class="match-header"><span class="match-type-tag">${translateMatchType(m.type || 'Mecz Towarzyski')}</span></div>
-          <div class="match-teams">
-            <div class="team"><span class="team-name">${m.home}</span></div>
-            <div class="score">${m.scoreHome} : ${m.scoreAway}</div>
-            <div class="team"><span class="team-name">${m.away}</span></div>
-          </div>
-          <div class="match-footer">${m.date}${m.location ? ' • ' + m.location : ''}</div>
-        </div>
-      `).join('');
-    }
-
-    // 2. TABELA LIGOWA
-    function renderTable() {
-      const defaultTable = [
-        { id: 1, name: "Lider Ligi", isUser: false, m: 10, gf: 20, ga: 5, pkt: 25 },
-        { id: 2, name: "Super Strikers", isUser: true, m: 10, gf: 18, ga: 8, pkt: 22 },
-        { id: 3, name: "Rywal 2", isUser: false, m: 10, gf: 14, ga: 10, pkt: 18 }
-      ];
-
-      const tableData = JSON.parse(localStorage.getItem('tableData')) || defaultTable;
-      const tbody = document.getElementById('table-body');
-
-      tbody.innerHTML = tableData.map((t, index) => `
-        <tr class="${t.isUser ? 'active-team' : ''}">
-          <td>${index + 1}</td>
-          <td>${t.name}</td>
-          <td>${t.m}</td>
-          <td>${t.gf}:${t.ga}</td>
-          <td>${t.pkt}</td>
-        </tr>
-      `).join('');
-    }
-
-    // 3. AKTUALNOŚCI
-    function renderNews() {
-      const defaultNews = [
-        { title: "Podsumowanie wygranego spotkania", date: "12 Maja 2026", content: "Znakomity występ naszej drużyny i ważne punkty zdobyte przed własną publicznością." },
-        { title: "Przygotowania do kolejki ligowej", date: "08 Maja 2026", content: "Zespół intensywnie trenuje przed nadchodzącym wyjazdowym starciem." }
-      ];
-
-      const articles = JSON.parse(localStorage.getItem('articles')) || defaultNews;
-      const container = document.getElementById('news-grid');
-
-      container.innerHTML = articles.map(a => `
-        <div class="news-card">
-          <div>
-            <div class="news-date">${a.date}</div>
-            <h3 class="news-title">${a.title}</h3>
-            <p class="news-excerpt">${a.content}</p>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // 4. KADRA DRUŻYNY
-    function renderSquad() {
-      const defaultSquad = [
-        { num: 1, name: "Jan Kowalski", pos: "Bramkarz" },
-        { num: 4, name: "Michał Nowak", pos: "Obrońca" },
-        { num: 10, name: "Kamil Wójcik", pos: "Napastnik" }
-      ];
-
-      const squad = JSON.parse(localStorage.getItem('squad')) || defaultSquad;
-      const container = document.getElementById('squad-grid');
-
-      container.innerHTML = squad.map(p => `
-        <div class="player-card">
-          <div class="player-number">${p.num}</div>
-          <div class="player-position">${translatePosition(p.pos)}</div>
-          <div class="player-name">${p.name}</div>
-        </div>
-      `).join('');
-    }
-
-    /* AUTOHIDE NAWIGACJI */
+    /* AUTOHIDE NAWIGACJI PRZY SKROLOWANIU */
     let lastScrollY = window.scrollY;
     const navIsland = document.getElementById('navIsland');
 
@@ -1124,8 +845,6 @@
       }
       lastScrollY = currentScrollY;
     });
-
-    document.addEventListener('DOMContentLoaded', renderPage);
   </script>
 
 </body>
