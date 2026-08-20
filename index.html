@@ -186,27 +186,22 @@
     }
 
     .match-header {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #94a3b8;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
 
-    .match-header span:last-child {
-      text-align: right;
-    }
-
-    /* BEZ RAMKI - TYP MECZU */
+    /* TYP MECZU Z POWROTEM W RAMCE */
     .match-type-tag {
+      background: rgba(225, 29, 72, 0.15);
       color: var(--red-hover);
-      font-size: 0.8rem;
+      border: 1px solid rgba(225, 29, 72, 0.3);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      justify-self: center;
     }
 
     .match-teams {
@@ -619,9 +614,7 @@
         return `
           <div class="match-card">
             <div class="match-header">
-              <span>${m.leagueName || 'Rozgrywki'}</span>
-              <span class="match-type-tag">${m.type || 'Mecz'}</span>
-              <span>${m.status || 'Zapowiedź'}</span>
+              <span class="match-type-tag">${m.type || m.leagueName || 'Mecz'}</span>
             </div>
             <div class="match-teams">
               <div class="team">
