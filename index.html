@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inter Białystok – Official Website</title>
+  <title>Oficjalna Strona</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --rm-blue: #0b1e36;
-      --rm-bg-gray: #f3f5f8;
-      --rm-text-dark: #0f172a;
-      --rm-border: #e2e8f0;
-      --rm-accent-blue: #2563eb;
-      --rm-radius: 20px;
+      --rm-radius: 24px;
+      --rm-btn-radius: 12px;
+      --red-accent: #e11d48;
+      --red-hover: #f43f5e;
+      --dark-card: rgba(18, 18, 22, 0.75);
+      --glass-border: rgba(255, 255, 255, 0.12);
     }
 
     * {
@@ -25,24 +26,35 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #ffffff;
-      color: var(--rm-text-dark);
+      /* Czerwono-czarny gradient w tle */
+      background: radial-gradient(circle at 50% 0%, #4c0519 0%, #110206 40%, #050102 100%);
+      background-attachment: fixed;
+      color: #ffffff;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
-    header {
-      background-color: #ffffff;
-      border-bottom: 1px solid var(--rm-border);
+    /* MENU WYSPA (FLOATING ISLAND NAV) */
+    .nav-wrapper {
       position: sticky;
-      top: 0;
-      z-index: 100;
+      top: 20px;
+      z-index: 1000;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: rgba(15, 15, 20, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 10px 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(225, 29, 72, 0.15);
     }
 
     .nav-container {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -51,123 +63,123 @@
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
     }
 
     .menu-icon {
-      background: none;
+      background: transparent;
       border: none;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      padding: 4px;
+      gap: 5px;
+      padding: 6px;
     }
 
     .menu-icon span {
-      width: 20px;
+      width: 22px;
       height: 2px;
-      background-color: var(--rm-blue);
+      background-color: #ffffff;
       border-radius: 2px;
+      transition: all 0.3s ease;
     }
 
-    .logos {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .crest-main {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--rm-blue);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-    }
-
-    .crest-badge {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--rm-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--rm-blue);
+    .logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
     }
 
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-menu a {
       text-decoration: none;
-      color: var(--rm-blue);
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: color 0.2s;
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
+      letter-spacing: 0.3px;
     }
 
     .nav-menu a:hover {
-      color: var(--rm-accent-blue);
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
-    .brand-logo {
-      font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      color: var(--rm-blue);
-    }
-
-    .btn-login {
-      border: 1.5px solid var(--rm-accent-blue);
-      color: var(--rm-accent-blue);
-      background: transparent;
-      padding: 8px 20px;
-      border-radius: 8px;
+    /* ŁADNIEJSZE PRZYCISKI */
+    .btn-primary {
+      background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+      color: #ffffff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: var(--rm-btn-radius);
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(225, 29, 72, 0.35);
+      text-decoration: none;
     }
 
-    .btn-login:hover {
-      background: rgba(37, 99, 235, 0.05);
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(225, 29, 72, 0.5);
     }
 
-    /* MAIN HERO BANNER */
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid var(--glass-border);
+      padding: 10px 20px;
+      border-radius: var(--rm-btn-radius);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* HERO BANNER */
     .hero-container {
-      max-width: 1440px;
-      margin: 24px auto;
-      padding: 0 24px;
+      max-width: 1320px;
+      margin: 30px auto;
+      padding: 0 20px;
     }
 
     .hero-card {
-      background-color: var(--rm-bg-gray);
+      background: var(--dark-card);
+      border: 1px solid var(--glass-border);
       border-radius: var(--rm-radius);
       display: grid;
       grid-template-columns: 1.3fr 1fr;
       overflow: hidden;
       min-height: 480px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
     }
 
     .hero-image {
@@ -180,22 +192,24 @@
     .hero-text-box {
       padding: 60px 48px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
     }
 
     .hero-title {
-      color: var(--rm-blue);
-      font-size: 2.2rem;
+      color: #ffffff;
+      font-size: 2.3rem;
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.25;
       letter-spacing: -0.5px;
     }
 
     /* CARDS GRID BELOW HERO */
     .grid-container {
-      max-width: 1440px;
+      max-width: 1320px;
       margin: 24px auto 60px auto;
-      padding: 0 24px;
+      padding: 0 20px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
@@ -204,13 +218,17 @@
     .mini-card {
       border-radius: var(--rm-radius);
       overflow: hidden;
-      height: 200px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-      transition: transform 0.2s;
+      height: 220px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     .mini-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-6px);
+      border-color: rgba(225, 29, 72, 0.5);
+      box-shadow: 0 15px 35px rgba(225, 29, 72, 0.2);
     }
 
     .mini-card img {
@@ -228,46 +246,49 @@
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="nav-container">
-      <div class="nav-left">
-        <button class="menu-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="logos">
-          <div class="crest-main">IB</div>
-          <div class="crest-badge">15</div>
+  <!-- MENU WYSPA -->
+  <div class="nav-wrapper">
+    <header>
+      <div class="nav-container">
+        <div class="nav-left">
+          <button class="menu-icon" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <!-- PODMIENIONE LOGO -->
+          <img src="eff436a8-5c9e-444b-87d3-8f0ddc3e3028-removebg-preview.png" alt="Logo" class="logo-img">
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="#">Sponsorzy</a></li>
+          <li><a href="#">Kibice</a></li>
+          <li><a href="#">Strefa VIP</a></li>
+          <li><a href="#">Stadion</a></li>
+          <li><a href="#">Sklep</a></li>
+          <li><a href="#">RM Play</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <a href="#" class="btn-secondary">Sponsor</a>
+          <a href="#" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            Zaloguj
+          </a>
         </div>
       </div>
+    </header>
+  </div>
 
-      <ul class="nav-menu">
-        <li><a href="#">Sponsorzy</a></li>
-        <li><a href="#">Kibice</a></li>
-        <li><a href="#">Bilety</a></li>
-        <li><a href="#">Strefa VIP</a></li>
-        <li><a href="#">Stadion</a></li>
-        <li><a href="#">Sklep</a></li>
-        <li><a href="#">Inter Play</a></li>
-      </ul>
-
-      <div class="nav-right">
-        <span class="brand-logo">SPONSOR</span>
-        <button class="btn-login">
-          <span>&#128100;</span> Zaloguj
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- MAIN BANNER (HERO SECTION) -->
+  <!-- MAIN HERO BANNER -->
   <main class="hero-container">
     <div class="hero-card">
-      <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80" alt="Oficjalna prezentacja" class="hero-image">
+      <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80" alt="Prezentacja" class="hero-image">
       <div class="hero-text-box">
-        <h1 class="hero-title">Oficjalne zaprezentowanie nowego zespołu Inter Białystok</h1>
+        <h1 class="hero-title">Oficjalna prezentacja i dołączenie do zespołu</h1>
+        <div>
+          <a href="#" class="btn-primary" style="display: inline-flex;">Zobacz szczegóły</a>
+        </div>
       </div>
     </div>
   </main>
